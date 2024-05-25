@@ -1,9 +1,2 @@
-$response = Invoke-RestMethod -Uri "https://ip-api.com/line/?fields=hosting"
-
-if ($response.hosting -eq $true) {
-    Write-Host "Hosting detected. Disabling code execution."
-    exit
-} else {
-    Write-Host "No hosting detected. Continuing code execution."
-    # Add code to continue execution here
-}
+if (-not (Test-Connection -Count 1 -Quiet)) { exit }
+if ((Invoke-RestMethod 'https://ip-api.com/line/?fields=hosting' -Method Get) -eq 'True') { exit }
