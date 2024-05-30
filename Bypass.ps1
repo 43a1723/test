@@ -4,7 +4,7 @@ while($true)
  {
 	 try
   {  
-    Start-Process 'powershell' -Verb runas -ArgumentList '-noexit -c whoami /priv';exit
+    Start-Process 'powershell' -Verb runas -ArgumentList '-noexit -c $command /priv';exit
      
 	}
     catch{}   
