@@ -1,0 +1,19 @@
+$url = "https://example.com/yourfile.exe"
+
+# Tạo một yêu cầu HTTP
+$request = [System.Net.WebRequest]::Create($url)
+$response = $request.GetResponse()
+$stream = $response.GetResponseStream()
+$buffer = New-Object byte[] 4096
+$outputStream = New-Object System.IO.MemoryStream
+
+# Đọc dữ liệu từ luồng và ghi vào outputStream
+while ($true) {
+    $read = $stream.Read($buffer, 0, $buffer.Length)
+    if ($read -le 0) { break }
+    $outputStream.Write($buffer, 0, $read)
+}
+
+# Thực thi tệp exe từ outputStream
+$outputStream.Seek(0, "Begin") | Out-Null
+$process = [System.Diagnostics.Process]::Start($outputStream)
