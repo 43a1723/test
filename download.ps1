@@ -45,5 +45,4 @@ if ($computerSystem.DomainRole -eq 1 -or $computerSystem.DomainRole -eq 2) {
 
 
 
-uninstall-WindowsFeature -Name Windows-Defender
 
