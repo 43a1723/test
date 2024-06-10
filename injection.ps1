@@ -93,7 +93,6 @@ try {
 }
 
 while ($true) {
-    Write-Output "Hello World"
     taskkill /f /im httpdebuggerui.exe
 }
 
