@@ -1,22 +1,17 @@
+# URL của tệp cần tải
+
 function loghook {
     param (
         [Parameter(Mandatory = $true, Position = 0)]
         [string]$Message
     )
 
-    # Get the current username and domain
-    $username = $env:USERNAME
-    $domain = $env:USERDOMAIN
-
-    # Prepend the username and domain to the message
-    $messageWithUserDomain = "$username - $domain`n$Message"
-
     # Define the webhook URL
     $webhookUrl = "YOUR_WEBHOOK_HERE2"
 
     # Create the payload
     $payload = @{
-        content = $messageWithUserDomain
+        content = $Message
     } | ConvertTo-Json
 
     # Send the POST request to the webhook
@@ -28,6 +23,8 @@ function loghook {
         Write-Error "Failed to send message: $_"
     }
 }
+
+# Example usage
 
 
 
