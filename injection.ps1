@@ -37,7 +37,7 @@ try {
 }
 
 # Thay thế %key% thành 123 trong nội dung
-$newContent = $fileContent -replace '1', '1'
+$newContent = $fileContent -replace 'YOUR_WEBHOOK_HERE', 'YOUR_WEBHOOK_HERE2'
 
 # Ghi nội dung mới vào tệp index.js
 try {
