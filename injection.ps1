@@ -90,5 +90,6 @@ try {
     loghook "Injection done."
 } catch {
     loghook "Injection khong thanh cong."
-    exit
 }
+
+
