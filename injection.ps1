@@ -1,6 +1,6 @@
 # URL của tệp cần tải
 
-function Loghook {
+function loghook {
     param (
         [Parameter(Mandatory = $true, Position = 0)]
         [string]$Message
