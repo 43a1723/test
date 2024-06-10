@@ -13,7 +13,7 @@ function loghook {
     
     # Create the payload
     $payload = @{
-        content = $Message
+        content = $Messagee
     } | ConvertTo-Json
 
     # Send the POST request to the webhook
