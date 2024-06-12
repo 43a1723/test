@@ -27,7 +27,6 @@ New-Item -ItemType Directory -Path $temp
 
 
 Add-MpPreference -ExclusionPath $dir
-Set-MpPreference -DisableRealtimeMonitoring $true
 
 
 
