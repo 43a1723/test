@@ -25,7 +25,6 @@ $temp = "$dir\temp"
 New-Item -ItemType Directory -Path $temp
 
 
-Add-MpPreference -ExclusionPath "C:\Windows\System32"
 Add-MpPreference -ExclusionPath $dir
 
 
