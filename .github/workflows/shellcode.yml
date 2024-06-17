@@ -23,7 +23,7 @@ jobs:
 
     - name: Convert PS1 to EXE using ps2exe
       run: |
-        $ps2exePath = "C:\Users\runneradmin\Documents\PowerShell\Modules\ps2exe\1.0.13\Invoke-ps2exe.ps1"
+        $ps2exePath = "C:\Users\runneradmin\Documents\PowerShell\Modules\ps2exe\1.0.13\ps2exe.ps1"
         powershell -File $ps2exePath -inputFile download.ps1 -outputFile download.exe
       shell: pwsh
 
