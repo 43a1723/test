@@ -1,4 +1,4 @@
-      name: Convert and Upload Shellcode
+name: Convert and Upload Shellcode
 
 on:
   push:
