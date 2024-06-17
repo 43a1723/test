@@ -22,7 +22,9 @@ jobs:
       shell: pwsh
 
     - name: Convert PS1 to EXE using ps2exe
-      run: Invoke-ps2exe download.ps1 download.exe
+      run: |
+        Import-Module ps2exe
+        & "C:\Users\runneradmin\Documents\PowerShell\Modules\ps2exe\{version}\Invoke-ps2exe.ps1" download.ps1 download.exe
       shell: pwsh
 
     - name: Download Donut
@@ -36,11 +38,18 @@ jobs:
       shell: powershell
 
     - name: Move shellcode.bin to Extras
-      run: New-Item -ItemType Directory -Force -Path Extras; Move-Item shellcode.bin Extras/
+      run: |
+        New-Item -ItemType Directory -Force -Path Extras
+        Move-Item shellcode.bin Extras/
       shell: powershell
 
-    - name: Upload shellcode.bin to GitHub
-      uses: actions/upload-artifact@v2
-      with:
-        name: shellcode
-        path: Extras/shellcode.bin
+    - name: Commit and Push changes
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add Extras/shellcode.bin
+        git commit -m "Add updated shellcode.bin"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      shell: pwsh
