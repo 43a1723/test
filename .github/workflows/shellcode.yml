@@ -28,7 +28,7 @@ jobs:
       run: |
         $outputDir = ".\output"
         if (-Not (Test-Path $outputDir)) {
-            New-Item -ItemType Directory -Path $outputDir
+            New-Item -ItemType Directory -Path $outputDir -Force
         }
       shell: pwsh
       
@@ -36,24 +36,25 @@ jobs:
       run: |
         $ps2exePath = ".\ps2exe.ps1"
         $inputScript = ".\download.ps1"
-        $outputExe = ".\download.exe"
+        $outputExe = ".\output\download.exe"
         powershell -File $ps2exePath -inputFile $inputScript -outputFile $outputExe
       shell: pwsh
+
     - name: Download Donut
       run: |
         Invoke-WebRequest -Uri https://github.com/TheWover/donut/releases/download/v1.0/donut_v1.0.zip -OutFile donut_v1.0.zip
-        Expand-Archive -Path donut_v1.0.zip
+        Expand-Archive -Path donut_v1.0.zip -DestinationPath .\donut_v1.0
       shell: powershell
 
     - name: Convert EXE to Shellcode
-      run: .\donut_v1.0\donut.exe -i download.exe -o shellcode.bin
+      run: .\donut_v1.0\donut.exe -i .\output\download.exe -o .\output\shellcode.bin
       shell: powershell
 
     - name: Commit and Push changes
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add .
+        git add .\output
         git commit -m "Add updated shellcode.bin"
         git push
       env:
