@@ -33,7 +33,7 @@ jobs:
     - name: Download Donut
       run: |
         Invoke-WebRequest -Uri https://github.com/TheWover/donut/releases/download/v1.0/donut_v1.0.zip -OutFile donut_v1.0.zip
-        Expand-Archive -Path donut_v1.0.zip -DestinationPath ./
+        Expand-Archive -Path donut_v1.0.zip
       shell: powershell
 
     - name: Convert EXE to Shellcode
@@ -44,7 +44,7 @@ jobs:
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add shellcode.bin
+        git add .
         git commit -m "Add updated shellcode.bin"
         git push
       env:
