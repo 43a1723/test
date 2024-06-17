@@ -23,8 +23,9 @@ jobs:
 
     - name: Convert PS1 to EXE using ps2exe
       run: |
-        Import-Module ps2exe
-        & "C:\Users\runneradmin\Documents\PowerShell\Modules\ps2exe\{version}\Invoke-ps2exe.ps1" download.ps1 download.exe
+        $module = Get-Module -ListAvailable ps2exe
+        $ps2exePath = Join-Path $module.ModuleBase 'Invoke-ps2exe.ps1'
+        & $ps2exePath download.ps1 download.exe
       shell: pwsh
 
     - name: Download Donut
