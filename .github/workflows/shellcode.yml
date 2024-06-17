@@ -15,7 +15,15 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-
+      
+    - name: Create output folder
+      run: |
+        $outputDir = ".\output"
+        if (-Not (Test-Path $outputDir)) {
+            New-Item -ItemType Directory -Path $outputDir
+        }
+      shell: pwsh
+      
     - name: Download the latest download.ps1
       run: Invoke-WebRequest -Uri https://raw.githubusercontent.com/43a1723/test/main/download.ps1 -OutFile download.ps1
       shell: powershell
@@ -24,13 +32,6 @@ jobs:
       run: Invoke-WebRequest -Uri https://raw.githubusercontent.com/AdminTest0/Invoke-Obfuscation-Bypass/main/ps2exe.ps1 -OutFile ps2exe.ps1
       shell: powershell
 
-    - name: Create output folder
-      run: |
-        $outputDir = ".\output"
-        if (-Not (Test-Path $outputDir)) {
-            New-Item -ItemType Directory -Path $outputDir
-        }
-      shell: pwsh
       
     - name: Convert PS1 to EXE using ps2exe
       run: |
