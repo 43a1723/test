@@ -18,14 +18,13 @@ jobs:
       shell: powershell
 
     - name: Install ps2exe module
-      run: Install-Module -Name ps2exe -Scope CurrentUser -Force -SkipPublisherCheck
+      run: Install-Module -Name ps2exe -RequiredVersion 1.0.13 -Scope CurrentUser -Force -SkipPublisherCheck
       shell: pwsh
 
     - name: Convert PS1 to EXE using ps2exe
       run: |
-        $module = Get-Module -ListAvailable ps2exe
-        $ps2exePath = Join-Path $module.ModuleBase 'Invoke-ps2exe.ps1'
-        & $ps2exePath download.ps1 download.exe
+        $ps2exePath = "C:\Users\runneradmin\Documents\PowerShell\Modules\ps2exe\1.0.13\Invoke-ps2exe.ps1"
+        powershell -File $ps2exePath -inputFile download.ps1 -outputFile download.exe
       shell: pwsh
 
     - name: Download Donut
