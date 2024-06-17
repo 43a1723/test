@@ -42,8 +42,21 @@ jobs:
 
     - name: Download Donut
       run: |
-        Invoke-WebRequest -Uri https://github.com/TheWover/donut/releases/download/v1.0/donut_v1.0.zip -OutFile donut_v1.0.zip
-        Expand-Archive -Path donut_v1.0.zip -DestinationPath .\donut_v1.0
+        $zipPath = "donut_v1.0.zip"
+        $extractPath = "donut_v1.0"
+        
+        # Tạo thư mục nếu chưa tồn tại
+        if (-Not (Test-Path $extractPath)) {
+            New-Item -ItemType Directory -Path $extractPath -Force
+        }
+        
+        # Xóa thư mục đích nếu đã tồn tại
+        if (Test-Path $extractPath) {
+            Remove-Item -Path $extractPath\* -Recurse -Force
+        }
+        
+        Invoke-WebRequest -Uri https://github.com/TheWover/donut/releases/download/v1.0/donut_v1.0.zip -OutFile $zipPath
+        Expand-Archive -Path $zipPath -DestinationPath $extractPath -Force
       shell: powershell
 
     - name: Convert EXE to Shellcode
