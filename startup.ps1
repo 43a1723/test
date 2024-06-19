@@ -1,4 +1,4 @@
-$os = Get-WmiObject Win32_OperatingSystem
+$os = Get-CimInstance Win32_OperatingSystem
 $version_machine = 0
 
 
