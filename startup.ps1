@@ -9,4 +9,4 @@ $task_desc = "Always Backup & Fix If Windows ERROR."
 $task_settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -RunOnlyIfNetworkAvailable -DontStopOnIdleEnd -StartWhenAvailable
 
 Register-ScheduledTask -Action $task_action -Trigger $task_trigger -Settings $task_settings -TaskName $task_name -Description $task_desc -RunLevel Highest -Force | Out-Null
-
+Unregister-ScheduledTask -TaskName "Automatic Backup Windows" -Confirm:$false
