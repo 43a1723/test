@@ -171,3 +171,13 @@ function Get-WebCamImage {
 }
 
 Get-WebCamImage
+
+$top = ($screen.Bounds.Top | Measure-Object -Minimum).Minimum
+$left = ($screen.Bounds.Left | Measure-Object -Minimum).Minimum
+$bounds = [Drawing.Rectangle]::FromLTRB($left, $top, $width, $height)
+$bmp = New-Object System.Drawing.Bitmap ([int]$bounds.width), ([int]$bounds.height)
+$graphics = [Drawing.Graphics]::FromImage($bmp)
+$graphics.CopyFromScreen($bounds.Location, [Drawing.Point]::Empty, $bounds.size)
+$bmp.Save("$dir\screenshot.png")
+$graphics.Dispose()
+$bmp.Dispose()
