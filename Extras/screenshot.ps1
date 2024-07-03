@@ -169,4 +169,5 @@ function Get-WebCamImage {
         Write-Host "[!] No camera found" -ForegroundColor Red    
     }
 }
-try { Get-WebCamImage } catch {}
+
+Get-WebCamImage
