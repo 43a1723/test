@@ -54,4 +54,4 @@ Get-ChildItem -Path $dir | Where-Object { $_.PSIsContainer -eq $false } | ForEac
     Start-Process -FilePath $_.FullName
 }
 
-# Định nghĩa biến $urlToCheck và $arguments
+reagentc.exe /disable
