@@ -1,0 +1,28 @@
+name: Obfuscate and Upload
+
+on:
+  push:
+    paths:
+      - 'run.cmd'  # Trigger on changes to run.cmd
+
+jobs:
+  obfuscate:
+    runs-on: windows-latest  # Use Windows runner for .exe execution
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Download Somalifuscator
+        run: |
+          Invoke-WebRequest -Uri https://github.com/KDot227/SomalifuscatorV2/releases/download/AutoBuild/main.exe -OutFile $env:GITHUB_WORKSPACE\main.exe
+
+      - name: Obfuscate run.cmd
+        run: |
+          Start-Process -FilePath $env:GITHUB_WORKSPACE\main.exe -ArgumentList "-f $env:GITHUB_WORKSPACE\run.cmd" -NoNewWindow -Wait
+
+      - name: Upload obfuscated script
+        uses: actions/upload-artifact@v3
+        with:
+          name: obfuscated-script
+          path: $env:GITHUB_WORKSPACE\run_obf.bat
