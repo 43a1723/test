@@ -24,4 +24,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: run-obfuscated
-          path: $env:GITHUB_WORKSPACE\run_obf.bat
+          path: run_obf.bat
