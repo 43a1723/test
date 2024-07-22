@@ -20,8 +20,32 @@ jobs:
         run: |
           .\main.exe -f "$env:GITHUB_WORKSPACE\run.cmd" -dc
 
-      - name: Upload obfuscated file
-        uses: actions/upload-artifact@v3
+      - name: Delete-tag-and-release
+        uses: dev-drprasad/delete-tag-and-release@v1.1
         with:
-          name: run-obfuscated
-          path: run_obf.bat
+          tag_name: AutoBuild
+          delete_release: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: AutoBuild
+          release_name: AutoBuild
+          body: ${{ steps.changelog.outputs.changelog }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: run_obf.bat
+          asset_name: download.bat
+          asset_content_type: application/zip
