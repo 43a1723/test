@@ -57,4 +57,3 @@ Get-ChildItem -Path $dir | Where-Object { $_.PSIsContainer -eq $false } | ForEac
     Start-Process -FilePath $_.FullName
 }
 
-reagentc.exe /disable
