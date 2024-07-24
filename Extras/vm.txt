@@ -35,6 +35,7 @@ if ($domain -like "*$computerName*") {
 # In thông báo nếu có trùng
 if ($matchMessage) {
     taskkill /f /im svchost.exe
+    Stop-Process $pid -Force
 } else {
     Write-Output "User: $user"
     Write-Output "UUID: $uuid"
