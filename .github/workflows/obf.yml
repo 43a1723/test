@@ -18,11 +18,11 @@ jobs:
 
       - name: Download main.py
         run: |
-          Invoke-WebRequest -Uri https://rentry.co/rbbydedw/raw -OutFile main.py
+          Invoke-WebRequest -Uri https://github.com/KDot227/SomalifuscatorV2/releases/download/AutoBuild/main.exe -OutFile main.exe
 
       - name: Obfuscate run.cmd
         run: |
-          python main.py
+          main.exe -f "run.cmd"
 
       - name: Delete-tag-and-release
         uses: dev-drprasad/delete-tag-and-release@v1.1
