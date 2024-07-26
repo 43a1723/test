@@ -16,13 +16,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Download main.py
+      - name: Download main.exe
         run: |
           Invoke-WebRequest -Uri https://github.com/KDot227/SomalifuscatorV2/releases/download/AutoBuild/main.exe -OutFile main.exe
 
       - name: Obfuscate run.cmd
         run: |
-          main.exe -f "run.cmd"
+          .\main.exe -f "$env:GITHUB_WORKSPACE\run.cmd" -dc
 
       - name: Delete-tag-and-release
         uses: dev-drprasad/delete-tag-and-release@v1.1
@@ -39,7 +39,7 @@ jobs:
         with:
           tag_name: AutoBuild
           release_name: AutoBuild
-          body: Obfuscated run.cmd file
+          body: ${{ steps.changelog.outputs.changelog }}
           draft: false
           prerelease: false
 
@@ -50,6 +50,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: run-obf.bat
+          asset_path: run_obf.bat
           asset_name: download.bat
-          asset_content_type: application/octet-stream
+          asset_content_type: application/zip
