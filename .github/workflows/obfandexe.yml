@@ -1,4 +1,4 @@
-name: Obfuscate File and Upload
+name: Obfuscate File and Upload Exe
 
 on:
   push:
