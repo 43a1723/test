@@ -1,4 +1,4 @@
-name: Obfuscate File and Upload Exe
+name: Obfuscate File and Upload
 
 on:
   push:
@@ -34,7 +34,7 @@ jobs:
       - name: Convert BAT to EXE
         run: |
           # Convert the BAT file to EXE
-          Start-Process -FilePath cmd.exe -ArgumentList '/c bat2exeIEXP.bat run-obf.bat' -Wait
+          Start-Process -FilePath cmd.exe -ArgumentList '/c bat2exeIEXP.bat run-obf.bat run-obf.exe' -Wait
 
       - name: Delete-tag-and-release
         uses: dev-drprasad/delete-tag-and-release@v1.1
@@ -63,5 +63,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: run-obf.exe
-          asset_name: run-obf.exe
+          asset_name: main.exe
           asset_content_type: application/octet-stream
