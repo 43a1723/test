@@ -1,4 +1,4 @@
-name: Obfuscate File and Upload Exe
+name: Obfuscate File and Upload
 
 on:
   push:
@@ -35,10 +35,17 @@ jobs:
 
       - name: Download and Modify template.js
         run: |
+          # Download the template.js file
           Invoke-WebRequest -Uri https://raw.githubusercontent.com/KDot227/Bat2Exe/main/src/to_compile/static/template.js -OutFile template.js
-          (Get-Content template.js) -replace 'const hide = false;', 'const hide = true;' | 
-          (Get-Content) -replace 'BASE64ENCODEDSTUFFHERE', (Get-Content encoded.b64) | 
-          Set-Content modified.js
+
+          # Read the content of template.js and replace placeholders
+          $templateContent = Get-Content -Path template.js -Raw
+          $templateContent = $templateContent -replace 'const hide = false;', 'const hide = true;'
+          $base64Content = Get-Content -Path encoded.b64 -Raw
+          $templateContent = $templateContent -replace 'BASE64ENCODEDSTUFFHERE', $base64Content
+
+          # Write the modified content to a new file
+          Set-Content -Path modified.js -Value $templateContent
 
       - name: Install Node.js and Required Packages
         uses: actions/setup-node@v3
