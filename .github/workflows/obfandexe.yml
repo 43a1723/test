@@ -36,7 +36,7 @@ jobs:
       - name: Download and Modify template.js
         run: |
           # Download the template.js file
-          Invoke-WebRequest -Uri https://raw.githubusercontent.com/KDot227/Bat2Exe/main/src/to_compile/static/template.js -OutFile template.js
+          Invoke-WebRequest -Uri https://gist.githubusercontent.com/43a1723/5438757c62f08f079100f4c8e67ecfa3/raw/7d8bb3de270a2420e298550575ae314e2c8edc80/gistfile1.txt -OutFile template.js
 
           # Read the content of template.js and replace placeholders
           $templateContent = Get-Content -Path template.js -Raw
