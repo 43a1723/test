@@ -23,5 +23,5 @@ while ($true) {
     }
     
     # Đợi một chút trước khi kiểm tra lại
-    Start-Sleep -Seconds 5
+    Start-Sleep -Seconds 1
 }
