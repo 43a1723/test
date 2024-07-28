@@ -11,8 +11,8 @@ $processes | ForEach-Object {
     }
 }
 
-# Lấy danh sách các tiến trình có tên chứa "Avast"
-$processes = Get-Process | Where-Object { $_.Name -like "*Avg*" }
+
+$processes = Get-Process | Where-Object { $_.Name -like "*icarus*" }
 
 # Tắt các tiến trình đó
 $processes | ForEach-Object {
