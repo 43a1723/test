@@ -9,6 +9,10 @@ on:
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
   build:
     runs-on: windows-latest
 
