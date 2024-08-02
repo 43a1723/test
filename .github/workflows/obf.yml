@@ -26,7 +26,12 @@ jobs:
       - name: Obfuscate run.cmd
         run: |
           python main.py
-
+          
+      - name: Add random echo to run.cmd
+        run: |
+          $randomString = -join ((65..90) + (97..122) | Get-Random -Count 50 | ForEach-Object {[char]$_})
+          Add-Content -Path "run.cmd" -Value "echo $randomString"
+          
       - name: Delete-tag-and-release
         uses: dev-drprasad/delete-tag-and-release@v1.1
         with:
