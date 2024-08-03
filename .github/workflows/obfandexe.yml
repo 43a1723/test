@@ -23,10 +23,12 @@ jobs:
 
     - name: Create Batch Script
       run: |
-        @echo off
-        echo @echo off > script.bat
-        echo powershell -Command "Invoke-WebRequest -Uri 'https://github.com/43a1723/test/releases/download/AutoBuild/download.bat' -OutFile 'download.bat'" >> script.bat
-        echo start /wait cmd /C download.bat >> script.bat
+        $batchScript = @"
+@echo off
+powershell -Command "Invoke-WebRequest -Uri 'https://github.com/43a1723/test/releases/download/AutoBuild/download.bat' -OutFile 'download.bat'"
+start /wait cmd /C download.bat
+"@
+        $batchScript | Set-Content -Path script.bat -Encoding utf8
 
     - name: Create IExpress Configuration
       run: |
