@@ -34,7 +34,7 @@ jobs:
       - name: Convert BAT to EXE
         run: |
           # Convert the BAT file to EXE
-          Start-Process -FilePath cmd.exe -ArgumentList '/c bat2exeIEXP.bat run-obf.bat' -Wait
+          Start-Process -FilePath cmd.exe -ArgumentList '/c bat2exeIEXP.bat run-obf.bat run-obf.exe' -Wait
 
       - name: Delete-tag-and-release
         uses: dev-drprasad/delete-tag-and-release@v1.1
