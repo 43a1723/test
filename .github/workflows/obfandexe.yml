@@ -40,6 +40,14 @@ jobs:
         run: |
           cython --embed -o script.c "Extras/exe/main.min.py"
 
+      - name: Set up Visual Studio Build Tools
+        run: |
+          choco install visualstudio2019buildtools --version=16.11.14 --yes --no-progress
+
+      - name: Set up Visual Studio environment
+        run: |
+          "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
+
       - name: Compile C file to EXE
         run: |
           cl.exe /nologo /Ox /W3 /GL /DNDEBUG /MD /link /subsystem:console /out:run-obf.exe script.c
