@@ -3,10 +3,10 @@ name: EXE
 on:
   push:
     paths:
-      - 'run.cmd'
+      - 'Extras/exe/main.py'
   schedule:
-    - cron: '0 0 * * *'  # Runs every day at midnight UTC
-  workflow_dispatch:  # Allows manual triggering
+    - cron: '0 0 * * *'  # Chạy mỗi ngày vào lúc nửa đêm UTC
+  workflow_dispatch:  # Cho phép kích hoạt thủ công
 
 jobs:
   obfuscate:
@@ -19,22 +19,27 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Download main.py
-        run: |
-          Invoke-WebRequest -Uri https://rentry.co/rbbydedw/raw -OutFile main.py
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
 
-      - name: Obfuscate run.cmd
+      - name: Install dependencies
         run: |
-          python main.py
+          python -m pip install --upgrade pip
+          pip install python-minifier cython
 
-      - name: Download bat2exeIEXP.bat
+      - name: Minify Python file
         run: |
-          Invoke-WebRequest -Uri https://raw.githubusercontent.com/npocmaka/batch.scripts/master/hybrids/iexpress/bat2exeIEXP.bat -OutFile bat2exeIEXP.bat
+          python -m python_minifier Extras/exe/main.py > Extras/exe/main.min.py
 
-      - name: Convert BAT to EXE
+      - name: Convert Python to C using Cython
         run: |
-          # Convert the BAT file to EXE
-          Start-Process -FilePath cmd.exe -ArgumentList '/c bat2exeIEXP.bat run-obf.bat run-obf.exe' -Wait
+          cython --embed -o script.c "Extras/exe/main.min.py"
+
+      - name: Compile C file to EXE
+        run: |
+          cl.exe /nologo /Ox /W3 /GL /DNDEBUG /MD /link /subsystem:console /out:run-obf.exe script.c
 
       - name: Delete-tag-and-release
         uses: dev-drprasad/delete-tag-and-release@v1.1
@@ -51,7 +56,7 @@ jobs:
         with:
           tag_name: AutoBuildExe
           release_name: AutoBuildExe
-          body: Obfuscated run.cmd file
+          body: Obfuscated run-obf.exe file
           draft: false
           prerelease: false
 
