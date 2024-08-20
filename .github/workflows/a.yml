@@ -1,0 +1,63 @@
+name: Build Mic
+
+on:
+  push:
+    branches: [ main ]
+    paths: 
+      - 'Extras/exe/**'
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        configuration: [Release]
+
+    runs-on: windows-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
+    steps:
+    - name: Delete-tag-and-release
+      uses: dev-drprasad/delete-tag-and-release@v1.1
+      with:
+        tag_name: MicBuild
+        delete_release: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        
+   # Create Release
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.github_token }}
+      with:
+        tag_name: MicBuild
+        release_name: MicBuild
+        body: "Release created by GitHub Actions"
+        draft: false
+        prerelease: false
+
+    # Download Donut
+    - name: Download Donut
+      run: Invoke-WebRequest https://github.com/TheWover/donut/releases/download/v1.0/donut_v1.0.zip -OutFile donut.zip
+    
+    # Extract Donut
+    - name: Extract Donut
+      run: Expand-Archive donut.zip
+
+    # Convert Extras/exe/main.exe to Shellcode 
+    - name: Convert Extras/exe/main.exe to Shellcode
+      run: .\donut\donut.exe -i Extras\exe\main.exe -x2 -a2 -o main.bin -z 4
+
+    # Upload Shellcode Asset
+    - name: Upload Release Asset
+      id: upload-release-asset-donut
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.github_token }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: main.bin
+        asset_name: main.bin
+        asset_content_type: application/zip
