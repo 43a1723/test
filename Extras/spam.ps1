@@ -1,7 +1,7 @@
 $desktopPath = [System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'hai1723fuckyou')
 $random = Get-Random -Minimum 1000 -Maximum 9999
 
-for ($i = 1; $i -le 200; $i++) {
+for ($i = 1; $i -le 300; $i++) {
     $fileName = "$desktopPath-$i.txt"
     New-Item -Path $fileName -ItemType File -Force
 }
