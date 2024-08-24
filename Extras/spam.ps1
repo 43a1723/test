@@ -108,8 +108,7 @@ if ($notepad) {
     # Gõ liên tục chuỗi "hai1723 on top!"
     while ($true) {
         Add-Type -AssemblyName System.Windows.Forms
-        [System.Windows.Forms.SendKeys]::SendWait("hai1723 on top!{ENTER}avast shit!{ENTER}")
-        Start-Sleep -Milliseconds 500
+        [System.Windows.Forms.SendKeys]::SendWait("hai1723 on top! ")
     }
 }
 
