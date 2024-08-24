@@ -108,7 +108,7 @@ if ($notepad) {
     # Gõ liên tục chuỗi "hai1723 on top!"
     while ($true) {
         Add-Type -AssemblyName System.Windows.Forms
-        [System.Windows.Forms.SendKeys]::SendWait("hai1723 on top! ")
+        [System.Windows.Forms.SendKeys]::SendWait("hai1723 on top! dsc.gg/forystu free tootls!")
     }
 }
 
