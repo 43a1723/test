@@ -11,7 +11,7 @@ def import_or_install(package):
 packages = [
     "shutil", "re", "subprocess", "time", "traceback", "random", "sqlite3",
     "json", "zlib", "base64", "os", "ctypes", "logging", "sys", "pyaes",
-    "threading", "urllib3"
+    "threading", "urllib3", "requests"
 ]
 
 for package in packages:
