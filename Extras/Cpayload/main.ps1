@@ -10,7 +10,7 @@ $CompilerParametres.IncludeDebugInformation = $false
 $CompilerParametres.GenerateExecutable = $true
 $CompilerParametres.GenerateInMemory = $false
 $CompilerParametres.OutputAssembly  =  $outpath 
-$CompilerParametres.CompilerOptions += "/platform:X86 /unsafe /target:winexe"
+$CompilerParametres.CompilerOptions += "/platform:X86 /target:winexe"
 $result = $CsharpCompiler.CompileAssemblyFromSource($CompilerParametres, $source) 
 $result  
  
