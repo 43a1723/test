@@ -8,7 +8,6 @@ $startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("Startup")
 Add-Type -AssemblyName System.Windows.Forms
 
 if ($env:USERDOMAIN -eq "DESKTOP-S4G27N7") {
-    wininit.exe
     $shell = New-Object -ComObject WScript.Shell
 
     # Chuỗi cần gõ
