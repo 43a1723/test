@@ -5,6 +5,7 @@
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
 $startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("Startup")
+$startupfolder = $env:appdata
 Add-Type -AssemblyName System.Windows.Forms
 
 
