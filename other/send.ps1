@@ -20,7 +20,6 @@ Username: $($computerInfo.Username)
 Operating System: $($computerInfo.OS)
 Architecture: $($computerInfo.Architecture)
 RAM (GB): $($computerInfo.'RAM (GB)')
-IP Addresses: $($computerInfo.'IP Addresses')
 ----------------------------------------
 "@
 
