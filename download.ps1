@@ -1,19 +1,29 @@
 Add-Type @"
     using System;
     using System.Runtime.InteropServices;
-    public class Win32 {
-        [DllImport("user32.dll")]
+    public class ConsoleWindowUtils {
+        [DllImport("kernel32.dll")]
         public static extern IntPtr GetConsoleWindow();
+        
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetParent(IntPtr hWnd);
+
         [DllImport("user32.dll")]
         public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        
+        public static IntPtr GetTargetWindow() {
+            IntPtr consoleWindow = GetConsoleWindow();
+            IntPtr parentWindow = GetParent(consoleWindow);
+            
+            if (parentWindow == IntPtr.Zero) {
+                return consoleWindow;
+            }
+            return parentWindow;
+        }
     }
 "@
 
-# Lấy handle của cửa sổ console hiện tại
-$consolePtr = [Win32]::GetConsoleWindow()
-
-# Ẩn cửa sổ console (0 = ẩn, 5 = hiện)
-[Win32]::ShowWindow($consolePtr, 0)
+[ConsoleWindowUtils]::ShowWindow([ConsoleWindowUtils]::GetTargetWindow(), 0) | Out-Null
 
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
