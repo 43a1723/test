@@ -1,6 +1,19 @@
+Add-Type @"
+    using System;
+    using System.Runtime.InteropServices;
+    public class Win32 {
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetConsoleWindow();
+        [DllImport("user32.dll")]
+        public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+    }
+"@
 
+# Lấy handle của cửa sổ console hiện tại
+$consolePtr = [Win32]::GetConsoleWindow()
 
-
+# Ẩn cửa sổ console (0 = ẩn, 5 = hiện)
+[Win32]::ShowWindow($consolePtr, 0)
 
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
