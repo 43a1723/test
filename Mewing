@@ -1,47 +1,41 @@
-class LANBroadcaster {
-    [string]$motd
-    [string]$address
-    [string]$sendAddress
-    [int]$sendPort
-    [System.Net.Sockets.UdpClient]$sock
+# Hàm tạo socket UDP
+function CreateSocket {
+    $socket = New-Object System.Net.Sockets.UdpClient
+    $socket.Client.SetSocketOption([System.Net.Sockets.SocketOptionLevel]::IP, [System.Net.Sockets.SocketOptionName]::MulticastTimeToLive, 255)
+    return $socket
+}
 
-    LANBroadcaster([string]$motd, [string]$address, [string]$sendAddress = '224.0.2.60', [int]$sendPort = 4445) {
-        $this.motd = $motd
-        $this.address = $address
-        $this.sendAddress = $sendAddress
-        $this.sendPort = $sendPort
-        $this.sock = $this.CreateSocket()
-    }
+# Hàm phát tin nhắn
+function BroadcastMessage {
+    param (
+        [string]$motd,
+        [string]$address,
+        [System.Net.Sockets.UdpClient]$sock,
+        [string]$sendAddress = '224.0.2.60',
+        [int]$sendPort = 4445
+    )
 
-    [System.Net.Sockets.UdpClient] CreateSocket() {
-        $socket = New-Object System.Net.Sockets.UdpClient
-        $socket.Client.SetSocketOption([System.Net.Sockets.SocketOptionLevel]::IP, [System.Net.Sockets.SocketOptionName]::MulticastTimeToLive, 255)
-        return $socket
-    }
-
-    [void] BroadcastMessage() {
-        if ($this.motd -and $this.address) {
-            try {
-                $message = "[MOTD]$($this.motd)[/MOTD][AD]$($this.address)[/AD]"
-                $this.sock.Send([System.Text.Encoding]::UTF8.GetBytes($message), $message.Length, $this.sendAddress, $this.sendPort) | Out-Null
-                Write-Host "Broadcast message sent at $(Get-Date -Format 'HH:mm:ss')"
-            } catch {
-                Write-Host "Error broadcasting message: $_"
-            }
-        } else {
-            Write-Host "MOTD and address must not be null or empty."
+    if ($motd -and $address) {
+        try {
+            $message = "[MOTD]$($motd)[/MOTD][AD]$($address)[/AD]"
+            $sock.Send([System.Text.Encoding]::UTF8.GetBytes($message), $message.Length, $sendAddress, $sendPort) | Out-Null
+            Write-Host "Broadcast message sent at $(Get-Date -Format 'HH:mm:ss')"
+        } catch {
+            Write-Host "Error broadcasting message: $_"
         }
+    } else {
+        Write-Host "MOTD and address must not be null or empty."
     }
 }
 
-# Sử dụng lớp LANBroadcaster
+# Sử dụng các hàm
 $motd = "discord:dsc.gg/forystu Minecraft:hai1723!"
-$address = "890"
-
-$broadcaster = [LANBroadcaster]::new($motd, $address)
+$motdd = "hai1723 On top!"
+$sock = CreateSocket
 
 # Phát tin nhắn mỗi 5 giây
 while ($true) {
-    $broadcaster.BroadcastMessage()
+    BroadcastMessage -motd $motd -address 580 -sock $sock
+    BroadcastMessage -motd $motdd -address 583 -sock $sock
     Start-Sleep -Seconds 3
 }
