@@ -3,7 +3,7 @@ name: Payload Zip
 on:
   push:
     paths:
-      - '.\payload\*'
+      - 'payload\*'
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
