@@ -17,10 +17,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Zip file
+      - name: Zip
         run: |
           $payloadPath = ".\payload"
-          $zipPath = ".\payload.zip"
+          $zipPath = ".\other\loader.zip"
           Compress-Archive -Path $payloadPath -DestinationPath $zipPath
           
       - name: Upload loader.zip to repository
