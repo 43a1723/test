@@ -26,7 +26,7 @@ jobs:
       - name: Delete-tag-and-release
         uses: dev-drprasad/delete-tag-and-release@v1.1
         with:
-          tag_name: AutoBuildExe
+          tag_name: AutoBuildZip
           delete_release: true
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
