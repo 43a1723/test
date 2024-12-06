@@ -26,5 +26,5 @@ jobs:
       - name: Upload loader.zip to repository
         uses: actions/upload-artifact@v3
         with:
-          name: loader-zip
+          name: loader.zip
           path: .\other\loader.zip
