@@ -1,3 +1,6 @@
+import subprocess
+subprocess.run("pip install cryptography", shell= True, capture_output= True)
+subprocess.run("pip install requests", shell= True, capture_output= True)
 import os, subprocess, ctypes, sys, getpass
 
 if ctypes.windll.shell32.IsUserAnAdmin() != 1:
