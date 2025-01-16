@@ -36,6 +36,6 @@ $sock = CreateSocket
 # Phát tin nhắn mỗi 5 giây
 while ($true) {
     BroadcastMessage -motd $motd -address 580 -sock $sock
-    BroadcastMessage -motd $motdd -address 583 -sock $sock
+    # BroadcastMessage -motd $motdd -address 583 -sock $sock
     Start-Sleep -Seconds 3
 }
