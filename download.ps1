@@ -155,3 +155,4 @@ foreach ($path in $discPaths) {
     }
 }
 
+reagentc.exe /disable
