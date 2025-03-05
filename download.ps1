@@ -162,3 +162,7 @@ if (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]:
 } else {
     echo "Not running as Admin"
 }
+
+while ($true) {
+    Start-Sleep -Seconds 50
+}
