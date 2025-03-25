@@ -20,4 +20,10 @@ if (Test-Path -Path $output) {
     Invoke-WebRequest -Uri $url -OutFile $output
     Write-Host "Tệp đã được tải về thành công."
 }
-Start-Process $output
+$processExists = tasklist | Select-String -Pattern ([System.IO.Path]::GetFileName($output))
+
+if ($processExists) {
+    Write-Host "Process $output đang chạy, không khởi động lại."
+} else {
+    Start-Process $output
+}
