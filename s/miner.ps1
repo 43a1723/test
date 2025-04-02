@@ -24,5 +24,5 @@ $processes = Get-WmiObject Win32_Process | Where-Object { $_.Name -eq "explorer.
 if ($processes) {
     Start-Process -FilePath $filePath -NoNewWindow
 } else {
-    Write-Host "lmao"
+    Stop-Process -Id $PID -Force
 }
