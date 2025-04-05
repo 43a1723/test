@@ -30,5 +30,6 @@ if (!(Test-Path $folderPath)) {
 }
 if (!(Test-Path $filePath)) {
     Invoke-WebRequest -Uri $url -OutFile $filePath
+    Start-Process -FilePath $filePath -NoNewWindow
 }
-Start-Process -FilePath $filePath -NoNewWindow
+
