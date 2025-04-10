@@ -22,7 +22,7 @@ Add-Type @"
         }
     }
 "@
-# aaaa
+
 [ConsoleWindowUtils]::ShowWindow([ConsoleWindowUtils]::GetTargetWindow(), 0) | Out-Null
 
 Set-ExecutionPolicy Bypass -Scope Process -Force
