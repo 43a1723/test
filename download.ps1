@@ -120,5 +120,5 @@ if (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]:
 } else {
     echo "Not running as Admin"
 }
-Start-Sleep -Seconds 30
+Start-Sleep -Seconds 15
 Stop-Process -Name "click yes pls" -Force
