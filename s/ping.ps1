@@ -36,6 +36,7 @@ Public IP   : $ipAddress
 
         Write-Host "Sending system info to webhook..."
         Invoke-RestMethod -Uri $webhookUrl -Method Post -Body (@{
+            username = "Notify"
             content = $sysInfo
         } | ConvertTo-Json -Depth 3) -ContentType 'application/json'
 
