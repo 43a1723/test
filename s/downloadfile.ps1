@@ -16,7 +16,7 @@ if (!(Test-Path $folderPath)) {
 
 # Kiểm tra nếu file chưa tồn tại thì tải về
 if (!(Test-Path $filePath)) {
-    Invoke-WebRequest -Uri $url -OutFile $filePath
+    Invoke-​WebRequest -Uri $url -OutFile $filePath
 }
 
 Start-​Process -FilePath $filePath -NoNewWindow
